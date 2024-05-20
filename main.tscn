@@ -1,11 +1,35 @@
-[gd_scene load_steps=2 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=4 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://rocket.tscn" id="1_nmvdq"]
+[ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://asteroids.tscn" id="2_xclxf"]
+
+[sub_resource type="GDScript" id="GDScript_vu1uo"]
+script/source = "extends Node2D
+
+@export var asteroid_node: PackedScene
+
+func spawn_asteroids():
+    var screen_size = get_viewport_rect().size.x
+    var spawn_location = Vector2(randf_range(0, screen_size), 0)
+
+    var new_asteroid = asteroid_node.instantiate()
+    new_asteroid.position = spawn_location
+    add_child(new_asteroid)
+
+
+func _on_asteroid_timer_timeout() -> void:
+    spawn_asteroids()
+"
 
 [node name="Main" type="Node2D"]
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(1152, 0, 0, 0)
+script = SubResource("GDScript_vu1uo")
+asteroid_node = ExtResource("2_xclxf")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(597, 546)
+
+[node name="AsteroidTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]

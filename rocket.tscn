@@ -28,7 +28,6 @@ func move(delta: float):
             LEFT:
                 move_vec.x += -1 * (acceleration * delta)
 
-
     # Slowing down (gradually)
     elif move_vec.length() > (friction * delta):
         var magniitude_of_vec = abs(move_vec.x)
@@ -39,22 +38,30 @@ func move(delta: float):
     else:
         move_vec = Vector2.ZERO # Stop the character
 
-    move_vec.limit_length(max_speed)
+    move_vec = move_vec.limit_length(max_speed)
     has_recieved_input = false
     self.position += move_vec
-    self.position.clamp(Viewport.)
+
+    var horizontal_screen_size = get_viewport_rect().size.x
+    if (self.position.x >= horizontal_screen_size) or (self.position.x <= 0):
+        self.position.x = clamp(self.position.x , 0, horizontal_screen_size) # Prevents the rocket from going off the screen
+        move_vec = Vector2.ZERO # Resets the velocity to sudden stop
 
 func _physics_process(delta: float) -> void:
     move(delta)
 
 func _input(event: InputEvent) -> void:
-    if (event is InputEventScreenTouch and event.is_pressed()) or (event is InputEventScreenDrag):
-        if event.position.x > 580.0:
-            direction_to_move = RIGHT
-        else:
-            direction_to_move = LEFT
+    if !(event is InputEventScreenDrag) and !(event is InputEventScreenTouch) and !(event is InputEventMouse):
+        return
 
-        has_recieved_input = true
+    var middle_of_screen: float = (get_viewport_rect().size.x / 2)
+
+    if event.position.x > middle_of_screen:
+        direction_to_move = RIGHT
+    else:
+        direction_to_move = LEFT
+
+    has_recieved_input = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fly6p"]

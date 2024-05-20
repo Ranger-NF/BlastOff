@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7xy671srn8rt"]
+
+[ext_resource type="Texture2D" uid="uid://c7yipgfafwnau" path="res://icon.svg" id="1_vi6v1"]
+
+[sub_resource type="GDScript" id="GDScript_ymkuq"]
+script/source = "extends Area2D
+
+@export var inital_speed = 10
+@export var acceleration = 30
+@export var max_speed = 30
+
+var can_move: bool = false
+var move_vec: Vector2 = Vector2.ZERO
+
+func _ready() -> void:
+    can_move = true
+    move_vec.y = inital_speed
+
+func _physics_process(delta: float) -> void:
+    if can_move:
+        move_vec.y += (acceleration * delta)
+        move_vec.limit_length(max_speed)
+
+        self.position.y += move_vec.y
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rg67"]
+size = Vector2(120, 120)
+
+[node name="asteroids" type="Area2D"]
+script = SubResource("GDScript_ymkuq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vi6v1")
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_8rg67")
