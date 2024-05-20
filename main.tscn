@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dikpya2pi0i66"]
+
+[ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://rocket.tscn" id="1_nmvdq"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(1152, 0, 0, 0)
+
+[node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
+position = Vector2(597, 546)

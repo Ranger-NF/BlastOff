@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1tug87fw4xs"]
+
+[ext_resource type="Texture2D" uid="uid://c7yipgfafwnau" path="res://icon.svg" id="1_hyjbm"]
+
+[sub_resource type="GDScript" id="GDScript_lpiqs"]
+script/source = "extends Area2D
+
+const max_speed: float = 100
+const acceleration: float = 70
+const friction = 90
+
+enum {
+    RIGHT,
+    LEFT,
+    RESET
+}
+
+var has_recieved_input: bool
+var move_vec: Vector2
+var direction_to_move: int # Either left or tight (from enum)
+
+func move(delta: float):
+    # Increment velocity with acceleration if given the input
+    if has_recieved_input:
+        match direction_to_move:
+            RIGHT: # If asked to move right, accelerate to max speed
+                move_vec.x += (acceleration * delta) # Accelerate to +ve x
+            LEFT:
+                move_vec.x += -1 * (acceleration * delta)
+
+
+    # Slowing down (gradually)
+    elif move_vec.length() > (friction * delta):
+        var magniitude_of_vec = abs(move_vec.x)
+        var direction_of_vec = (move_vec.x / magniitude_of_vec) # Gives either 1 or -1 (left or right)
+        magniitude_of_vec -= friction * delta # Reduces the velocity
+
+        move_vec.x = (direction_of_vec * magniitude_of_vec)
+    else:
+        move_vec = Vector2.ZERO # Stop the character
+
+    move_vec.limit_length(max_speed)
+    has_recieved_input = false
+    self.position += move_vec
+    self.position.clamp(Viewport.)
+
+func _physics_process(delta: float) -> void:
+    move(delta)
+
+func _input(event: InputEvent) -> void:
+    if (event is InputEventScreenTouch and event.is_pressed()) or (event is InputEventScreenDrag):
+        if event.position.x > 580.0:
+            direction_to_move = RIGHT
+        else:
+            direction_to_move = LEFT
+
+        has_recieved_input = true
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fly6p"]
+size = Vector2(46, 113)
+
+[node name="Rocket" type="Area2D"]
+script = SubResource("GDScript_lpiqs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.375, 0.9375)
+texture = ExtResource("1_hyjbm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_fly6p")
