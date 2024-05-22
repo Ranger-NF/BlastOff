@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://0ckqin0njvj4"]
+
+[sub_resource type="GDScript" id="GDScript_ew6qc"]
+script/source = "extends Control
+
+const status_messages = {
+    \"game_over\": \"Game Over\",
+}
+
+@onready var score_label = $CanvasLayer/HBoxContainer/VBoxContainer2/Score
+@onready var game_status_label = $CanvasLayer/GameStatus
+
+func _ready() -> void:
+    GameManager.game_over.connect(_show_game_status.bind(\"game_over\"))
+
+func _physics_process(_delta: float) -> void:
+    score_label.text = \"{score}\".format({\"score\": StatManager.score_gained})
+
+func _show_game_status(current_status: String) -> void:
+    game_status_label.text = status_messages.get(current_status)
+    game_status_label.show()
+
+    await get_tree().create_timer(3).timeout
+
+    game_status_label.hide()
+
+"
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ew6qc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Score"
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GameStatus" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1tug87fw4xs"]
 
-[ext_resource type="Texture2D" uid="uid://c7yipgfafwnau" path="res://icon.svg" id="1_hyjbm"]
+[ext_resource type="Texture2D" uid="uid://cdelynp7nbp4" path="res://rocket.png" id="1_m874q"]
 
 [sub_resource type="GDScript" id="GDScript_lpiqs"]
 script/source = "extends Area2D
@@ -15,9 +15,18 @@ enum {
     RESET
 }
 
+signal player_hurt
+
+var is_game_running: bool = false
+
 var has_recieved_input: bool
 var move_vec: Vector2
 var direction_to_move: int # Either left or tight (from enum)
+
+func _ready() -> void:
+    GameManager.game_started.connect(_on_game_start)
+    GameManager.game_over.connect(_on_game_over)
+    self.connect(\"player_hurt\", _on_hurt)
 
 func move(delta: float):
     # Increment velocity with acceleration if given the input
@@ -48,7 +57,8 @@ func move(delta: float):
         move_vec = Vector2.ZERO # Resets the velocity to sudden stop
 
 func _physics_process(delta: float) -> void:
-    move(delta)
+    if is_game_running:
+        move(delta)
 
 func _input(event: InputEvent) -> void:
     if !(event is InputEventScreenDrag) and !(event is InputEventScreenTouch) and !(event is InputEventMouse):
@@ -62,18 +72,36 @@ func _input(event: InputEvent) -> void:
         direction_to_move = LEFT
 
     has_recieved_input = true
+
+func _on_hurt():
+    GameManager.emit_signal(\"game_over\")
+    print(\"PLACEHOLDER: Player got hurt\")
+
+func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
+    if area.is_in_group(\"obstacles\"):
+        emit_signal(\"player_hurt\")
+
+func _on_game_start() -> void:
+    is_game_running = true
+
+func _on_game_over() -> void:
+    is_game_running = false
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fly6p"]
-size = Vector2(46, 113)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_782wp"]
+radius = 40.0
+height = 177.0
 
 [node name="Rocket" type="Area2D"]
+collision_layer = 2
 script = SubResource("GDScript_lpiqs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.375, 0.9375)
-texture = ExtResource("1_hyjbm")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_m874q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_fly6p")
+shape = SubResource("CapsuleShape2D_782wp")
+
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

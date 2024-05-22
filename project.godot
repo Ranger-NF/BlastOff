@@ -15,9 +15,19 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+StatManager="*res://stat_manager.gd"
+GameManager="*res://game_manager.gd"
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_physics/layer_1="Obstacles"
+2d_physics/layer_2="Player"
 
 [rendering]
 

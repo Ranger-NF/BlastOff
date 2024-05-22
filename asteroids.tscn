@@ -7,27 +7,58 @@ script/source = "extends Area2D
 
 @export var inital_speed = 10
 @export var acceleration = 30
-@export var max_speed = 30
+@export var max_fall_speed = 30
 
 var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
 
+# For objects that move across the screen
+@export var horizontal_speed: float = 0 # Should be constant speed
+var moving_to_right: bool = true # True to move from left to right, false to move from right to left
+
+
 func _ready() -> void:
     can_move = true
-    move_vec.y = inital_speed
+    horizontal_speed = randf_range(0, 10) # Randomize
+
+func free_fall(delta) -> void:
+    move_vec.y += (acceleration * delta)
+    move_vec.y = limit_speed(move_vec.y, max_fall_speed)
+
+    self.position.y += move_vec.y
 
 func _physics_process(delta: float) -> void:
-    if can_move:
-        move_vec.y += (acceleration * delta)
-        move_vec.limit_length(max_speed)
+    if not can_move:
+        return
 
-        self.position.y += move_vec.y
+    if horizontal_speed == 0:
+        free_fall(delta)
+    else:
+        move_vec.y += ((0.5 * acceleration) * delta) # Gives more time for the object to move horizontally
+
+        if moving_to_right:
+            move_vec.x += (horizontal_speed * delta)
+        else:
+            move_vec.x += -1 * (horizontal_speed * delta) # Make it move to left side (-ve x)
+
+        move_vec.x = limit_speed(move_vec.x, horizontal_speed)
+        self.position += move_vec
+
+func limit_speed(current_speed: float, max_speed: float) -> float:
+    if current_speed > max_speed:
+        return max_speed
+    else:
+        return current_speed
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+    queue_free()
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8rg67"]
 size = Vector2(120, 120)
 
-[node name="asteroids" type="Area2D"]
+[node name="asteroids" type="Area2D" groups=["obstacles"]]
+collision_mask = 2
 script = SubResource("GDScript_ymkuq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -37,3 +68,7 @@ flip_v = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_8rg67")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
