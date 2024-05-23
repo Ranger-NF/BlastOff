@@ -20,6 +20,8 @@ var moving_to_right: bool = true # True to move from left to right, false to mov
 func _ready() -> void:
     can_move = true
     horizontal_speed = randf_range(0, 10) # Randomize
+    if randi() % 2:
+        moving_to_right = false
 
 func free_fall(delta) -> void:
     move_vec.y += (acceleration * delta)

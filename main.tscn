@@ -9,13 +9,21 @@
 script/source = "extends Node2D
 
 @export var asteroid_node: PackedScene
+
+@onready var rocket: Area2D = $Rocket
 var is_game_running: bool = false
 
 func _ready() -> void:
     GameManager.game_started.connect(restart_game)
     GameManager.game_over.connect(_on_game_over)
 
+    var screen_size = get_viewport_rect().size
+
+    rocket.position.x = screen_size.x / 2
+    rocket.position.y = 0.8 * screen_size.y
+
     GameManager.emit_signal(\"game_started\")
+
 
 func _physics_process(delta: float) -> void:
     if is_game_running:
@@ -23,7 +31,7 @@ func _physics_process(delta: float) -> void:
 
 func spawn_asteroids():
     var screen_size = get_viewport_rect().size.x
-    var spawn_location = Vector2(randf_range(0, screen_size), 0)
+    var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), 0)
 
     var new_asteroid = asteroid_node.instantiate()
     new_asteroid.position = spawn_location
@@ -51,7 +59,7 @@ script = SubResource("GDScript_vu1uo")
 asteroid_node = ExtResource("2_xclxf")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
-position = Vector2(597, 546)
+position = Vector2(216, 529)
 
 [node name="AsteroidTimer" type="Timer" parent="."]
 wait_time = 3.0
