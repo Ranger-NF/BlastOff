@@ -9,46 +9,41 @@ const max_speed: float = 100
 const acceleration: float = 70
 const friction = 90
 
-enum {
-    RIGHT,
-    LEFT,
-    RESET
-}
-
 signal player_hurt
 
 var is_game_running: bool = false
 
-var has_recieved_input: bool
 var move_vec: Vector2
-var direction_to_move: int # Either left or tight (from enum)
 
 func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
     self.connect(\"player_hurt\", _on_hurt)
 
+func apply_friction(velocity: float, delta: float) -> float:
+    var magniitude_of_vec = abs(velocity)
+    var direction_of_vec = (velocity / magniitude_of_vec) # Gives either 1 or -1 (left or right)
+    magniitude_of_vec -= friction * delta # Reduces the velocity
+    return (direction_of_vec * magniitude_of_vec)
+
 func move(delta: float):
     # Increment velocity with acceleration if given the input
-    if has_recieved_input:
-        match direction_to_move:
-            RIGHT: # If asked to move right, accelerate to max speed
-                move_vec.x += (acceleration * delta) # Accelerate to +ve x
-            LEFT:
-                move_vec.x += -1 * (acceleration * delta)
+    if GameManager.is_left_button_pressed or GameManager.is_right_button_pressed: # Checking whether either button is pressed
+        if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If bothe
+            move_vec.x = apply_friction(move_vec.x, delta)
+        else:
+            if GameManager.is_left_button_pressed: # If asked to move left, accelerate to max speed
+                move_vec.x += -1 * (acceleration * delta) # Accelerate to -ve x
+            elif GameManager.is_right_button_pressed:
+                move_vec.x += (acceleration * delta)
 
     # Slowing down (gradually)
     elif move_vec.length() > (friction * delta):
-        var magniitude_of_vec = abs(move_vec.x)
-        var direction_of_vec = (move_vec.x / magniitude_of_vec) # Gives either 1 or -1 (left or right)
-        magniitude_of_vec -= friction * delta # Reduces the velocity
-
-        move_vec.x = (direction_of_vec * magniitude_of_vec)
+        move_vec.x = apply_friction(move_vec.x, delta)
     else:
         move_vec = Vector2.ZERO # Stop the character
 
     move_vec = move_vec.limit_length(max_speed)
-    has_recieved_input = false
     self.position += move_vec
 
     var horizontal_screen_size = get_viewport_rect().size.x
@@ -59,19 +54,6 @@ func move(delta: float):
 func _physics_process(delta: float) -> void:
     if is_game_running:
         move(delta)
-
-func _input(event: InputEvent) -> void:
-    if !(event is InputEventScreenDrag) and !(event is InputEventScreenTouch) and !(event is InputEventMouse):
-        return
-
-    var middle_of_screen: float = (get_viewport_rect().size.x / 2)
-
-    if event.position.x > middle_of_screen:
-        direction_to_move = RIGHT
-    else:
-        direction_to_move = LEFT
-
-    has_recieved_input = true
 
 func _on_hurt():
     GameManager.emit_signal(\"game_over\")

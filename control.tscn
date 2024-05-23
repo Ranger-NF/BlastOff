@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://djfl3lk86q0wd"]
+
+[sub_resource type="GDScript" id="GDScript_7durt"]
+script/source = "extends CanvasLayer
+
+enum {
+    LEFT,
+    RIGHT
+}
+
+func switch_pressed_button(current_button: int) -> void:
+    match current_button:
+        LEFT:
+            GameManager.is_left_button_pressed = true
+            GameManager.is_right_button_pressed = false
+        RIGHT:
+            GameManager.is_right_button_pressed = true
+            GameManager.is_left_button_pressed = false
+
+func _input(event: InputEvent) -> void:
+    var horizontal_screen_size = get_viewport().size.x
+    if (event is InputEventScreenTouch and event.is_pressed()) or (event is InputEventScreenDrag):
+
+        if event.position.x > (horizontal_screen_size / 2):
+            switch_pressed_button(RIGHT)
+        else:
+            switch_pressed_button(LEFT)
+    elif event is InputEventScreenTouch and event.is_released():
+        if event.position.x > (horizontal_screen_size / 2):
+            GameManager.is_right_button_pressed = false
+        else:
+            GameManager.is_left_button_pressed = false
+"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = SubResource("GDScript_7durt")
