@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-StatManager="*res://stat_manager.gd"
-GameManager="*res://game_manager.gd"
+GameManager="*res://Managers/game_manager.gd"
+StatManager="*res://Managers/stat_manager.gd"
 
 [display]
 

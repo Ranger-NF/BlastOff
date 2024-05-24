@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dikpya2pi0i66"]
 
-[ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://rocket.tscn" id="1_nmvdq"]
-[ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://asteroids.tscn" id="2_xclxf"]
-[ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://ui.tscn" id="3_05n13"]
-[ext_resource type="PackedScene" uid="uid://djfl3lk86q0wd" path="res://control.tscn" id="4_vpkpi"]
-[ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://background.tscn" id="5_rc5yt"]
+[ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
+[ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/asteroids.tscn" id="2_xclxf"]
+[ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://UI/ui.tscn" id="3_05n13"]
+[ext_resource type="PackedScene" uid="uid://djfl3lk86q0wd" path="res://UI/control.tscn" id="4_vpkpi"]
+[ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
 
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
 script/source = "extends Node2D

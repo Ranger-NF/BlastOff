@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6fo5mydx5rhh"
-path="res://.godot/imported/cl8uds-32x.png-73a00d8fb8ff511d814a5d039806be8b.ctex"
+uid="uid://gnbdubt8ncxq"
+path="res://.godot/imported/clouds.svg-f09303c24243716a432af11719699ff3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://cl8uds-32x.png"
-dest_files=["res://.godot/imported/cl8uds-32x.png-73a00d8fb8ff511d814a5d039806be8b.ctex"]
+source_file="res://Background/clouds.svg"
+dest_files=["res://.godot/imported/clouds.svg-f09303c24243716a432af11719699ff3.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
