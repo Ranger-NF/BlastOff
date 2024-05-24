@@ -57,6 +57,7 @@ size_flags_horizontal = 3
 [node name="Score" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
@@ -73,6 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
+theme_override_font_sizes/font_size = 64
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1

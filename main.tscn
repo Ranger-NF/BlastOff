@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=7 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://rocket.tscn" id="1_nmvdq"]
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://asteroids.tscn" id="2_xclxf"]
 [ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://ui.tscn" id="3_05n13"]
 [ext_resource type="PackedScene" uid="uid://djfl3lk86q0wd" path="res://control.tscn" id="4_vpkpi"]
+[ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://background.tscn" id="5_rc5yt"]
 
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
 script/source = "extends Node2D
@@ -16,11 +17,6 @@ var is_game_running: bool = false
 func _ready() -> void:
     GameManager.game_started.connect(restart_game)
     GameManager.game_over.connect(_on_game_over)
-
-    var screen_size = get_viewport_rect().size
-
-    rocket.position.x = screen_size.x / 2
-    rocket.position.y = 0.8 * screen_size.y
 
     GameManager.emit_signal(\"game_started\")
 
@@ -35,6 +31,7 @@ func spawn_asteroids():
 
     var new_asteroid = asteroid_node.instantiate()
     new_asteroid.position = spawn_location
+
     add_child(new_asteroid)
 
 func _on_game_over() -> void:
@@ -67,5 +64,7 @@ wait_time = 3.0
 [node name="UI" parent="." instance=ExtResource("3_05n13")]
 
 [node name="Control" parent="." instance=ExtResource("4_vpkpi")]
+
+[node name="Background" parent="." instance=ExtResource("5_rc5yt")]
 
 [connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]

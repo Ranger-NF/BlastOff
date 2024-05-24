@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://cihqkayqkp35l"]
+
+[ext_resource type="Texture2D" uid="uid://kpwe8s4lytnu" path="res://clouds.svg" id="1_povin"]
+
+[sub_resource type="GDScript" id="GDScript_f6ao8"]
+script/source = "extends ParallaxBackground
+
+var is_game_running: bool = false
+
+func _ready() -> void:
+    GameManager.game_started.connect(_on_game_start)
+    GameManager.game_over.connect(_on_game_over)
+
+func _on_game_start() -> void:
+    is_game_running = true
+
+func _on_game_over() -> void:
+    is_game_running = false
+
+func _physics_process(delta: float) -> void:
+    if is_game_running:
+        scroll_offset.y += GameManager.rocket_speed * delta
+"
+
+[node name="Background" type="ParallaxBackground"]
+script = SubResource("GDScript_f6ao8")
+metadata/_edit_horizontal_guides_ = [2105.0]
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 2105)
+
+[node name="Cloud Grouped" type="Node2D" parent="Clouds"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(257, 117)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(16.8304, -4.40363, 493.675, 212.66)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(1087, 593)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(284.974, 196.637, 505.068, 231.648)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(559, 437)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(15.3513, 246.004, 269.622, 151.9)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(261, 883)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(-2.92715, 427.102, 625.879, 240.425)
+
+[node name="Sprite2D5" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(913, 1213)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(20.1682, 686.525, 200.232, 127.734)
+
+[node name="Sprite2D6" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(617, 1516)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(4.00757, 683.108, 789.88, 235.445)
+
+[node name="Sprite2D7" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(1211, 1834)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(3.05237, 914.33, 245.538, 183.18)
+
+[node name="Sprite2D8" type="Sprite2D" parent="Clouds/Cloud Grouped"]
+position = Vector2(1187, 1037)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(393.57, 914.338, 326.585, 205.065)

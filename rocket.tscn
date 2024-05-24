@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=5 format=3 uid="uid://c1tug87fw4xs"]
 
-[ext_resource type="Texture2D" uid="uid://cdelynp7nbp4" path="res://rocket.png" id="1_m874q"]
+[ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://rocket.svg" id="1_tlx86"]
 
 [sub_resource type="GDScript" id="GDScript_lpiqs"]
 script/source = "extends Area2D
@@ -8,12 +8,23 @@ script/source = "extends Area2D
 const max_speed: float = 100
 const acceleration: float = 70
 const friction = 90
+const rotation_per_frame = 50 # in degrees
+
+enum {
+    LEFT = -1,
+    RESET,
+    RIGHT
+}
 
 signal player_hurt
 
 var is_game_running: bool = false
 
 var move_vec: Vector2
+var move_direction: int # Uses const LEFT/RIGHT
+
+var rotation_reset_tween: Tween
+var time_idle: float = 0
 
 func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
@@ -24,30 +35,62 @@ func apply_friction(velocity: float, delta: float) -> float:
     var magniitude_of_vec = abs(velocity)
     var direction_of_vec = (velocity / magniitude_of_vec) # Gives either 1 or -1 (left or right)
     magniitude_of_vec -= friction * delta # Reduces the velocity
+
+    if direction_of_vec == LEFT:
+        sway(RIGHT, delta)
+    else:
+        sway(LEFT, delta)
     return (direction_of_vec * magniitude_of_vec)
+
+func sway(sway_direction: int, delta: float) -> void:
+    if not sway_direction in [-1, 0, 1]:
+        push_error(\"Inputted a value other than -1 or 1\")
+        return
+    if sway_direction != RESET:
+        if rotation_reset_tween:
+            rotation_reset_tween.stop()
+            rotation_reset_tween.kill()
+        self.rotate(sway_direction * deg_to_rad(rotation_per_frame * delta))
+    else:
+        rotation_reset_tween = create_tween()
+        rotation_reset_tween.tween_property(self, \"rotation\", 0, 0.1).set_trans(Tween.TRANS_SPRING)
 
 func move(delta: float):
     # Increment velocity with acceleration if given the input
     if GameManager.is_left_button_pressed or GameManager.is_right_button_pressed: # Checking whether either button is pressed
-        if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If bothe
+        if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If both buttons are pressed, cancel it
             move_vec.x = apply_friction(move_vec.x, delta)
+            time_idle += delta
         else:
+            time_idle = 0
+
             if GameManager.is_left_button_pressed: # If asked to move left, accelerate to max speed
                 move_vec.x += -1 * (acceleration * delta) # Accelerate to -ve x
+                sway(LEFT, delta)
+
             elif GameManager.is_right_button_pressed:
                 move_vec.x += (acceleration * delta)
+                sway(RIGHT, delta)
 
     # Slowing down (gradually)
     elif move_vec.length() > (friction * delta):
+        time_idle += delta
         move_vec.x = apply_friction(move_vec.x, delta)
     else:
+        time_idle += delta
         move_vec = Vector2.ZERO # Stop the character
+
+    if time_idle > 0.2:
+        sway(RESET, delta)
 
     move_vec = move_vec.limit_length(max_speed)
     self.position += move_vec
 
+    # Preventing player from moving outside the screen
     var horizontal_screen_size = get_viewport_rect().size.x
+
     if (self.position.x >= horizontal_screen_size) or (self.position.x <= 0):
+        sway(RESET, delta)
         self.position.x = clamp(self.position.x , 0, horizontal_screen_size) # Prevents the rocket from going off the screen
         move_vec = Vector2.ZERO # Resets the velocity to sudden stop
 
@@ -64,26 +107,50 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
         emit_signal(\"player_hurt\")
 
 func _on_game_start() -> void:
+    move_vec = Vector2.ZERO
+    self.rotation = 0
+    var screen_size = get_viewport_rect().size
+
+    self.position.x = screen_size.x / 2
+    self.position.y = 0.8 * screen_size.y
+
     is_game_running = true
 
 func _on_game_over() -> void:
     is_game_running = false
 "
 
+[sub_resource type="Gradient" id="Gradient_vflus"]
+colors = PackedColorArray(0.842252, 0.456042, 0.12118, 1, 0.289741, 0.289741, 0.289741, 1)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_782wp"]
 radius = 40.0
-height = 177.0
+height = 209.0
 
 [node name="Rocket" type="Area2D"]
 collision_layer = 2
 script = SubResource("GDScript_lpiqs")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 88)
+emitting = false
+lifetime = 0.6
+randomness = 0.15
+emission_shape = 2
+emission_sphere_radius = 1.0
+scale_amount_min = 20.0
+scale_amount_max = 30.0
+color_ramp = SubResource("Gradient_vflus")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_m874q")
+rotation = -0.00302801
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_tlx86")
+offset = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+visible = false
+position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_782wp")
 
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
