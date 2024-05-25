@@ -8,7 +8,7 @@ Simple 2D vertical scroller with vector graphics
 > [!NOTE]
 > The given screenshots does not represent the final product. The game is under heavy devolopment.
 <p align="center">
-    <img src="Docs/Screenshots/ingame.jpg" width="auto" height="auto">&nbsp;&nbsp;
-    <img src="Docs/Screenshots/game_over.jpg" width="auto" height="auto">
+    <img src="Docs/Screenshots/ingame.jpg" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/game_over.jpg" width="auto" height="400">
 </p>
 
