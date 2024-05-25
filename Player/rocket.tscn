@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1tug87fw4xs"]
 
-[ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://rocket.svg" id="1_tlx86"]
+[ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="1_tlx86"]
 
 [sub_resource type="GDScript" id="GDScript_lpiqs"]
 script/source = "extends Area2D

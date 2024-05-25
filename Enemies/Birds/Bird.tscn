@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1quod1k2hh1j"]
+
+[ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_cgdr0"]
+[ext_resource type="Texture2D" uid="uid://kr8ni565sxwv" path="res://Enemies/Birds/birds.png" id="2_1s2n1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrtpb"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(0, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xcl4"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(200, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehci2"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(400, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyhhe"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(600, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22b6o"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(800, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbegx"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(1000, 0, 200, 282)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmi1n"]
+atlas = ExtResource("2_1s2n1")
+region = Rect2(1200, 0, 200, 282)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dy0ov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrtpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xcl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehci2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyhhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22b6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbegx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmi1n")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 12.0
+}]
+
+[node name="Bird" instance=ExtResource("1_cgdr0")]
+metadata/_edit_vertical_guides_ = [-56.0]
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_dy0ov")
+animation = &"flying"
+autoplay = "flying"
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = true
+position = Vector2(13, 13)

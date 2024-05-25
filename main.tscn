@@ -1,17 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=8 format=3 uid="uid://dikpya2pi0i66"]
 
+[ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="1_huqlg"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
-[ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/asteroids.tscn" id="2_xclxf"]
 [ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://UI/ui.tscn" id="3_05n13"]
 [ext_resource type="PackedScene" uid="uid://djfl3lk86q0wd" path="res://UI/control.tscn" id="4_vpkpi"]
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
+[ext_resource type="AudioStream" uid="uid://ciqy1wnkunlb1" path="res://Music/homely_arcade.ogg" id="6_bev8e"]
 
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
 script/source = "extends Node2D
 
-@export var asteroid_node: PackedScene
+@export var obstacle_scene: PackedScene
 
-@onready var rocket: Area2D = $Rocket
+
+@onready var obstacle_timer: Timer = $ObstacleTimer
 var is_game_running: bool = false
 
 func _ready() -> void:
@@ -25,18 +27,22 @@ func _physics_process(delta: float) -> void:
     if is_game_running:
         StatManager.time_spent += delta
 
-func spawn_asteroids():
+func spawn_obstacle():
     var screen_size = get_viewport_rect().size.x
     var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), 0)
 
-    var new_asteroid = asteroid_node.instantiate()
+    var random_num = randf()
+    if (random_num < GameManager.flock_probability):
+        pass # TODO
+
+    var new_asteroid = obstacle_scene.instantiate()
     new_asteroid.position = spawn_location
 
     add_child(new_asteroid)
 
 func _on_game_over() -> void:
     is_game_running = false
-    $AsteroidTimer.stop()
+    obstacle_timer.stop()
 
     await get_tree().create_timer(3).timeout
 
@@ -45,20 +51,21 @@ func _on_game_over() -> void:
 func restart_game() -> void:
     is_game_running = true
     StatManager.time_spent = 0
-    $AsteroidTimer.start()
+    obstacle_timer.start()
 
 func _on_asteroid_timer_timeout() -> void:
-    spawn_asteroids()
+    obstacle_timer.wait_time = randf_range(1, 3)
+    spawn_obstacle()
 "
 
 [node name="Main" type="Node2D"]
 script = SubResource("GDScript_vu1uo")
-asteroid_node = ExtResource("2_xclxf")
+obstacle_scene = ExtResource("1_huqlg")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(216, 529)
 
-[node name="AsteroidTimer" type="Timer" parent="."]
+[node name="ObstacleTimer" type="Timer" parent="."]
 wait_time = 3.0
 
 [node name="UI" parent="." instance=ExtResource("3_05n13")]
@@ -67,4 +74,10 @@ wait_time = 3.0
 
 [node name="Background" parent="." instance=ExtResource("5_rc5yt")]
 
-[connection signal="timeout" from="AsteroidTimer" to="." method="_on_asteroid_timer_timeout"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_bev8e")
+autoplay = true
+mix_target = 2
+bus = &"Music"
+
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]

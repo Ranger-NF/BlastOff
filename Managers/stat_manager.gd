@@ -11,7 +11,7 @@ func _calculate_score() -> void:
 
     if !(roundi(score_gained) % roundi(pow(10, current_level))) and score_gained != 0:
         current_level += 1
-        GameManager.emit_signal("rocket_speed_changed")
+        GameManager.emit_signal("level_up")
 
 func _physics_process(_delta: float) -> void:
     _calculate_score()
