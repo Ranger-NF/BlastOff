@@ -1,8 +1,9 @@
 class_name Obstacle
 extends Area2D
 
-@export var acceleration = 30
+@export var free_fall_multiplier: float = 1 # Ideally more than 1, for faster obstacle
 @export var can_be_grouped: bool = false
+@export var can_move_horizontally: bool = true
 
 var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
@@ -13,13 +14,14 @@ enum {
 }
 
 # For objects that move across the screen
-@export var horizontal_speed: float = 0 # Should be constant speed
+var horizontal_speed: float = 0 # Should be constant speed
 
 var direction_to_move: int # Left or Right
 
 func _ready() -> void:
     can_move = true
-    horizontal_speed = randf_range(0, 10) # Randomize
+    if can_move_horizontally:
+        horizontal_speed = randf_range(3, 10) # Randomize
 
     var horizontal_screen_size = get_viewport_rect().size.x
     if horizontal_speed != 0 and self.position.x > (horizontal_screen_size / 2): # If on the right side move to left
@@ -28,7 +30,7 @@ func _ready() -> void:
         direction_to_move = RIGHT
 
 func free_fall(delta) -> void:
-    move_vec.y = (GameManager.rocket_speed * delta)
+    move_vec.y = (GameManager.rocket_speed * free_fall_multiplier * delta)
 
     self.position.y += move_vec.y
 

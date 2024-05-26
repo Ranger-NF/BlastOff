@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=9 format=3 uid="uid://dikpya2pi0i66"]
 
+[ext_resource type="PackedScene" uid="uid://bgdnuqx4a3jm7" path="res://Enemies/Satellite/satellite.tscn" id="1_e8phi"]
 [ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="1_huqlg"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
 [ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://UI/ui.tscn" id="3_05n13"]
@@ -10,10 +11,12 @@
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
 script/source = "extends Node2D
 
-@export var obstacle_scene: PackedScene
-
+@export var bird_scene: PackedScene
+@export var satellite_scene: PackedScene
 
 @onready var obstacle_timer: Timer = $ObstacleTimer
+@onready var satellite_timer: Timer = $SatelliteTimer
+
 var is_game_running: bool = false
 
 func _ready() -> void:
@@ -27,22 +30,31 @@ func _physics_process(delta: float) -> void:
     if is_game_running:
         StatManager.time_spent += delta
 
-func spawn_obstacle():
+func spawn_obstacle(obstacle_scene: PackedScene):
+    if not obstacle_scene:
+        push_error(\"PackedScene is not set in the export section!\")
     var screen_size = get_viewport_rect().size.x
-    var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), 0)
+    var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), -30)
+
+    var new_obstacle = obstacle_scene.instantiate()
+    new_obstacle.position = spawn_location
+
+    add_child(new_obstacle)
+
+
+func determine_next_obstacle():
 
     var random_num = randf()
     if (random_num < GameManager.flock_probability):
-        pass # TODO
+        if satellite_timer.is_stopped():
+            satellite_timer.start(randi_range(4, 6))
 
-    var new_asteroid = obstacle_scene.instantiate()
-    new_asteroid.position = spawn_location
-
-    add_child(new_asteroid)
+    spawn_obstacle(bird_scene)
 
 func _on_game_over() -> void:
     is_game_running = false
     obstacle_timer.stop()
+    satellite_timer.stop()
 
     await get_tree().create_timer(3).timeout
 
@@ -55,12 +67,16 @@ func restart_game() -> void:
 
 func _on_asteroid_timer_timeout() -> void:
     obstacle_timer.wait_time = randf_range(1, 3)
-    spawn_obstacle()
+    determine_next_obstacle()
+
+func _on_satellite_timer_timeout() -> void:
+    spawn_obstacle(satellite_scene)
 "
 
 [node name="Main" type="Node2D"]
 script = SubResource("GDScript_vu1uo")
-obstacle_scene = ExtResource("1_huqlg")
+bird_scene = ExtResource("1_huqlg")
+satellite_scene = ExtResource("1_e8phi")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(216, 529)
@@ -81,4 +97,7 @@ autoplay = true
 mix_target = 2
 bus = &"Music"
 
+[node name="SatelliteTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="timeout" from="SatelliteTimer" to="." method="_on_satellite_timer_timeout"]
