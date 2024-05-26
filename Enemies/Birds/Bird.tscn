@@ -40,7 +40,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dm2ne"]
 shader = SubResource("Shader_64uhu")
 shader_parameter/deform = Vector2(0, 0)
-shader_parameter/offset = Vector2(-3, -5)
+shader_parameter/offset = Vector2(-7, -10)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrtpb"]
@@ -109,8 +109,8 @@ scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_dy0ov")
 animation = &"flying"
 autoplay = "flying"
+frame_progress = 0.624104
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = true
 position = Vector2(6, -11)
 rotation = 1.2977

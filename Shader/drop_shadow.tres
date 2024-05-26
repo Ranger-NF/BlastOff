@@ -36,5 +36,5 @@ void fragment() {
 [resource]
 shader = SubResource("Shader_64uhu")
 shader_parameter/deform = Vector2(0, 0)
-shader_parameter/offset = Vector2(1, -4)
-shader_parameter/modulate = null
+shader_parameter/offset = Vector2(-10, -20)
+shader_parameter/modulate = Color(0, 0, 0, 0.392157)

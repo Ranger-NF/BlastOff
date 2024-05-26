@@ -76,14 +76,14 @@ motion_mirroring = Vector2(0, 860)
 position = Vector2(-252, -164.845)
 
 [node name="Sprite2D" type="Sprite2D" parent="BigClouds/Group 1"]
-position = Vector2(215, 385.314)
+position = Vector2(215, 385)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D2" type="Sprite2D" parent="BigClouds/Group 1"]
-position = Vector2(960, 392.393)
+position = Vector2(960, 385)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
@@ -97,7 +97,7 @@ position = Vector2(586, 504.65)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
-region_rect = Rect2(-0.21991, 697.955, 827.855, 235.445)
+region_rect = Rect2(-0.21991, 697.955, 827.855, 226.362)
 
 [node name="Clouds" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(0, 2105)
