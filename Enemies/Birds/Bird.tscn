@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1quod1k2hh1j"]
+[gd_scene load_steps=12 format=3 uid="uid://c1quod1k2hh1j"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_cgdr0"]
 [ext_resource type="Texture2D" uid="uid://kr8ni565sxwv" path="res://Enemies/Birds/birds.png" id="2_1s2n1"]
+[ext_resource type="Script" path="res://Enemies/Birds/Bird.gd" id="2_5ajeh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrtpb"]
 atlas = ExtResource("2_1s2n1")
@@ -61,7 +62,7 @@ animations = [{
 }]
 
 [node name="Bird" instance=ExtResource("1_cgdr0")]
-metadata/_edit_vertical_guides_ = [-56.0]
+script = ExtResource("2_5ajeh")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(0.6, 0.6)
@@ -71,4 +72,5 @@ autoplay = "flying"
 
 [node name="CollisionShape2D" parent="." index="2"]
 visible = true
-position = Vector2(13, 13)
+position = Vector2(6, -11)
+rotation = 1.2977
