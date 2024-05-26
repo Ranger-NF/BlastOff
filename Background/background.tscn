@@ -63,7 +63,41 @@ shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
 [node name="Background" type="ParallaxBackground"]
 script = SubResource("GDScript_f6ao8")
-metadata/_edit_horizontal_guides_ = [2105.0]
+metadata/_edit_horizontal_guides_ = [2105.0, 854.0]
+
+[node name="BigClouds" type="ParallaxLayer" parent="."]
+modulate = Color(1, 1, 1, 0.156863)
+position = Vector2(0, 17)
+scale = Vector2(1, 0.988805)
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(0, 860)
+
+[node name="Group 1" type="Node2D" parent="BigClouds"]
+position = Vector2(-252, -164.845)
+
+[node name="Sprite2D" type="Sprite2D" parent="BigClouds/Group 1"]
+position = Vector2(215, 385.314)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BigClouds/Group 1"]
+position = Vector2(960, 392.393)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
+
+[node name="Group 2" type="Node2D" parent="BigClouds"]
+position = Vector2(347, 152.71)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BigClouds/Group 2"]
+position = Vector2(586, 504.65)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_povin")
+region_enabled = true
+region_rect = Rect2(-0.21991, 697.955, 827.855, 235.445)
 
 [node name="Clouds" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(0, 2105)

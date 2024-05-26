@@ -73,6 +73,7 @@ wait_time = 3.0
 [node name="Control" parent="." instance=ExtResource("4_vpkpi")]
 
 [node name="Background" parent="." instance=ExtResource("5_rc5yt")]
+metadata/_edit_horizontal_guides_ = [2105.0]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_bev8e")

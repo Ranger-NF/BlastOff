@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=3 format=3 uid="uid://0ckqin0njvj4"]
 
 [sub_resource type="GDScript" id="GDScript_ew6qc"]
 script/source = "extends Control
@@ -25,6 +25,8 @@ func _show_game_status(current_status: String) -> void:
     game_status_label.hide()
 
 "
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -55,6 +57,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Score" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2"]
+material = SubResource("ShaderMaterial_324iy")
+use_parent_material = true
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 64
@@ -67,6 +71,8 @@ size_flags_horizontal = 3
 
 [node name="GameStatus" type="Label" parent="CanvasLayer"]
 visible = false
+material = SubResource("ShaderMaterial_324iy")
+use_parent_material = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
