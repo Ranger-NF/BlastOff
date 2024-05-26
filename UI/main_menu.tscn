@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://e1b43p4v5huu"]
+
+[ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4j3j7"]
+font_size = 64
+font_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_p0qic")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopGap" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TitleBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TitileLeft" type="VSeparator" parent="VBoxContainer/TitleBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/TitleBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "BlastOff"
+label_settings = SubResource("LabelSettings_4j3j7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitileRight" type="VSeparator" parent="VBoxContainer/TitleBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="ButtonLeft" type="VSeparator" parent="VBoxContainer/CenterBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonBox" type="VBoxContainer" parent="VBoxContainer/CenterBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/CenterBox/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/CenterBox/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="ButtonRight" type="VSeparator" parent="VBoxContainer/CenterBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BottomGap" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]
