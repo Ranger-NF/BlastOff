@@ -76,12 +76,17 @@ bird_scene = ExtResource("1_huqlg")
 satellite_scene = ExtResource("1_e8phi")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
-position = Vector2(216, 529)
+position = Vector2(313, -151)
+rotation = 0.785397
 
 [node name="ObstacleTimer" type="Timer" parent="."]
 wait_time = 3.0
 
 [node name="UI" parent="." instance=ExtResource("3_05n13")]
+offset_left = 11.0
+offset_top = -88.0
+offset_right = 11.0
+offset_bottom = -88.0
 
 [node name="Control" parent="." instance=ExtResource("4_vpkpi")]
 

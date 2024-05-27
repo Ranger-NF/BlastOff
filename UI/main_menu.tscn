@@ -1,10 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://e1b43p4v5huu"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_4j3j7"]
-font_size = 64
-font_color = Color(0, 0, 0, 1)
+[ext_resource type="Texture2D" uid="uid://dq0232j57ss0t" path="res://title.svg" id="2_6l07a"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_p0qic")
@@ -16,32 +13,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TopGap" type="HSeparator" parent="VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="TitleBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
 
-[node name="TitileLeft" type="VSeparator" parent="VBoxContainer/TitleBox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/TitleBox"]
+[node name="Title" type="TextureRect" parent="VBoxContainer/TitleBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "BlastOff"
-label_settings = SubResource("LabelSettings_4j3j7")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TitileRight" type="VSeparator" parent="VBoxContainer/TitleBox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
+texture = ExtResource("2_6l07a")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="CenterBox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -71,14 +59,15 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
+[node name="BottomGap" type="HSeparator" parent="VBoxContainer/CenterBox/ButtonBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="ButtonRight" type="VSeparator" parent="VBoxContainer/CenterBox"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="BottomGap" type="HSeparator" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
 
 [connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]

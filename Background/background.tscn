@@ -138,7 +138,7 @@ material = SubResource("ShaderMaterial_p6odd")
 position = Vector2(1087, 593)
 texture = ExtResource("1_povin")
 region_enabled = true
-region_rect = Rect2(284.974, 196.637, 505.068, 231.648)
+region_rect = Rect2(284.974, 200.71, 505.068, 227.575)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
