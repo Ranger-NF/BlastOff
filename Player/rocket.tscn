@@ -176,14 +176,11 @@ emitting = false
 lifetime = 0.6
 randomness = 0.15
 emission_shape = 2
-emission_sphere_radius = 1.0
-scale_amount_min = 20.0
-scale_amount_max = 30.0
+emission_sphere_radius = 5.0
 color_ramp = SubResource("Gradient_vflus")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_5uuih")
-rotation = -0.00302801
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_tlx86")
 offset = Vector2(-1, 0)

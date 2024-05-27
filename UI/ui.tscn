@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=12 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
+[ext_resource type="Texture2D" uid="uid://5eveuk5l6b6j" path="res://UI/Buttons/restart_normal.png" id="2_6xv5i"]
+[ext_resource type="Texture2D" uid="uid://x1x1mjgeu20w" path="res://UI/Buttons/restart_pressed.png" id="3_2hbmr"]
+[ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="4_41q4p"]
+[ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="5_rwuf4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
@@ -104,6 +108,11 @@ material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
 size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
@@ -117,22 +126,37 @@ material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RestartButton" type="Button" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="RestartButton" type="TextureButton" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
-text = "Restart"
+texture_normal = ExtResource("2_6xv5i")
+texture_pressed = ExtResource("3_2hbmr")
+texture_hover = ExtResource("3_2hbmr")
+texture_disabled = ExtResource("3_2hbmr")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="BackButton" type="Button" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="BackButton" type="TextureButton" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
-text = "Main Menu"
+texture_normal = ExtResource("4_41q4p")
+texture_pressed = ExtResource("5_rwuf4")
+texture_hover = ExtResource("5_rwuf4")
+texture_disabled = ExtResource("5_rwuf4")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
 modulate = Color(1, 1, 1, 0)

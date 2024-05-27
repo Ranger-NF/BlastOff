@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://e1b43p4v5huu"]
+[gd_scene load_steps=7 format=3 uid="uid://e1b43p4v5huu"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
 [ext_resource type="Texture2D" uid="uid://um1qa2qyq4vl" path="res://UI/title.svg" id="2_j4afl"]
+[ext_resource type="Texture2D" uid="uid://bp1cofqryobpn" path="res://UI/Buttons/play_normal.png" id="3_2csvs"]
+[ext_resource type="Texture2D" uid="uid://cejuj61q3nu3u" path="res://UI/Buttons/play_pressed.png" id="4_h5cxj"]
+[ext_resource type="Texture2D" uid="uid://ckce25nh0cw2v" path="res://UI/Buttons/quit_normal.png" id="5_4p7ol"]
+[ext_resource type="Texture2D" uid="uid://dqsn001eavjho" path="res://UI/Buttons/quit_pressed.png" id="6_bv2wb"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_p0qic")
@@ -24,6 +28,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="TextureRect" parent="VBoxContainer/TitleBox"]
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -45,24 +50,28 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayButton" type="Button" parent="VBoxContainer/CenterBox/ButtonBox"]
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer/CenterBox/ButtonBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_2csvs")
+texture_pressed = ExtResource("4_h5cxj")
+texture_hover = ExtResource("4_h5cxj")
+texture_disabled = ExtResource("4_h5cxj")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer/CenterBox/ButtonBox"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
-text = "Play"
-
-[node name="QuitButton" type="Button" parent="VBoxContainer/CenterBox/ButtonBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 32
-text = "Quit"
-
-[node name="BottomGap" type="HSeparator" parent="VBoxContainer/CenterBox/ButtonBox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
+texture_normal = ExtResource("5_4p7ol")
+texture_pressed = ExtResource("6_bv2wb")
+texture_hover = ExtResource("6_bv2wb")
+texture_disabled = ExtResource("6_bv2wb")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="ButtonRight" type="VSeparator" parent="VBoxContainer/CenterBox"]
 modulate = Color(1, 1, 1, 0)
