@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://e1b43p4v5huu"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
-[ext_resource type="Texture2D" uid="uid://dq0232j57ss0t" path="res://title.svg" id="2_6l07a"]
+[ext_resource type="Texture2D" uid="uid://um1qa2qyq4vl" path="res://UI/title.svg" id="2_j4afl"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_p0qic")
@@ -27,7 +27,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("2_6l07a")
+texture = ExtResource("2_j4afl")
 expand_mode = 2
 stretch_mode = 5
 

@@ -109,7 +109,6 @@ text = "Score"
 horizontal_alignment = 1
 
 [node name="NavBox" type="VBoxContainer" parent="CanvasLayer/WholeScreen/WholeCenter"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
