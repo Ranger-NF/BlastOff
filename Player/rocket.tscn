@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=8 format=3 uid="uid://c1tug87fw4xs"]
 
 [ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="1_tlx86"]
 
@@ -114,14 +114,21 @@ func _on_game_start() -> void:
     self.position.x = screen_size.x / 2
     self.position.y = 0.8 * screen_size.y
 
+    $CPUParticles2D.emitting = true
     is_game_running = true
 
 func _on_game_over() -> void:
+    $CPUParticles2D.emitting = false
     is_game_running = false
 "
 
+[sub_resource type="Curve" id="Curve_7spor"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Gradient" id="Gradient_vflus"]
-colors = PackedColorArray(0.842252, 0.456042, 0.12118, 1, 0.289741, 0.289741, 0.289741, 1)
+offsets = PackedFloat32Array(0, 0.607143, 1)
+colors = PackedColorArray(1, 1, 0.0313726, 1, 0.752844, 0.215496, 0, 1, 0.290196, 0.290196, 0.290196, 0.521569)
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -171,12 +178,15 @@ collision_layer = 2
 script = SubResource("GDScript_lpiqs")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(0, 88)
+position = Vector2(3, 107)
 emitting = false
-lifetime = 0.6
-randomness = 0.15
-emission_shape = 2
-emission_sphere_radius = 5.0
+amount = 30
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 15.0
+scale_amount_min = 10.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_7spor")
 color_ramp = SubResource("Gradient_vflus")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
