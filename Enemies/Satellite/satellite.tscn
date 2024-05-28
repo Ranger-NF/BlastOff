@@ -11,7 +11,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_r0xs0")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -101,7 +101,6 @@ scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_obnki")
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = true
 position = Vector2(21, 11.5)
 rotation = 0.523598
 shape = null

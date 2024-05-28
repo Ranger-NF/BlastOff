@@ -6,6 +6,9 @@ var time_spent: float
 var score_gained: float
 var current_level: int = 1
 
+# Variable for obstacles
+var satellite_number: int = 0 # Resets to zero whenver game restarts [Incremented in satellite scene]
+
 func _calculate_score() -> void:
     score_gained = roundi(current_level * time_spent)
 

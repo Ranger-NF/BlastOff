@@ -48,28 +48,23 @@ shader_parameter/deform = Vector2(0, 0)
 shader_parameter/offset = Vector2(-50, -40)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
-[sub_resource type="Animation" id="Animation_ns6ys"]
-resource_name = "warning_sign"
-length = 0.5
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Warning:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xg0g"]
+atlas = ExtResource("1_y1a50")
+region = Rect2(0, 0, 198, 280)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4sb7j"]
-_data = {
-"warning_sign": SubResource("Animation_ns6ys")
-}
+[sub_resource type="SpriteFrames" id="SpriteFrames_l5kil"]
+animations = [{
+"frames": [{
+"duration": 1.4,
+"texture": ExtResource("1_y1a50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xg0g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -162,21 +157,14 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Warning" type="TextureRect" parent="."]
+[node name="WarningSign" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_sa2l3")
-layout_mode = 0
-offset_right = 71.0
-offset_bottom = 71.0
-texture = ExtResource("1_y1a50")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="WarningAnimation" type="AnimationPlayer" parent="."]
-root_node = NodePath("")
-libraries = {
-"": SubResource("AnimationLibrary_4sb7j")
-}
+position = Vector2(48, 37)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_l5kil")
+autoplay = "default"
+frame_progress = 0.989522
 
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]

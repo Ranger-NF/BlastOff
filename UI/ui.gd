@@ -4,12 +4,13 @@ const status_messages = {
     "game_over": "Game Over",
 }
 
+var active_warnings: Dictionary = {}
+
 @onready var whole_ui = $WholeScreen
 
 @onready var score_label = $WholeScreen/ScoreBox/Score
 @onready var game_status_label = $WholeScreen/NavBoxMargin/NavBox/GameStatus
-@onready var warning_sign = $Warning
-@onready var warning_anim = $WarningAnimation
+@onready var warning_sign: AnimatedSprite2D = $WarningSign
 
 @onready var navigation_box = $WholeScreen/NavBoxMargin/NavBox
 
@@ -30,15 +31,31 @@ func _show_game_status(current_status: String) -> void:
     game_status_label.text = status_messages.get(current_status)
     navigation_box.show()
 
-func _flash_warning(x_position: float):
-    var vertical_screen_size: float = get_viewport_rect().size.y
-    warning_sign.position = Vector2(x_position, (0.1 * vertical_screen_size))
-    warning_sign.show()
-    warning_anim.play("warning_sign")
 
-func _stop_warning():
-    warning_anim.stop()
-    warning_sign.hide()
+func _flash_warning(x_position: float, warning_id: int):
+    var vertical_screen_size: float = get_viewport_rect().size.y
+
+    var new_warning_sign: AnimatedSprite2D = warning_sign.duplicate()
+
+    active_warnings[str(warning_id)] = new_warning_sign
+    add_child(new_warning_sign)
+    new_warning_sign.position = Vector2(x_position, (0.1 * vertical_screen_size))
+    new_warning_sign.show()
+
+
+
+func _stop_warning(warning_id: int):
+    if not active_warnings.has(str(warning_id)):
+        return
+
+    var active_warning_sign: Node = active_warnings.get(str(warning_id))
+
+    if not active_warning_sign: # Prevent it from trying to deleteit twice
+        return
+
+    active_warning_sign.hide()
+    active_warning_sign.queue_free()
+    active_warnings.erase(str(warning_id))
 
 func _on_game_start() -> void:
     whole_ui.show()

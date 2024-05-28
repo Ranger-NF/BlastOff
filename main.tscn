@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 func spawn_obstacle(obstacle_scene: PackedScene):
     if not obstacle_scene:
         push_error(\"PackedScene is not set in the export section!\")
+
     var screen_size = get_viewport().get_visible_rect().size.x
     var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), -250)
 
