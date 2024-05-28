@@ -1,3 +1,4 @@
+<p align="center">
 <img src="UI/title.svg" width="150" title="BlastOff Logo">
 </p>
 
