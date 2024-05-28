@@ -25,7 +25,9 @@ UiManager="*res://Managers/ui_manager.gd"
 
 [display]
 
-window/size/resizable=false
+window/size/viewport_width=720
+window/size/viewport_height=1200
+window/stretch/mode="viewport"
 window/handheld/orientation=1
 
 [gui]

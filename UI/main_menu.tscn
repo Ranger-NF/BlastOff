@@ -17,15 +17,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="TitleBox" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TitleBox" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-alignment = 1
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
 
 [node name="Title" type="TextureRect" parent="VBoxContainer/TitleBox"]
 custom_minimum_size = Vector2(0, 250)
@@ -33,19 +29,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource("2_j4afl")
-expand_mode = 2
+expand_mode = 4
 stretch_mode = 5
 
-[node name="CenterBox" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 50
 
-[node name="ButtonBox" type="VBoxContainer" parent="VBoxContainer/CenterBox"]
+[node name="ButtonBox" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayButton" type="TextureButton" parent="VBoxContainer/CenterBox/ButtonBox"]
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer/MarginContainer/ButtonBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -56,7 +54,7 @@ texture_disabled = ExtResource("4_h5cxj")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="QuitButton" type="TextureButton" parent="VBoxContainer/CenterBox/ButtonBox"]
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer/MarginContainer/ButtonBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -68,9 +66,5 @@ texture_disabled = ExtResource("6_bv2wb")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/CenterBox/ButtonBox"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/CenterBox/ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]

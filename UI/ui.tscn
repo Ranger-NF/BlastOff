@@ -82,28 +82,16 @@ script = ExtResource("1_1hsrn")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="WholeScreen" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="WholeLeft" type="VBoxContainer" parent="CanvasLayer/WholeScreen"]
-layout_mode = 2
+[node name="WholeCenter" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 720.0
+offset_bottom = 1200.0
 size_flags_horizontal = 3
 
-[node name="WholeCenter" type="VBoxContainer" parent="CanvasLayer/WholeScreen"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ScoreBox" type="VBoxContainer" parent="CanvasLayer/WholeScreen/WholeCenter"]
+[node name="ScoreBox" type="VBoxContainer" parent="CanvasLayer/WholeCenter"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Score" type="Label" parent="CanvasLayer/WholeScreen/WholeCenter/ScoreBox"]
+[node name="Score" type="Label" parent="CanvasLayer/WholeCenter/ScoreBox"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
@@ -117,11 +105,19 @@ theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
-[node name="NavBox" type="VBoxContainer" parent="CanvasLayer/WholeScreen/WholeCenter"]
+[node name="NavBoxMargin" type="MarginContainer" parent="CanvasLayer/WholeCenter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 100
+
+[node name="NavBox" type="VBoxContainer" parent="CanvasLayer/WholeCenter/NavBoxMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GameStatus" type="Label" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="GameStatus" type="Label" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
@@ -131,12 +127,12 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 10
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RestartButton" type="TextureButton" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="RestartButton" type="TextureButton" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -147,7 +143,7 @@ texture_disabled = ExtResource("3_2hbmr")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="BackButton" type="TextureButton" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="BackButton" type="TextureButton" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -158,14 +154,10 @@ texture_disabled = ExtResource("5_rwuf4")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/WholeScreen/WholeCenter/NavBox"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="WholeRight" type="VBoxContainer" parent="CanvasLayer/WholeScreen"]
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="Warning" type="TextureRect" parent="CanvasLayer"]
 visible = false
@@ -181,5 +173,5 @@ libraries = {
 "": SubResource("AnimationLibrary_4sb7j")
 }
 
-[connection signal="pressed" from="CanvasLayer/WholeScreen/WholeCenter/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/WholeScreen/WholeCenter/NavBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WholeCenter/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WholeCenter/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]
