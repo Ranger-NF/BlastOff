@@ -4,14 +4,14 @@ const status_messages = {
     "game_over": "Game Over",
 }
 
-@onready var whole_ui = $CanvasLayer/WholeScreen
+@onready var whole_ui = $WholeScreen
 
-@onready var score_label = $CanvasLayer/WholeScreen/WholeCenter/ScoreBox/Score
-@onready var game_status_label = $CanvasLayer/WholeScreen/WholeCenter/NavBox/GameStatus
-@onready var warning_sign = $CanvasLayer/Warning
-@onready var warning_anim = $CanvasLayer/WarningAnimation
+@onready var score_label = $WholeScreen/ScoreBox/Score
+@onready var game_status_label = $WholeScreen/NavBoxMargin/NavBox/GameStatus
+@onready var warning_sign = $Warning
+@onready var warning_anim = $WarningAnimation
 
-@onready var navigation_box = $CanvasLayer/WholeScreen/WholeCenter/NavBox
+@onready var navigation_box = $WholeScreen/NavBoxMargin/NavBox
 
 var is_warning_on: bool = false
 

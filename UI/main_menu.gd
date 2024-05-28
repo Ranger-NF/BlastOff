@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 func _ready() -> void:
     UiManager.skipped_to_main_menu.connect(_show_ui)

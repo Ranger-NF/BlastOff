@@ -113,6 +113,7 @@ disabled = true
 rotation = 0.523599
 
 [node name="SmallCylinder" type="Node2D" parent="Parts" index="0"]
+visible = false
 position = Vector2(6.63844, -180.502)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/SmallCylinder" index="0"]
@@ -126,6 +127,7 @@ rotation = 1.57079
 shape = SubResource("RectangleShape2D_qd55y")
 
 [node name="MainBody" type="Node2D" parent="Parts" index="1"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/MainBody" index="0"]
 material = SubResource("ShaderMaterial_vrcsk")
@@ -137,6 +139,7 @@ region_rect = Rect2(294.5, 277.094, 194, 311.906)
 shape = SubResource("RectangleShape2D_iyryw")
 
 [node name="PanelRight" type="Node2D" parent="Parts" index="2"]
+visible = false
 position = Vector2(214.483, 5.49484)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/PanelRight" index="0"]
@@ -150,6 +153,7 @@ rotation = 1.57079
 shape = SubResource("RectangleShape2D_naegi")
 
 [node name="PanelLeft" type="Node2D" parent="Parts" index="3"]
+visible = false
 position = Vector2(-210.983, 0.567329)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/PanelLeft" index="0"]
@@ -164,6 +168,7 @@ rotation = 1.57079
 shape = SubResource("RectangleShape2D_5nfb2")
 
 [node name="Dish" type="Node2D" parent="Parts" index="4"]
+visible = false
 position = Vector2(-2.39678, 213.849)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/Dish" index="0"]

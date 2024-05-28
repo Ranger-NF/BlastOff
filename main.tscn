@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://e1b43p4v5huu" path="res://UI/main_menu.tscn" id="8_he1gu"]
 
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
-script/source = "extends Node2D
+script/source = "extends Node
 
 @export var bird_scene: PackedScene
 @export var satellite_scene: PackedScene
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 func spawn_obstacle(obstacle_scene: PackedScene):
     if not obstacle_scene:
         push_error(\"PackedScene is not set in the export section!\")
-    var screen_size = get_viewport_rect().size.x
+    var screen_size = get_viewport().get_visible_rect().size.x
     var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), -250)
 
     var new_obstacle = obstacle_scene.instantiate()
@@ -70,7 +70,7 @@ func _on_satellite_timer_timeout() -> void:
     spawn_obstacle(satellite_scene)
 "
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = SubResource("GDScript_vu1uo")
 bird_scene = ExtResource("1_huqlg")
 satellite_scene = ExtResource("1_e8phi")
@@ -83,10 +83,6 @@ rotation = 0.785397
 wait_time = 3.0
 
 [node name="UI" parent="." instance=ExtResource("3_05n13")]
-offset_left = 11.0
-offset_top = -88.0
-offset_right = 11.0
-offset_bottom = -88.0
 
 [node name="Control" parent="." instance=ExtResource("4_vpkpi")]
 

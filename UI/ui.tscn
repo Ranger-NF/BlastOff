@@ -56,7 +56,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Warning:modulate")
+tracks/0/path = NodePath("../Warning:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -79,19 +79,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1hsrn")
+metadata/_edit_use_anchors_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="WholeCenter" type="VBoxContainer" parent="CanvasLayer"]
-offset_right = 720.0
-offset_bottom = 1200.0
+[node name="WholeScreen" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="ScoreBox" type="VBoxContainer" parent="CanvasLayer/WholeCenter"]
+[node name="ScoreBox" type="VBoxContainer" parent="WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Score" type="Label" parent="CanvasLayer/WholeCenter/ScoreBox"]
+[node name="Score" type="Label" parent="WholeScreen/ScoreBox"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
@@ -105,7 +108,7 @@ theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
-[node name="NavBoxMargin" type="MarginContainer" parent="CanvasLayer/WholeCenter"]
+[node name="NavBoxMargin" type="MarginContainer" parent="WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
@@ -113,11 +116,11 @@ theme_override_constants/margin_top = 200
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 100
 
-[node name="NavBox" type="VBoxContainer" parent="CanvasLayer/WholeCenter/NavBoxMargin"]
+[node name="NavBox" type="VBoxContainer" parent="WholeScreen/NavBoxMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GameStatus" type="Label" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
+[node name="GameStatus" type="Label" parent="WholeScreen/NavBoxMargin/NavBox"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
@@ -132,7 +135,7 @@ text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RestartButton" type="TextureButton" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
+[node name="RestartButton" type="TextureButton" parent="WholeScreen/NavBoxMargin/NavBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -143,7 +146,7 @@ texture_disabled = ExtResource("3_2hbmr")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="BackButton" type="TextureButton" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
+[node name="BackButton" type="TextureButton" parent="WholeScreen/NavBoxMargin/NavBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
@@ -154,24 +157,26 @@ texture_disabled = ExtResource("5_rwuf4")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/WholeCenter/NavBoxMargin/NavBox"]
+[node name="HSeparator" type="HSeparator" parent="WholeScreen/NavBoxMargin/NavBox"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Warning" type="TextureRect" parent="CanvasLayer"]
+[node name="Warning" type="TextureRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_sa2l3")
-offset_right = 64.0
+layout_mode = 0
+offset_right = 71.0
 offset_bottom = 71.0
 texture = ExtResource("1_y1a50")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="WarningAnimation" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="WarningAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
 libraries = {
 "": SubResource("AnimationLibrary_4sb7j")
 }
 
-[connection signal="pressed" from="CanvasLayer/WholeCenter/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/WholeCenter/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]

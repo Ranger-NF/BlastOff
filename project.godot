@@ -26,7 +26,8 @@ UiManager="*res://Managers/ui_manager.gd"
 [display]
 
 window/size/viewport_width=720
-window/size/viewport_height=1200
+window/size/viewport_height=1280
+window/size/mode=2
 window/stretch/mode="viewport"
 window/handheld/orientation=1
 
