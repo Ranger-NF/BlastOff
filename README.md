@@ -1,5 +1,5 @@
 <p align="center">
-<img src="UI/title.svg" width="150" title="BlastOff Logo">
+<img src="UI/title.svg" width="300" title="BlastOff Logo">
 </p>
 
 <h3 align="center">BlastOff</h3>
