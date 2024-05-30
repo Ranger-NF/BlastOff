@@ -6,6 +6,9 @@ const status_messages = {
 
 var active_warnings: Dictionary = {}
 
+@export var show_grid: bool = false
+var grid_size: float = 64
+
 @onready var whole_ui = $WholeScreen
 
 @onready var score_label = $WholeScreen/ScoreBox/Score
@@ -67,3 +70,20 @@ func _on_restart_button_pressed() -> void:
 func _on_back_button_pressed() -> void:
     whole_ui.hide()
     UiManager.emit_signal("skipped_to_main_menu")
+
+# Grid in background
+func _draw():
+    if show_grid:
+
+        var real_size = get_parent_area_size()
+        # Draws on y axis
+        for i in range(1, int((real_size.x) / grid_size) + 1):
+            print(i)
+            draw_line(Vector2(i * grid_size, real_size.y + 100), Vector2(i * grid_size, -real_size.y - 100), "ffffff", 1.1)
+
+        for i in range(int((-real_size.y)/ grid_size) - 1, int((real_size.y) / grid_size) + 1):
+            draw_line(Vector2(real_size.x + 100, i * grid_size), Vector2(-real_size.x - 100, i * grid_size), "ffffff", 1.1)
+
+func _process(_delta):
+    if show_grid:
+        queue_redraw()
