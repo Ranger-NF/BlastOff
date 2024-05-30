@@ -1,9 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=9 format=3 uid="uid://c1tug87fw4xs"]
 
 [ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
 [ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="1_tlx86"]
-[ext_resource type="AudioStream" uid="uid://ce774f803c80v" path="res://Player/swaying-start.wav" id="2_4r723"]
-[ext_resource type="AudioStream" uid="uid://cdu5eytfyxerr" path="res://Player/swaying-loop.wav" id="3_n0nq6"]
 
 [sub_resource type="GDScript" id="GDScript_lpiqs"]
 script/source = "extends Area2D
@@ -218,13 +216,5 @@ offset = Vector2(-1, 0)
 visible = false
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_782wp")
-
-[node name="SwayStart" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_4r723")
-
-[node name="SwayLoop" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_n0nq6")
-
-[node name="SwayStop" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

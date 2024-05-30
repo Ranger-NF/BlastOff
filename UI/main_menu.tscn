@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://e1b43p4v5huu"]
+[gd_scene load_steps=10 format=3 uid="uid://e1b43p4v5huu"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
 [ext_resource type="Texture2D" uid="uid://um1qa2qyq4vl" path="res://UI/title.svg" id="2_j4afl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bvldagnir7jd8" path="res://UI/Buttons/options_normal.png" id="5_32w5n"]
 [ext_resource type="Texture2D" uid="uid://dv70mhv0hjj0y" path="res://UI/Buttons/options_pressed.png" id="6_06i4e"]
 [ext_resource type="Texture2D" uid="uid://dqsn001eavjho" path="res://UI/Buttons/quit_pressed.png" id="6_bv2wb"]
+[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="9_8itks"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -68,7 +69,6 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="OptionsButton" type="TextureButton" parent="VBoxContainer/MarginContainer/ButtonBox"]
-visible = false
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 texture_normal = ExtResource("5_32w5n")
@@ -90,5 +90,10 @@ texture_disabled = ExtResource("6_bv2wb")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_8itks")
+volume_db = 10.0
+
 [connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]

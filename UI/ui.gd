@@ -15,7 +15,9 @@ var grid_size: float = 64
 @onready var game_status_label = $WholeScreen/NavBoxMargin/NavBox/GameStatus
 @onready var warning_sign: AnimatedSprite2D = $WarningSign
 
+
 @onready var navigation_box = $WholeScreen/NavBoxMargin/NavBox
+@onready var button_pressed_sound = $ButtonSound
 
 var is_warning_on: bool = false
 
@@ -65,25 +67,13 @@ func _on_game_start() -> void:
     navigation_box.hide()
 
 func _on_restart_button_pressed() -> void:
+    _on_button_pressed()
     GameManager.emit_signal("game_started")
 
 func _on_back_button_pressed() -> void:
+    _on_button_pressed()
     whole_ui.hide()
     UiManager.emit_signal("skipped_to_main_menu")
 
-# Grid in background
-func _draw():
-    if show_grid:
-
-        var real_size = get_parent_area_size()
-        # Draws on y axis
-        for i in range(1, int((real_size.x) / grid_size) + 1):
-            print(i)
-            draw_line(Vector2(i * grid_size, real_size.y + 100), Vector2(i * grid_size, -real_size.y - 100), "ffffff", 1.1)
-
-        for i in range(int((-real_size.y)/ grid_size) - 1, int((real_size.y) / grid_size) + 1):
-            draw_line(Vector2(real_size.x + 100, i * grid_size), Vector2(-real_size.x - 100, i * grid_size), "ffffff", 1.1)
-
-func _process(_delta):
-    if show_grid:
-        queue_redraw()
+func _on_button_pressed() -> void:
+    button_pressed_sound.play()

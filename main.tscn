@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=11 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="PackedScene" uid="uid://bgdnuqx4a3jm7" path="res://Enemies/Satellite/satellite.tscn" id="1_e8phi"]
 [ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="1_huqlg"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
 [ext_resource type="AudioStream" uid="uid://ciqy1wnkunlb1" path="res://Music/homely_arcade.ogg" id="6_bev8e"]
 [ext_resource type="PackedScene" uid="uid://e1b43p4v5huu" path="res://UI/main_menu.tscn" id="8_he1gu"]
+[ext_resource type="PackedScene" uid="uid://cqagkxdakpnt" path="res://UI/settings.tscn" id="9_3pxcm"]
 
 [sub_resource type="GDScript" id="GDScript_vu1uo"]
 script/source = "extends Node
@@ -98,6 +99,8 @@ bus = &"Music"
 [node name="SatelliteTimer" type="Timer" parent="."]
 
 [node name="MainMenu" parent="." instance=ExtResource("8_he1gu")]
+
+[node name="Settings" parent="." instance=ExtResource("9_3pxcm")]
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]
 [connection signal="timeout" from="SatelliteTimer" to="." method="_on_satellite_timer_timeout"]

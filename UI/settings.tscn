@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqagkxdakpnt"]
+
+[ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="1_rwypn"]
+[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="2_ke0fy"]
+[ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="2_pqhcu"]
+
+[sub_resource type="GDScript" id="GDScript_0q6tk"]
+script/source = "extends Control
+
+func _ready() -> void:
+    self.hide()
+    UiManager.opened_settings.connect(_on_settings_opened)
+
+func _on_settings_opened() -> void:
+    self.show()
+
+func _on_back_button_pressed() -> void:
+    self.hide()
+    UiManager.emit_signal(\"skipped_to_main_menu\")
+"
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_0q6tk")
+metadata/_edit_use_anchors_ = true
+
+[node name="WholeScreen" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="WholeScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BackButton" type="TextureButton" parent="WholeScreen/MarginContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_rwypn")
+texture_pressed = ExtResource("2_pqhcu")
+texture_hover = ExtResource("2_pqhcu")
+texture_disabled = ExtResource("2_pqhcu")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ke0fy")
+volume_db = 10.0
+
+[connection signal="pressed" from="WholeScreen/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]

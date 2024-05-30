@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=13 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://x1x1mjgeu20w" path="res://UI/Buttons/restart_pressed.png" id="3_2hbmr"]
 [ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="4_41q4p"]
 [ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="5_rwuf4"]
+[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="7_wggd6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
@@ -165,6 +166,10 @@ scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_l5kil")
 autoplay = "default"
 frame_progress = 0.989522
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_wggd6")
+volume_db = 10.0
 
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]
