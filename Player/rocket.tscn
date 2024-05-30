@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=11 format=3 uid="uid://c1tug87fw4xs"]
 
+[ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
 [ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="1_tlx86"]
 [ext_resource type="AudioStream" uid="uid://ce774f803c80v" path="res://Player/swaying-start.wav" id="2_4r723"]
 [ext_resource type="AudioStream" uid="uid://cdu5eytfyxerr" path="res://Player/swaying-loop.wav" id="3_n0nq6"]
@@ -11,6 +12,8 @@ const max_speed: float = 100
 const acceleration: float = 70
 const friction = 90
 const rotation_per_frame = 50 # in degrees
+
+@onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
 
 enum {
     LEFT = -1,
@@ -28,10 +31,16 @@ var move_direction: int # Uses const LEFT/RIGHT
 var rotation_reset_tween: Tween
 var time_idle: float = 0
 
+var initial_flame_speed: float
+
 func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
+
+    GameManager.level_up.connect(_on_level_up)
     self.connect(\"player_hurt\", _on_hurt)
+
+    initial_flame_speed = GameManager.rocket_speed
 
 func apply_friction(velocity: float, delta: float) -> float:
     var magniitude_of_vec = abs(velocity)
@@ -116,12 +125,15 @@ func _on_game_start() -> void:
     self.position.x = screen_size.x / 2
     self.position.y = 0.8 * screen_size.y
 
-    $CPUParticles2D.emitting = true
+    flame_particle_node.emitting = true
     is_game_running = true
 
 func _on_game_over() -> void:
-    $CPUParticles2D.emitting = false
+    flame_particle_node.emitting = false
     is_game_running = false
+
+func _on_level_up():
+    flame_particle_node.speed_scale = GameManager.rocket_speed / initial_flame_speed
 "
 
 [sub_resource type="Curve" id="Curve_7spor"]
@@ -129,10 +141,10 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_vflus"]
-offsets = PackedFloat32Array(0, 0.607143, 1)
-colors = PackedColorArray(1, 1, 0.0313726, 1, 0.752844, 0.215496, 0, 1, 0.290196, 0.290196, 0.290196, 0.521569)
+offsets = PackedFloat32Array(0, 0.25, 0.767857)
+colors = PackedColorArray(1, 1, 0.0313726, 1, 0.972549, 0.0431373, 0, 1, 0, 0, 0, 1)
 
-[sub_resource type="Shader" id="Shader_64uhu"]
+[sub_resource type="Shader" id="Shader_00np7"]
 code = "/**
 * Shadow 2D.
 * License: CC0
@@ -166,7 +178,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5uuih"]
-shader = SubResource("Shader_64uhu")
+shader = SubResource("Shader_00np7")
 shader_parameter/deform = Vector2(0, 0)
 shader_parameter/offset = Vector2(-20, -20)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
@@ -180,14 +192,19 @@ collision_layer = 2
 script = SubResource("GDScript_lpiqs")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(3, 107)
+position = Vector2(1, 95)
 emitting = false
-amount = 30
-lifetime = 0.5
+amount = 10
+lifetime = 0.3
+texture = ExtResource("1_dksgl")
 emission_shape = 1
-emission_sphere_radius = 15.0
-scale_amount_min = 10.0
-scale_amount_max = 25.0
+emission_sphere_radius = 1.0
+direction = Vector2(0, 1)
+spread = 0.0
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+scale_amount_min = 15.0
+scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_7spor")
 color_ramp = SubResource("Gradient_vflus")
 

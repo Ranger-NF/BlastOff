@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vufohlv80y1h"
-path="res://.godot/imported/adaptive_background_icon.png-94c323406b76432d4e90014c98c958a4.ctex"
+uid="uid://dsjy7ft70oyse"
+path="res://.godot/imported/flame_particle.svg-cd6ab756938af5a4425ac337d4bd3f05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/godot-specific/adaptive_background_icon.png"
-dest_files=["res://.godot/imported/adaptive_background_icon.png-94c323406b76432d4e90014c98c958a4.ctex"]
+source_file="res://Player/flame_particle.svg"
+dest_files=["res://.godot/imported/flame_particle.svg-cd6ab756938af5a4425ac337d4bd3f05.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=0.025
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

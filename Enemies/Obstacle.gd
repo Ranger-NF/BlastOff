@@ -5,6 +5,8 @@ extends Area2D
 @export var can_be_grouped: bool = false
 @export var can_move_horizontally: bool = true
 
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
 
@@ -14,6 +16,8 @@ enum {
 }
 
 # For objects that move across the screen
+var horizontal_min_speed: float = 3
+var horizontal_max_speed: float = 10
 var horizontal_speed: float = 0 # Should be constant speed
 
 var direction_to_move: int # Left or Right
@@ -21,13 +25,17 @@ var direction_to_move: int # Left or Right
 func _ready() -> void:
     can_move = true
     if can_move_horizontally:
-        horizontal_speed = randf_range(3, 10) # Randomize
+        horizontal_speed = randf_range(3, 10 ) # Randomize
 
     var horizontal_screen_size = get_viewport_rect().size.x
     if horizontal_speed != 0 and self.position.x > (horizontal_screen_size / 2): # If on the right side move to left
         direction_to_move = LEFT
     else:
         direction_to_move = RIGHT
+
+func _change_anim_speed():
+    var new_speed_scale =  horizontal_speed / ((horizontal_min_speed + horizontal_max_speed)/2)
+    animated_sprite.speed_scale = new_speed_scale
 
 func free_fall(delta) -> void:
     move_vec.y = (GameManager.rocket_speed * free_fall_multiplier * delta)
