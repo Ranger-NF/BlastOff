@@ -93,6 +93,7 @@ stretch_mode = 5
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_8itks")
 volume_db = 10.0
+bus = &"UI"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/ButtonBox/OptionsButton" to="." method="_on_options_button_pressed"]

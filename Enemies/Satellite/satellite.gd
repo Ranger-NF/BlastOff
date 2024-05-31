@@ -3,7 +3,8 @@ extends "res://Enemies/Obstacle.gd"
 @onready var parts_group: Node2D = $Parts
 var instance_id: int
 
-func _ready() -> void:
+
+func _further_setup() -> void:
     instance_id = StatManager.satellite_number # Gives it unique id
     StatManager.satellite_number += 1
 
@@ -44,4 +45,3 @@ func _on_warn_timer_timeout() -> void:
 
 func _on_game_over() -> void:
     UiManager.emit_signal("warning_withdrawn", instance_id)
-    queue_free()

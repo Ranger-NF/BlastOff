@@ -170,6 +170,7 @@ frame_progress = 0.989522
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_wggd6")
 volume_db = 10.0
+bus = &"UI"
 
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]

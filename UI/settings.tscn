@@ -7,16 +7,51 @@
 [sub_resource type="GDScript" id="GDScript_0q6tk"]
 script/source = "extends Control
 
+@onready var master_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide
+@onready var music_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider
+@onready var sfx_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider
+@onready var ui_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider
+
+@onready var button_pressed_sound = $ButtonSound
+
+var volume_offset:float = 0
+
 func _ready() -> void:
     self.hide()
     UiManager.opened_settings.connect(_on_settings_opened)
 
 func _on_settings_opened() -> void:
     self.show()
+    master_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.MASTER)) + volume_offset
+    music_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.MUSIC)) + volume_offset
+    sfx_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.SFX)) + volume_offset
+    ui_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.UI)) + volume_offset
 
 func _on_back_button_pressed() -> void:
     self.hide()
+    _on_button_pressed()
     UiManager.emit_signal(\"skipped_to_main_menu\")
+
+func _on_master_slide_drag_ended(_value_changed: bool) -> void:
+    _on_button_pressed()
+    SoundManager.set_bus_volume(SoundManager.MASTER, linear_to_db(master_slider.value - volume_offset))
+
+func _on_music_slider_drag_ended(_value_changed: bool) -> void:
+    _on_button_pressed()
+    SoundManager.set_bus_volume(SoundManager.MUSIC, linear_to_db(music_slider.value - volume_offset))
+
+func _on_sfx_slider_drag_ended(_value_changed: bool) -> void:
+    _on_button_pressed()
+    SoundManager.set_bus_volume(SoundManager.SFX, linear_to_db(sfx_slider.value - volume_offset))
+
+func _on_ui_slider_drag_ended(_value_changed: bool) -> void:
+    _on_button_pressed()
+    SoundManager.set_bus_volume(SoundManager.UI, linear_to_db(ui_slider.value - volume_offset))
+
+func _on_button_pressed() -> void:
+    button_pressed_sound.play()
+
+
 "
 
 [node name="Settings" type="Control"]
@@ -29,27 +64,23 @@ grow_vertical = 2
 script = SubResource("GDScript_0q6tk")
 metadata/_edit_use_anchors_ = true
 
-[node name="WholeScreen" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 720.0
+offset_bottom = 1280.0
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="WholeScreen" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="WholeScreen"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="BackButton" type="TextureButton" parent="WholeScreen/MarginContainer"]
+[node name="BackButton" type="TextureButton" parent="MarginContainer/WholeScreen"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-size_flags_vertical = 3
 texture_normal = ExtResource("1_rwypn")
 texture_pressed = ExtResource("2_pqhcu")
 texture_hover = ExtResource("2_pqhcu")
@@ -57,8 +88,107 @@ texture_disabled = ExtResource("2_pqhcu")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Labels" type="VBoxContainer" parent="MarginContainer/WholeScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Master" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Master"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Sound Effects"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "User Interface"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sliders" type="VBoxContainer" parent="MarginContainer/WholeScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MasterSlide" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+
+[node name="SfxSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+
+[node name="UiSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.05
+
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ke0fy")
 volume_db = 10.0
+bus = &"UI"
 
-[connection signal="pressed" from="WholeScreen/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/WholeScreen/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide" to="." method="_on_master_slide_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider" to="." method="_on_ui_slider_drag_ended"]

@@ -4,7 +4,6 @@ extends "res://Enemies/Obstacle.gd"
 
 @onready var clipping_area: CollisionShape2D = $DetectionArea/CollisionShape2D
 
-
 enum {
     BACK,
     TOP,
@@ -54,3 +53,8 @@ func _transfer_flock_properties(new_member: Node) -> Node:
     new_member.initial_leader_pos = initial_leader_pos
 
     return new_member
+
+func _after_hit():
+    self.horizontal_speed = 0
+    animated_sprite.flip_v = true
+    animated_sprite.stop()

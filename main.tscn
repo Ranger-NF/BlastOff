@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=12 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lyfac"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
+[ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="2_poxg6"]
 [ext_resource type="PackedScene" uid="uid://0ckqin0njvj4" path="res://UI/ui.tscn" id="3_05n13"]
+[ext_resource type="PackedScene" uid="uid://bgdnuqx4a3jm7" path="res://Enemies/Satellite/satellite.tscn" id="3_pltus"]
 [ext_resource type="PackedScene" uid="uid://djfl3lk86q0wd" path="res://UI/control.tscn" id="4_vpkpi"]
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
 [ext_resource type="AudioStream" uid="uid://ciqy1wnkunlb1" path="res://Music/homely_arcade.ogg" id="6_bev8e"]
@@ -17,6 +19,8 @@ point_count = 2
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lyfac")
+bird_scene = ExtResource("2_poxg6")
+satellite_scene = ExtResource("3_pltus")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(313, -151)
@@ -26,6 +30,7 @@ rotation = 0.785397
 wait_time = 3.0
 
 [node name="UI" parent="." instance=ExtResource("3_05n13")]
+z_index = 5
 
 [node name="Control" parent="." instance=ExtResource("4_vpkpi")]
 
@@ -40,8 +45,10 @@ bus = &"Music"
 [node name="SatelliteTimer" type="Timer" parent="."]
 
 [node name="MainMenu" parent="." instance=ExtResource("8_he1gu")]
+z_index = 5
 
 [node name="Settings" parent="." instance=ExtResource("9_3pxcm")]
+z_index = 5
 
 [node name="ObstaclePath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_e3rry")

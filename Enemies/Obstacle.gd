@@ -10,7 +10,9 @@ var is_flock_leader: bool = true
 var flock_speed: float = 10
 var initial_leader_pos: Vector2 = Vector2.ZERO
 
+@onready var hit_sound: AudioStreamPlayer = $HitSound
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
@@ -22,6 +24,7 @@ var horizontal_speed: float = 0 # Should be constant speed
 
 func _ready() -> void:
     can_move = true
+    GameManager.game_over.connect(_on_game_over)
     if can_move_horizontally:
         _determine_horizontal_movement()
 
@@ -76,3 +79,22 @@ func limit_speed(current_speed: float, max_speed: float) -> float:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     queue_free()
+
+func _on_hit() -> void:
+    collision_shape.disabled = true
+    hit_sound.play()
+    if self.has_method("_after_hit"): self.call("_after_hit")
+
+func _on_game_over() -> void:
+    collision_shape.disabled = true
+    if horizontal_speed != 0:
+
+        if horizontal_speed < 0: # Preventing from changing directions
+            horizontal_speed = -1 * horizontal_max_speed * 1.5
+        else:
+            horizontal_speed = horizontal_max_speed * 1.5
+
+        free_fall_multiplier = 0
+        _change_anim_speed()
+    else:
+        free_fall_multiplier += 1

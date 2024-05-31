@@ -22,14 +22,32 @@ enum {
 signal player_hurt
 
 var is_game_running: bool = false
+var is_free_falling: bool = false
 
 var move_vec: Vector2
 var move_direction: int # Uses const LEFT/RIGHT
 
 var rotation_reset_tween: Tween
+var faceplant_tween: Tween
 var time_idle: float = 0
 
 var initial_flame_speed: float
+
+func _reset_properties() -> void:
+    self.show()
+    $CollisionShape2D.disabled = false
+
+    if faceplant_tween:
+        faceplant_tween.stop()
+        faceplant_tween.kill()
+
+    move_vec = Vector2.ZERO
+    is_free_falling = false
+    self.rotation = 0
+    var screen_size = get_viewport_rect().size
+
+    self.position.x = screen_size.x / 2
+    self.position.y = 0.8 * screen_size.y
 
 func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
@@ -64,7 +82,12 @@ func sway(sway_direction: int, delta: float) -> void:
         rotation_reset_tween = create_tween()
         rotation_reset_tween.tween_property(self, \"rotation\", 0, 0.1).set_trans(Tween.TRANS_SPRING)
 
+func _free_fall(delta) -> void:
+    self.position.y += (GameManager.rocket_speed * delta)
+
 func move(delta: float):
+    if is_free_falling:
+        return
     # Increment velocity with acceleration if given the input
     if GameManager.is_left_button_pressed or GameManager.is_right_button_pressed: # Checking whether either button is pressed
         if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If both buttons are pressed, cancel it
@@ -104,34 +127,49 @@ func move(delta: float):
         move_vec = Vector2.ZERO # Resets the velocity to sudden stop
 
 func _physics_process(delta: float) -> void:
-    if is_game_running:
+    if is_game_running and not is_free_falling:
         move(delta)
+    elif is_free_falling:
+        _free_fall(delta) # When the rocket hits something
 
 func _on_hurt():
+    if is_free_falling:
+        return
+
     GameManager.emit_signal(\"game_over\")
-    print(\"PLACEHOLDER: Player got hurt\")
+    flame_particle_node.emitting = false
+    is_free_falling = true
+
+    if faceplant_tween:
+        faceplant_tween.stop()
+        faceplant_tween.kill()
+
+    faceplant_tween = create_tween()
+    faceplant_tween.tween_property(self, \"rotation\", deg_to_rad(180), 0.5)
+    $CollisionShape2D.disabled = true
 
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
     if area.is_in_group(\"obstacles\"):
+        if area.has_method(\"_on_hit\"):
+            area.call(\"_on_hit\")
+
         emit_signal(\"player_hurt\")
 
+
 func _on_game_start() -> void:
-    move_vec = Vector2.ZERO
-    self.rotation = 0
-    var screen_size = get_viewport_rect().size
-
-    self.position.x = screen_size.x / 2
-    self.position.y = 0.8 * screen_size.y
-
+    _reset_properties()
     flame_particle_node.emitting = true
     is_game_running = true
 
 func _on_game_over() -> void:
     flame_particle_node.emitting = false
-    is_game_running = false
 
 func _on_level_up():
     flame_particle_node.speed_scale = GameManager.rocket_speed / initial_flame_speed
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+    self.hide()
+    is_game_running = false
 "
 
 [sub_resource type="Curve" id="Curve_7spor"]
@@ -217,4 +255,9 @@ visible = false
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_782wp")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.5, 18.5)
+scale = Vector2(8.05, 13.95)
+
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

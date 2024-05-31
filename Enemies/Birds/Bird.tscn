@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1quod1k2hh1j"]
+[gd_scene load_steps=16 format=3 uid="uid://c1quod1k2hh1j"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_cgdr0"]
 [ext_resource type="Texture2D" uid="uid://kr8ni565sxwv" path="res://Enemies/Birds/birds.png" id="2_1s2n1"]
 [ext_resource type="Script" path="res://Enemies/Birds/Bird.gd" id="2_5ajeh"]
+[ext_resource type="AudioStream" uid="uid://dnxh2056kd87m" path="res://Enemies/Birds/bird_hit.wav" id="4_r6nau"]
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -108,6 +109,10 @@ monitoring = false
 script = ExtResource("2_5ajeh")
 max_flock_size = 4
 
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(1.90735e-06, -14)
+scale = Vector2(6, 3.9)
+
 [node name="AnimatedSprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_dm2ne")
 scale = Vector2(0.6, 0.6)
@@ -121,7 +126,11 @@ frame_progress = 0.00976447
 position = Vector2(6, -11)
 rotation = 1.2977
 
-[node name="DetectionArea" type="Node2D" parent="." index="3"]
+[node name="HitSound" parent="." index="3"]
+stream = ExtResource("4_r6nau")
+volume_db = 15.0
+
+[node name="DetectionArea" type="Node2D" parent="." index="4"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
 position = Vector2(0, -10)

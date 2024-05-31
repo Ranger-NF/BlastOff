@@ -12,7 +12,7 @@ var is_left_button_pressed: bool = false
 var is_right_button_pressed: bool = false
 
 var flock_probability: float = 0.2
-var satellite_falling_propability: float = 0.2
+var satellite_falling_propability: float = 1
 
 func _ready() -> void:
     self.level_up.connect(_increase_difficulty)

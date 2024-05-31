@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgdnuqx4a3jm7"]
+[gd_scene load_steps=16 format=3 uid="uid://bgdnuqx4a3jm7"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_e8dws"]
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="2_2ugaj"]
 [ext_resource type="Script" path="res://Enemies/Satellite/satellite.gd" id="2_6vcrh"]
 [ext_resource type="Texture2D" uid="uid://ds65ogo3ytjd" path="res://Enemies/Satellite/satellite.svg" id="2_r0xs0"]
+[ext_resource type="AudioStream" uid="uid://ce5m3dxget042" path="res://Enemies/Satellite/satellite_hit.wav" id="5_leqcr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_obnki"]
 animations = [{
@@ -91,7 +92,8 @@ can_move_horizontally = false
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
 visible = false
-scale = Vector2(1, 9)
+position = Vector2(10, 4.16669)
+scale = Vector2(1.90667, 11.6333)
 rect = Rect2(-125, -25, 250, 50)
 
 [node name="AnimatedSprite2D" parent="." index="1"]
@@ -106,9 +108,13 @@ rotation = 0.523598
 shape = null
 disabled = true
 
-[node name="WarnTimer" type="Timer" parent="." index="3"]
+[node name="HitSound" parent="." index="3"]
+stream = ExtResource("5_leqcr")
+volume_db = 10.0
 
-[node name="Parts" type="Node2D" parent="." index="4"]
+[node name="WarnTimer" type="Timer" parent="." index="4"]
+
+[node name="Parts" type="Node2D" parent="." index="5"]
 rotation = 0.523599
 
 [node name="SmallCylinder" type="Node2D" parent="Parts" index="0"]
