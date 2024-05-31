@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1quod1k2hh1j"]
+[gd_scene load_steps=15 format=3 uid="uid://c1quod1k2hh1j"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_cgdr0"]
 [ext_resource type="Texture2D" uid="uid://kr8ni565sxwv" path="res://Enemies/Birds/birds.png" id="2_1s2n1"]
@@ -100,8 +100,13 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_63gsg"]
+radius = 79.4292
+
 [node name="Bird" instance=ExtResource("1_cgdr0")]
+monitoring = false
 script = ExtResource("2_5ajeh")
+max_flock_size = 4
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_dm2ne")
@@ -115,3 +120,10 @@ frame_progress = 0.00976447
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(6, -11)
 rotation = 1.2977
+
+[node name="DetectionArea" type="Node2D" parent="." index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_63gsg")
+disabled = true

@@ -11,7 +11,7 @@ var rocket_speed: float = 600
 var is_left_button_pressed: bool = false
 var is_right_button_pressed: bool = false
 
-var flock_probability: float = 0.1
+var flock_probability: float = 0.2
 var satellite_falling_propability: float = 0.2
 
 func _ready() -> void:

@@ -5,33 +5,47 @@ extends Area2D
 @export var can_be_grouped: bool = false
 @export var can_move_horizontally: bool = true
 
+## Variables to configure groups
+var is_flock_leader: bool = true
+var flock_speed: float = 10
+var initial_leader_pos: Vector2 = Vector2.ZERO
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
 
-enum {
-    LEFT,
-    RIGHT
-}
-
 # For objects that move across the screen
 var horizontal_min_speed: float = 3
-var horizontal_max_speed: float = 10
+var horizontal_max_speed: float = 6
 var horizontal_speed: float = 0 # Should be constant speed
-
-var direction_to_move: int # Left or Right
 
 func _ready() -> void:
     can_move = true
     if can_move_horizontally:
-        horizontal_speed = randf_range(3, 10 ) # Randomize
+        _determine_horizontal_movement()
+
+    if self.has_method("_further_setup"):
+        self.call("_further_setup")
+
+func _determine_horizontal_movement() -> void:
+    if is_flock_leader:
+        horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
+        flock_speed = horizontal_speed
+    else:
+        horizontal_speed = flock_speed
 
     var horizontal_screen_size = get_viewport_rect().size.x
-    if horizontal_speed != 0 and self.position.x > (horizontal_screen_size / 2): # If on the right side move to left
-        direction_to_move = LEFT
-    else:
-        direction_to_move = RIGHT
+
+    var initial_pos = self.position
+
+    if not is_flock_leader: # To prevent members of flock from flying to opposite side
+        initial_pos = initial_leader_pos
+
+    if initial_pos.x > (horizontal_screen_size / 2): # If on the right side move to left
+        horizontal_speed *= -1 # Make it move to left side (-ve x)
+        $AnimatedSprite2D.flip_h = true
+
 
 func _change_anim_speed():
     var new_speed_scale =  horizontal_speed / ((horizontal_min_speed + horizontal_max_speed)/2)
@@ -47,15 +61,9 @@ func _physics_process(delta: float) -> void:
         return
 
     free_fall(delta)
-    if not horizontal_speed == 0:
 
-        match direction_to_move:
-            RIGHT:
-                move_vec.x += (horizontal_speed * delta)
-                $AnimatedSprite2D.flip_h = false
-            LEFT:
-                move_vec.x += -1 * (horizontal_speed * delta) # Make it move to left side (-ve x)
-                $AnimatedSprite2D.flip_h = true
+    if can_move_horizontally:
+        move_vec.x += (horizontal_speed * delta)
 
         move_vec.x = limit_speed(move_vec.x, horizontal_speed)
         self.position.x += move_vec.x

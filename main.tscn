@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=12 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="PackedScene" uid="uid://bgdnuqx4a3jm7" path="res://Enemies/Satellite/satellite.tscn" id="1_e8phi"]
 [ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="1_huqlg"]
@@ -19,6 +19,8 @@ script/source = "extends Node
 @onready var obstacle_timer: Timer = $ObstacleTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
 
+@onready var obstacle_path = $ObstaclePath/PathFollow2D
+
 var is_game_running: bool = false
 
 func _ready() -> void:
@@ -36,8 +38,10 @@ func spawn_obstacle(obstacle_scene: PackedScene):
     if not obstacle_scene:
         push_error(\"PackedScene is not set in the export section!\")
 
-    var screen_size = get_viewport().get_visible_rect().size.x
-    var spawn_location = Vector2(randf_range(0.05 * screen_size, 0.95 * screen_size), -250)
+    obstacle_path.progress_ratio = randf()
+
+    var rand_xpos_on_path = obstacle_path.position.x
+    var spawn_location = Vector2(rand_xpos_on_path, -250)
 
     var new_obstacle = obstacle_scene.instantiate()
     new_obstacle.position = spawn_location
@@ -72,6 +76,12 @@ func _on_satellite_timer_timeout() -> void:
     spawn_obstacle(satellite_scene)
 "
 
+[sub_resource type="Curve2D" id="Curve2D_e3rry"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 720, 0)
+}
+point_count = 2
+
 [node name="Main" type="Node"]
 script = SubResource("GDScript_vu1uo")
 bird_scene = ExtResource("1_huqlg")
@@ -101,6 +111,11 @@ bus = &"Music"
 [node name="MainMenu" parent="." instance=ExtResource("8_he1gu")]
 
 [node name="Settings" parent="." instance=ExtResource("9_3pxcm")]
+
+[node name="ObstaclePath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_e3rry")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="ObstaclePath"]
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]
 [connection signal="timeout" from="SatelliteTimer" to="." method="_on_satellite_timer_timeout"]
