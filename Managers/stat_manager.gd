@@ -9,13 +9,19 @@ var current_level: int = 1
 # Variable for obstacles
 var satellite_number: int = 0 # Resets to zero whenver game restarts [Incremented in satellite scene]
 
+func _ready() -> void:
+    GameManager.game_over.connect(_check_high_score)
+
 func _calculate_score() -> void:
     score_gained = roundi(current_level * time_spent)
 
     if !(roundi(score_gained) % roundi(pow(10, current_level))) and score_gained != 0:
         current_level += 1
-        print(current_level)
         GameManager.emit_signal("level_up")
 
 func _physics_process(_delta: float) -> void:
     _calculate_score()
+
+func _check_high_score() -> void:
+    if score_gained > DataManager.gameplay.high_score:
+        DataManager.gameplay.high_score = score_gained

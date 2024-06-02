@@ -1,9 +1,17 @@
 extends Control
 
 @onready var button_pressed_sound: AudioStreamPlayer = $ButtonSound
+@onready var high_score_label: Label = $VBoxContainer/TitleBox/VBoxContainer/HighScore
 
 func _ready() -> void:
     UiManager.skipped_to_main_menu.connect(_show_ui)
+
+    if DataManager.gameplay.high_score > 0:
+        _show_high_score()
+
+func _show_high_score() -> void:
+    high_score_label.text = "High Score: " + str(DataManager.gameplay.high_score)
+    high_score_label.show()
 
 func _show_ui() -> void:
     self.show()

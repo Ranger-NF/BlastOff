@@ -81,12 +81,12 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     queue_free()
 
 func _on_hit() -> void:
-    collision_shape.disabled = true
+    collision_shape.set_deferred("disabled", true)
     hit_sound.play()
     if self.has_method("_after_hit"): self.call("_after_hit")
 
 func _on_game_over() -> void:
-    collision_shape.disabled = true
+    collision_shape.set_deferred("disabled", true)
     if horizontal_speed != 0:
 
         if horizontal_speed < 0: # Preventing from changing directions

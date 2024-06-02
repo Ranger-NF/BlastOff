@@ -22,6 +22,7 @@ GameManager="*res://Managers/game_manager.gd"
 StatManager="*res://Managers/stat_manager.gd"
 SoundManager="*res://Managers/sound_manager.gd"
 UiManager="*res://Managers/ui_manager.gd"
+DataManager="*res://Managers/data_manager.gd"
 
 [display]
 

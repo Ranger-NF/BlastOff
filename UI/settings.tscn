@@ -31,6 +31,7 @@ func _on_back_button_pressed() -> void:
     self.hide()
     _on_button_pressed()
     UiManager.emit_signal(\"skipped_to_main_menu\")
+    DataManager.emit_signal(\"save_triggered\")
 
 func _on_master_slide_drag_ended(_value_changed: bool) -> void:
     _on_button_pressed()

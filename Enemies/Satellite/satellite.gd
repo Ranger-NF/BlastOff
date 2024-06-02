@@ -8,7 +8,7 @@ func _further_setup() -> void:
     instance_id = StatManager.satellite_number # Gives it unique id
     StatManager.satellite_number += 1
 
-    GameManager.game_over.connect(_on_game_over)
+    GameManager.game_over.connect(func (): UiManager.emit_signal("warning_withdrawn", instance_id))
     can_move = false
     UiManager.emit_signal("warning_announced", self.position.x, instance_id)
     $WarnTimer.start(2)
@@ -43,5 +43,3 @@ func _on_warn_timer_timeout() -> void:
     can_move = true
     UiManager.emit_signal("warning_withdrawn", instance_id)
 
-func _on_game_over() -> void:
-    UiManager.emit_signal("warning_withdrawn", instance_id)

@@ -63,12 +63,11 @@ shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
 [node name="Background" type="ParallaxBackground"]
 script = SubResource("GDScript_f6ao8")
-metadata/_edit_horizontal_guides_ = [2105.0]
 
 [node name="BigClouds" type="ParallaxLayer" parent="."]
 position = Vector2(0, 17)
 scale = Vector2(1, 0.988805)
-motion_scale = Vector2(0.08, 0.08)
+motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(0, 1640)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="BigClouds"]

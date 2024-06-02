@@ -1,0 +1,7 @@
+Stats to be saved:
+- High score (Initially zero)
+- Bus volumes (Initially one)
+
+There will be 1 file with 2 sections that will be saved to disks
+1) Gameplay - Contains data about previous runs
+2) Settings - Data about settings (music volume, etc.)

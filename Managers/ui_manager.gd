@@ -5,3 +5,17 @@ signal warning_withdrawn(warning_id: int)
 
 signal skipped_to_main_menu
 signal opened_settings
+
+signal first_startup
+signal show_tutorial
+
+var need_tutorial: bool = false
+
+func _ready() -> void:
+    self.first_startup.connect(func () -> void: need_tutorial = true)
+    GameManager.game_started.connect(_check_tutorial_need)
+
+func _check_tutorial_need() -> void:
+    if need_tutorial:
+        emit_signal("show_tutorial")
+        need_tutorial = false

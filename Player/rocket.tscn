@@ -53,7 +53,7 @@ func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
 
-    GameManager.level_up.connect(_on_level_up)
+    GameManager.rocket_speed_changed.connect(_on_rocket_speed_changed)
     self.connect(\"player_hurt\", _on_hurt)
 
     initial_flame_speed = GameManager.rocket_speed
@@ -146,7 +146,7 @@ func _on_hurt():
 
     faceplant_tween = create_tween()
     faceplant_tween.tween_property(self, \"rotation\", deg_to_rad(180), 0.5)
-    $CollisionShape2D.disabled = true
+    $CollisionShape2D.set_deferred(\"disabled\", true)
 
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
     if area.is_in_group(\"obstacles\"):
@@ -164,7 +164,7 @@ func _on_game_start() -> void:
 func _on_game_over() -> void:
     flame_particle_node.emitting = false
 
-func _on_level_up():
+func _on_rocket_speed_changed():
     flame_particle_node.speed_scale = GameManager.rocket_speed / initial_flame_speed
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
