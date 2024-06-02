@@ -50,6 +50,7 @@ func _reset_properties() -> void:
     self.position.y = 0.8 * screen_size.y
 
 func _ready() -> void:
+    self.hide()
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
 

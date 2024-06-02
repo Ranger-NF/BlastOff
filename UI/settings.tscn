@@ -53,6 +53,7 @@ func _on_credits_button_pressed() -> void:
     _on_button_pressed()
     self.hide()
     UiManager.emit_signal(\"opened_credits\")
+    DataManager.emit_signal(\"save_triggered\")
 
 func _on_button_pressed() -> void:
     button_pressed_sound.play()

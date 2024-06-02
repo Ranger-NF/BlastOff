@@ -38,7 +38,7 @@ z_index = 5
 
 [node name="Background" parent="." instance=ExtResource("5_rc5yt")]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_bev8e")
 autoplay = true
 mix_target = 2
@@ -64,4 +64,5 @@ visible = false
 [node name="Credits" parent="." instance=ExtResource("12_6ohcc")]
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="finished" from="Music" to="." method="_on_audio_stream_player_finished"]
 [connection signal="timeout" from="SatelliteTimer" to="." method="_on_satellite_timer_timeout"]

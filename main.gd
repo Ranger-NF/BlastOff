@@ -7,6 +7,7 @@ extends Node
 @onready var satellite_timer: Timer = $SatelliteTimer
 
 @onready var obstacle_path = $ObstaclePath/PathFollow2D
+@onready var music_player = $Music
 
 var is_game_running: bool = false
 
@@ -61,3 +62,6 @@ func _on_asteroid_timer_timeout() -> void:
 
 func _on_satellite_timer_timeout() -> void:
     spawn_obstacle(satellite_scene)
+
+func _on_audio_stream_player_finished() -> void:
+    music_player.play()
