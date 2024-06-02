@@ -5,6 +5,7 @@ signal warning_withdrawn(warning_id: int)
 
 signal skipped_to_main_menu
 signal opened_settings
+signal opened_credits
 
 signal first_startup
 signal show_tutorial

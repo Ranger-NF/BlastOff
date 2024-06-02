@@ -49,9 +49,13 @@ func _on_ui_slider_drag_ended(_value_changed: bool) -> void:
     _on_button_pressed()
     SoundManager.set_bus_volume(SoundManager.UI, linear_to_db(ui_slider.value - volume_offset))
 
+func _on_credits_button_pressed() -> void:
+    _on_button_pressed()
+    self.hide()
+    UiManager.emit_signal(\"opened_credits\")
+
 func _on_button_pressed() -> void:
     button_pressed_sound.play()
-
 
 "
 
@@ -79,15 +83,24 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BackButton" type="TextureButton" parent="MarginContainer/WholeScreen"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
+layout_mode = 2
+
+[node name="BackButton" type="TextureButton" parent="MarginContainer/WholeScreen/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_horizontal = 3
 texture_normal = ExtResource("1_rwypn")
 texture_pressed = ExtResource("2_pqhcu")
 texture_hover = ExtResource("2_pqhcu")
 texture_disabled = ExtResource("2_pqhcu")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/WholeScreen/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Credits"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
@@ -188,7 +201,8 @@ stream = ExtResource("2_ke0fy")
 volume_db = 10.0
 bus = &"UI"
 
-[connection signal="pressed" from="MarginContainer/WholeScreen/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/WholeScreen/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/WholeScreen/HBoxContainer2/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide" to="." method="_on_master_slide_drag_ended"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider" to="." method="_on_music_slider_drag_ended"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider" to="." method="_on_sfx_slider_drag_ended"]

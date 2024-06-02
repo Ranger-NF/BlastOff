@@ -22,4 +22,4 @@
 - Music by [Spring spring](https://opengameart.org/content/homely-arcade)
 - Font by [Hubert & Fischer](https://www.fontsquirrel.com/fonts/rubik)
 - Drop shadow shader by [deakcor](https://godotshaders.com/shader/shadow-2d/)
-
+- Blinking shader by [KingToot](https://godotshaders.com/shader/radar-blip/)
