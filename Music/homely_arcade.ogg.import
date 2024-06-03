@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/homely_arcade.ogg-56c2eb1501c69b6123ce3381cc5
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

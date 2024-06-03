@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgpquglphwvyn"]
+[gd_scene load_steps=9 format=3 uid="uid://bgpquglphwvyn"]
 
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="1_855wc"]
 [ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="2_8js3o"]
 [ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="3_r48nc"]
+[ext_resource type="FontFile" uid="uid://cei1qxr1sela7" path="res://Fonts/Rubik-Bold.ttf" id="4_wldcp"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="5_qyvdh"]
 
 [sub_resource type="GDScript" id="GDScript_ymi5k"]
@@ -24,6 +25,10 @@ func _on_back_button_pressed() -> void:
 
 func _on_button_pressed() -> void:
     button_pressed_sound.play()
+
+
+func _on_rich_text_label_meta_clicked(meta: Variant) -> void:
+    OS.shell_open(meta)
 "
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utmdv"]
@@ -215,17 +220,23 @@ layout_mode = 2
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
-[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Click to go to the website"
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 28
-text = "Source Code available on GitHub
-github.com/Ranger-NF/BlastOff)"
-horizontal_alignment = 1
+theme_override_fonts/normal_font = ExtResource("4_wldcp")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Source Code:
+[url=https://github.com/Ranger-NF/BlastOff]GitHub[/url][/center]"
+scroll_active = false
+context_menu_enabled = true
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qyvdh")
@@ -233,3 +244,4 @@ volume_db = 10.0
 bus = &"UI"
 
 [connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="meta_clicked" from="NinePatchRect/MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]

@@ -78,6 +78,9 @@ func limit_speed(current_speed: float, max_speed: float) -> float:
         return current_speed
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+    if hit_sound.playing:
+        await hit_sound.finished
+
     queue_free()
 
 func _on_hit() -> void:
