@@ -21,7 +21,6 @@ func _ready() -> void:
     self.rocket_speed_changed.connect(_on_rocket_speed_changed)
 
 func _on_rocket_speed_changed(new_speed: float):
-    print("changed")
     rocket_speed = new_speed
 
 func _increase_difficulty() -> void:

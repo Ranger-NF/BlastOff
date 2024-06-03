@@ -26,12 +26,12 @@ func _on_button_pressed() -> void:
     button_pressed_sound.play()
 "
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utmdv"]
+load_path = "res://.godot/imported/ui_background.svg-477496d4bb343fa49d7c5faf51e4159c.ctex"
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o3g1s"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jgc8d"]
-
 [node name="Credits" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,19 +40,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_ymi5k")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CompressedTexture2D_utmdv")
+region_rect = Rect2(47, 51, 717, 710)
+patch_margin_left = 224
+patch_margin_top = 230
+patch_margin_right = 226
+patch_margin_bottom = 234
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
 layout_mode = 2
 offset_right = 720.0
 offset_bottom = 1280.0
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+[node name="BackButton" type="TextureButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 texture_normal = ExtResource("2_8js3o")
@@ -62,23 +79,23 @@ texture_disabled = ExtResource("3_r48nc")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
 layout_mode = 2
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Category" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Category" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 50
 
-[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="Music" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -93,7 +110,7 @@ text = "Music
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="Font" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -101,11 +118,13 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "Font"
+text = "Font
+
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="DropShadow" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -113,12 +132,12 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "Drop Shadow
-Shader"
+text = "Drop
+Shadow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -131,17 +150,12 @@ Shader"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-theme_override_styles/separator = SubResource("StyleBoxEmpty_jgc8d")
-
-[node name="Names" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Names" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 50
 
-[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Music" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -155,7 +169,7 @@ By Spring spring
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Font" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -163,11 +177,12 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "Rubik (Google Fonts)"
-horizontal_alignment = 2
+text = "Rubik
+(Google Fonts)"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="DropShadow" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -175,13 +190,13 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "deackor (Godot Shaders)
-
+text = "deackor
+(Godot Shaders)
 "
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -189,24 +204,25 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "KingToot (Godot Shaders)"
-horizontal_alignment = 2
+text = "KingToot
+(Godot Shaders)"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
 layout_mode = 2
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 text = "Source Code available on GitHub
 github.com/Ranger-NF/BlastOff)"
 horizontal_alignment = 1
@@ -216,4 +232,4 @@ stream = ExtResource("5_qyvdh")
 volume_db = 10.0
 bus = &"UI"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

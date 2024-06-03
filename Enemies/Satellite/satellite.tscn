@@ -91,7 +91,6 @@ free_fall_multiplier = 1.5
 can_move_horizontally = false
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
-visible = false
 position = Vector2(10, 4.16669)
 scale = Vector2(1.90667, 11.6333)
 rect = Rect2(-125, -25, 250, 50)

@@ -31,7 +31,6 @@ func _select_random_parts():
 
     # Randomly choosing parts of satellite
     while num_of_selected_parts < num_of_parts:
-        print(spawnable_parts, num_of_selected_parts, num_of_parts)
         num_of_selected_parts += 1
 
         var selected_part: Node = spawnable_parts[randi_range(0, len(spawnable_parts) - 1)]

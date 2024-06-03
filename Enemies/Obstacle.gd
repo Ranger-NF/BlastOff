@@ -98,3 +98,4 @@ func _on_game_over() -> void:
         _change_anim_speed()
     else:
         free_fall_multiplier += 1
+
