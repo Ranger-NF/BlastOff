@@ -217,7 +217,7 @@ vertical_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
 layout_mode = 2
-theme_override_constants/separation = 100
+theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer/VBoxContainer"]
@@ -237,6 +237,19 @@ text = "[center]Source Code:
 [url=https://github.com/Ranger-NF/BlastOff]GitHub[/url][/center]"
 scroll_active = false
 context_menu_enabled = true
+
+[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 22
+text = "Game by Fahad
+(aka Ranger)"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_qyvdh")
