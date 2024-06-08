@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://ey68wy541o7e"]
+
+[ext_resource type="Texture2D" uid="uid://5eveuk5l6b6j" path="res://UI/Buttons/restart_normal.png" id="1_43du1"]
+[ext_resource type="Script" path="res://UI/game_over.gd" id="1_kg4e2"]
+[ext_resource type="Texture2D" uid="uid://x1x1mjgeu20w" path="res://UI/Buttons/restart_pressed.png" id="2_101yg"]
+[ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="3_v026m"]
+[ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="4_xuyat"]
+[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="5_8s1tg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yrlhs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4kbw"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kg4e2")
+
+[node name="NavBoxMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="NavBox" type="VBoxContainer" parent="NavBoxMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameStatus" type="Label" parent="NavBoxMargin/NavBox"]
+material = SubResource("ShaderMaterial_yrlhs")
+use_parent_material = true
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 80
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="NavBoxMargin/NavBox"]
+material = SubResource("ShaderMaterial_w4kbw")
+use_parent_material = true
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="TextureButton" parent="NavBoxMargin/NavBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_43du1")
+texture_pressed = ExtResource("2_101yg")
+texture_hover = ExtResource("2_101yg")
+texture_disabled = ExtResource("2_101yg")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BackButton" type="TextureButton" parent="NavBoxMargin/NavBox"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_v026m")
+texture_pressed = ExtResource("4_xuyat")
+texture_hover = ExtResource("4_xuyat")
+texture_disabled = ExtResource("4_xuyat")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="NavBoxMargin/NavBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8s1tg")
+volume_db = 10.0
+bus = &"UI"
+
+[connection signal="pressed" from="NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]

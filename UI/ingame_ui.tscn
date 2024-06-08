@@ -1,12 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=8 format=3 uid="uid://0ckqin0njvj4"]
 
-[ext_resource type="Script" path="res://UI/ui.gd" id="1_1hsrn"]
+[ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
-[ext_resource type="Texture2D" uid="uid://5eveuk5l6b6j" path="res://UI/Buttons/restart_normal.png" id="2_6xv5i"]
-[ext_resource type="Texture2D" uid="uid://x1x1mjgeu20w" path="res://UI/Buttons/restart_pressed.png" id="3_2hbmr"]
-[ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="4_41q4p"]
-[ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="5_rwuf4"]
-[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="7_wggd6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
@@ -67,7 +62,7 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="UI" type="Control"]
+[node name="ingame_ui" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,7 +73,6 @@ script = ExtResource("1_1hsrn")
 metadata/_edit_use_anchors_ = true
 
 [node name="WholeScreen" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -105,60 +99,6 @@ theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
-[node name="NavBoxMargin" type="MarginContainer" parent="WholeScreen"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 100
-
-[node name="NavBox" type="VBoxContainer" parent="WholeScreen/NavBoxMargin"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GameStatus" type="Label" parent="WholeScreen/NavBoxMargin/NavBox"]
-material = SubResource("ShaderMaterial_324iy")
-use_parent_material = true
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 10
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 80
-text = "Game Over"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RestartButton" type="TextureButton" parent="WholeScreen/NavBoxMargin/NavBox"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("2_6xv5i")
-texture_pressed = ExtResource("3_2hbmr")
-texture_hover = ExtResource("3_2hbmr")
-texture_disabled = ExtResource("3_2hbmr")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="BackButton" type="TextureButton" parent="WholeScreen/NavBoxMargin/NavBox"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("4_41q4p")
-texture_pressed = ExtResource("5_rwuf4")
-texture_hover = ExtResource("5_rwuf4")
-texture_disabled = ExtResource("5_rwuf4")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HSeparator" type="HSeparator" parent="WholeScreen/NavBoxMargin/NavBox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
 [node name="WarningSign" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_sa2l3")
@@ -167,11 +107,3 @@ scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_l5kil")
 autoplay = "default"
 frame_progress = 0.989522
-
-[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_wggd6")
-volume_db = 10.0
-bus = &"UI"
-
-[connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="WholeScreen/NavBoxMargin/NavBox/BackButton" to="." method="_on_back_button_pressed"]

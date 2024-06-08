@@ -15,6 +15,7 @@ func _ready() -> void:
     GameManager.game_started.connect(restart_game)
     GameManager.game_over.connect(_on_game_over)
 
+    UiManager.main_scene = self
     UiManager.emit_signal("skipped_to_main_menu")
 
 
