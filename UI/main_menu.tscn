@@ -44,7 +44,6 @@ layout_mode = 2
 theme_override_constants/separation = -150
 
 [node name="Title" type="TextureRect" parent="VBoxContainer/TitleBox/VBoxContainer"]
-custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
