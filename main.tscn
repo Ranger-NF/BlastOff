@@ -20,8 +20,6 @@ bird_scene = ExtResource("2_poxg6")
 satellite_scene = ExtResource("3_pltus")
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
-position = Vector2(313, -151)
-rotation = 0.785397
 
 [node name="ObstacleTimer" type="Timer" parent="."]
 wait_time = 3.0

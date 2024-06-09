@@ -19,7 +19,7 @@ var is_game_running: bool = false
 var is_free_falling: bool = false
 
 var move_vec: Vector2
-var move_direction: int # Uses const LEFT/RIGHT
+var last_sway_direction: int = RESET
 
 var rotation_reset_tween: Tween
 var faceplant_tween: Tween
@@ -69,13 +69,23 @@ func sway(sway_direction: int, delta: float) -> void:
         push_error("Inputted a value other than -1 or 1")
         return
     if sway_direction != RESET:
-        if rotation_reset_tween:
-            rotation_reset_tween.stop()
-            rotation_reset_tween.kill()
-        self.rotate(sway_direction * deg_to_rad(rotation_per_frame * delta))
+
+        # if last rotation was opposite to current, set to zero then, sway to current side
+        if last_sway_direction != sway_direction and self.rotation != 0:
+            if not rotation_reset_tween or not rotation_reset_tween.is_running() :
+                rotation_reset_tween = create_tween()
+                rotation_reset_tween.tween_property(self, "rotation", 0, 0.1)
+        else:
+            if rotation_reset_tween:
+                rotation_reset_tween.stop()
+                rotation_reset_tween.kill()
+
+            last_sway_direction = sway_direction
+            self.rotate(sway_direction * deg_to_rad(rotation_per_frame * delta))
     else:
-        rotation_reset_tween = create_tween()
-        rotation_reset_tween.tween_property(self, "rotation", 0, 0.1).set_trans(Tween.TRANS_SPRING)
+        if not rotation_reset_tween or not rotation_reset_tween.is_running() :
+            rotation_reset_tween = create_tween()
+            rotation_reset_tween.tween_property(self, "rotation", 0, 0.1)
 
 func _free_fall(delta) -> void:
     self.position.y += (GameManager.rocket_speed * delta)
@@ -159,8 +169,8 @@ func _on_game_start() -> void:
 func _on_game_over() -> void:
     flame_particle_node.emitting = false
 
-func _on_rocket_speed_changed():
-    flame_particle_node.speed_scale = GameManager.rocket_speed / initial_flame_speed
+func _on_rocket_speed_changed(new_rocket_speed: float):
+    flame_particle_node.speed_scale = new_rocket_speed / initial_flame_speed
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     self.hide()
