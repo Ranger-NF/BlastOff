@@ -10,11 +10,13 @@
 - Infinitely scrolling
 - Polish and publish the game
 
-## Ingame 
-> [!NOTE]
-> The given screenshots does not represent the final product. The game is under heavy devolopment.
+## Ingame
 <p align="center">
-    <img src="Docs/Screenshots/intro.jpg" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/'v1.1.0'/main-menu.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.1.0/ingame.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.1.0/death-screen.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.1.0/settings.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.1.0/credits.png" width="auto" height="400">&nbsp;&nbsp;
 </p>
 
 ## Credits
