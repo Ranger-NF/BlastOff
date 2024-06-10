@@ -12,7 +12,7 @@
 
 ## Ingame
 <p align="center">
-    <img src="Docs/Screenshots/'v1.1.0'/main-menu.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.1.0/main-menu.png" width="auto" height="400">&nbsp;&nbsp;
     <img src="Docs/Screenshots/v1.1.0/ingame.png" width="auto" height="400">&nbsp;&nbsp;
     <img src="Docs/Screenshots/v1.1.0/death-screen.png" width="auto" height="400">&nbsp;&nbsp;
     <img src="Docs/Screenshots/v1.1.0/settings.png" width="auto" height="400">&nbsp;&nbsp;
