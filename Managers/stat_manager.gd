@@ -25,3 +25,4 @@ func _physics_process(_delta: float) -> void:
 func _check_high_score() -> void:
     if score_gained > DataManager.gameplay.high_score:
         DataManager.gameplay.high_score = score_gained
+        DataManager.emit_signal("save_triggered")

@@ -74,46 +74,46 @@ motion_mirroring = Vector2(0, 1640)
 self_modulate = Color(1, 1, 1, 0.156863)
 
 [node name="Sprite2D" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(344, 195.703)
+position = Vector2(230, 195.703)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D4" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(475.5, 143.738)
+position = Vector2(361.5, 143.738)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D5" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(838, 195.005)
+position = Vector2(724, 195.005)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D7" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(1207, 1355.17)
+position = Vector2(590, 1355.17)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D2" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(786, 815.125)
+position = Vector2(40, 815.125)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
 [node name="Sprite2D3" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(933, 657.36)
+position = Vector2(643, 566.34)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-0.21991, 697.955, 827.855, 226.362)
 
 [node name="Sprite2D6" type="Sprite2D" parent="BigClouds/CanvasGroup"]
-position = Vector2(103, 1212.57)
+position = Vector2(269, 1212.57)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 flip_h = true
@@ -127,56 +127,56 @@ motion_mirroring = Vector2(0, 2105)
 
 [node name="Sprite2D" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(257, 117)
+position = Vector2(47, 117)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(16.8304, -4.40363, 493.675, 212.66)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(1087, 593)
+position = Vector2(667, 593)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(284.974, 200.71, 505.068, 227.575)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(559, 437)
+position = Vector2(261, 437)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(15.3513, 246.004, 269.622, 151.9)
 
 [node name="Sprite2D4" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(261, 883)
+position = Vector2(83, 883)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-2.92715, 427.102, 625.879, 240.425)
 
 [node name="Sprite2D5" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(913, 1213)
+position = Vector2(418, 1213)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(20.1682, 686.525, 200.232, 127.734)
 
 [node name="Sprite2D6" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(617, 1516)
+position = Vector2(433, 1516)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(4.00757, 683.108, 789.88, 235.445)
 
 [node name="Sprite2D7" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(1211, 1834)
+position = Vector2(659, 1834)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(3.05237, 914.33, 245.538, 183.18)
 
 [node name="Sprite2D8" type="Sprite2D" parent="Clouds/Cloud Grouped"]
 material = SubResource("ShaderMaterial_p6odd")
-position = Vector2(1187, 1037)
+position = Vector2(609, 1037)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(393.57, 914.338, 326.585, 205.065)

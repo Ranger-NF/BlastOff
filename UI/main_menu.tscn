@@ -52,6 +52,7 @@ expand_mode = 4
 stretch_mode = 5
 
 [node name="HighScore" type="Label" parent="VBoxContainer/TitleBox/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

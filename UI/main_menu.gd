@@ -4,12 +4,13 @@ extends Control
 @onready var high_score_label: Label = $VBoxContainer/TitleBox/VBoxContainer/HighScore
 
 func _ready() -> void:
-    if DataManager.gameplay.high_score > 0:
-        _show_high_score()
+    self.child_entered_tree.connect(_update_high_score)
+    _update_high_score()
 
-func _show_high_score() -> void:
-    high_score_label.text = "High Score: " + str(DataManager.gameplay.high_score)
-    high_score_label.show()
+func _update_high_score(_node: Node = null) -> void:
+    if DataManager.gameplay.high_score > 0:
+        high_score_label.text = "High Score: " + str(DataManager.gameplay.high_score)
+        high_score_label.show()
 
 func _on_play_button_pressed() -> void:
     _on_button_pressed()

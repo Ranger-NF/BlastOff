@@ -4,7 +4,7 @@ extends Control
 @onready var score_label = $NavBoxMargin/NavBox/Score
 
 func _ready() -> void:
-    score_label.text = "Score: " + str(DataManager.gameplay.high_score)
+    score_label.text = "Score: " + str(StatManager.score_gained)
 
 func _on_restart_button_pressed() -> void:
     _on_button_pressed()

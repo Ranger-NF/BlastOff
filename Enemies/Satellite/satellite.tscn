@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bgdnuqx4a3jm7"]
+[gd_scene load_steps=19 format=3 uid="uid://bgdnuqx4a3jm7"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_e8dws"]
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="2_2ugaj"]
 [ext_resource type="Script" path="res://Enemies/Satellite/satellite.gd" id="2_6vcrh"]
 [ext_resource type="Texture2D" uid="uid://ds65ogo3ytjd" path="res://Enemies/Satellite/satellite.svg" id="2_r0xs0"]
 [ext_resource type="AudioStream" uid="uid://ce5m3dxget042" path="res://Enemies/Satellite/satellite_hit.wav" id="5_leqcr"]
+[ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="6_iw02a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_obnki"]
 animations = [{
@@ -16,6 +17,14 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Curve" id="Curve_0sqmb"]
+_data = [Vector2(0.0343511, 0.456604), 0.0, 0.0, 0, 0, Vector2(0.576336, 0.562264), 0.382715, 0.382715, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_th6oy"]
+offsets = PackedFloat32Array(0, 0.839286)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -91,8 +100,8 @@ free_fall_multiplier = 1.5
 can_move_horizontally = false
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
-position = Vector2(10, 4.16669)
-scale = Vector2(1.90667, 11.6333)
+position = Vector2(10, -97.5004)
+scale = Vector2(1.90667, 15.7)
 rect = Rect2(-125, -25, 250, 50)
 
 [node name="AnimatedSprite2D" parent="." index="1"]
@@ -116,7 +125,24 @@ volume_db = 10.0
 [node name="Parts" type="Node2D" parent="." index="5"]
 rotation = 0.523599
 
-[node name="SmallCylinder" type="Node2D" parent="Parts" index="0"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Parts" index="0"]
+emitting = false
+amount = 35
+lifetime = 0.5
+texture = ExtResource("6_iw02a")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 350.0
+initial_velocity_max = 350.0
+scale_amount_min = 30.0
+scale_amount_max = 45.0
+scale_amount_curve = SubResource("Curve_0sqmb")
+color_ramp = SubResource("Gradient_th6oy")
+
+[node name="SmallCylinder" type="Node2D" parent="Parts" index="1"]
 visible = false
 position = Vector2(6.63844, -180.502)
 
@@ -130,7 +156,7 @@ region_rect = Rect2(304, 118, 181, 137)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_qd55y")
 
-[node name="MainBody" type="Node2D" parent="Parts" index="1"]
+[node name="MainBody" type="Node2D" parent="Parts" index="2"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Parts/MainBody" index="0"]
@@ -142,7 +168,7 @@ region_rect = Rect2(294.5, 277.094, 194, 311.906)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Parts/MainBody" index="1"]
 shape = SubResource("RectangleShape2D_iyryw")
 
-[node name="PanelRight" type="Node2D" parent="Parts" index="2"]
+[node name="PanelRight" type="Node2D" parent="Parts" index="3"]
 visible = false
 position = Vector2(214.483, 5.49484)
 
@@ -156,7 +182,7 @@ region_rect = Rect2(484.03, 522.79, 309.912, 175.385)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_naegi")
 
-[node name="PanelLeft" type="Node2D" parent="Parts" index="3"]
+[node name="PanelLeft" type="Node2D" parent="Parts" index="4"]
 visible = false
 position = Vector2(-210.983, 0.567329)
 
@@ -171,7 +197,7 @@ region_rect = Rect2(1.0562, 523.411, 314.964, 170.07)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_5nfb2")
 
-[node name="Dish" type="Node2D" parent="Parts" index="4"]
+[node name="Dish" type="Node2D" parent="Parts" index="5"]
 visible = false
 position = Vector2(-2.39678, 213.849)
 
