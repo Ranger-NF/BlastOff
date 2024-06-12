@@ -56,7 +56,7 @@ radius = 40.0
 height = 209.0
 
 [node name="Rocket" type="Area2D"]
-collision_layer = 2
+collision_layer = 6
 script = ExtResource("1_7uc35")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

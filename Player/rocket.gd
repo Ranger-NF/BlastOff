@@ -154,10 +154,10 @@ func _on_hurt():
     $CollisionShape2D.set_deferred("disabled", true)
 
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
-    if area.is_in_group("obstacles"):
-        if area.has_method("_on_hit"):
-            area.call("_on_hit")
+    if area.has_method("_on_hit"):
+        area.call("_on_hit")
 
+    if area.is_in_group("obstacles"):
         emit_signal("player_hurt")
 
 
