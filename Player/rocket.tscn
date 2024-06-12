@@ -9,7 +9,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_vflus"]
-offsets = PackedFloat32Array(0, 0.25, 0.767857)
+offsets = PackedFloat32Array(0, 0.383929, 0.767857)
 colors = PackedColorArray(1, 1, 0.0313726, 1, 0.972549, 0.0431373, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="Shader" id="Shader_00np7"]
@@ -60,9 +60,9 @@ collision_layer = 2
 script = ExtResource("1_7uc35")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(2, 1.5, 1, 1)
 position = Vector2(1, 95)
 emitting = false
-amount = 10
 lifetime = 0.3
 texture = ExtResource("1_dksgl")
 emission_shape = 1
