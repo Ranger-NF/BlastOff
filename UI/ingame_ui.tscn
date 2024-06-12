@@ -3,8 +3,6 @@
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
-
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
 * Shadow 2D.
@@ -62,6 +60,8 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
+
 [node name="ingame_ui" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -72,23 +72,42 @@ grow_vertical = 2
 script = ExtResource("1_1hsrn")
 metadata/_edit_use_anchors_ = true
 
-[node name="WholeScreen" type="VBoxContainer" parent="."]
+[node name="WarningSign" type="AnimatedSprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_sa2l3")
+position = Vector2(48, 37)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_l5kil")
+autoplay = "default"
+frame_progress = 0.989522
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="WholeScreen" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScoreBox" type="VBoxContainer" parent="WholeScreen"]
+[node name="ScoreBox" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Score" type="Label" parent="WholeScreen/ScoreBox"]
+[node name="Control" type="Control" parent="MarginContainer/WholeScreen/ScoreBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="MarginContainer/WholeScreen/ScoreBox"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -99,11 +118,16 @@ theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
-[node name="WarningSign" type="AnimatedSprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_sa2l3")
-position = Vector2(48, 37)
-scale = Vector2(0.08, 0.08)
-sprite_frames = SubResource("SpriteFrames_l5kil")
-autoplay = "default"
-frame_progress = 0.989522
+[node name="StarCount" type="RichTextLabel" parent="MarginContainer/WholeScreen/ScoreBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/table_h_separation = 10
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+text = "Stars: "
+fit_content = true
+scroll_active = false

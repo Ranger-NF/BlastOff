@@ -2,9 +2,11 @@ extends Node
 
 @export var bird_scene: PackedScene
 @export var satellite_scene: PackedScene
+@export var star_scene: PackedScene
 
 @onready var obstacle_timer: Timer = $ObstacleTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
+@onready var star_timer: Timer = $StarTimer
 
 @onready var obstacle_path = $ObstaclePath/PathFollow2D
 @onready var music_player = $Music
@@ -44,6 +46,9 @@ func determine_next_obstacle():
     if (random_num < GameManager.satellite_falling_propability):
         if satellite_timer.is_stopped():
             satellite_timer.start(randi_range(4, 6))
+    else:
+        if star_timer.is_stopped():
+            star_timer.start(randi_range(3, 5))
 
     spawn_obstacle(bird_scene)
 
@@ -51,6 +56,7 @@ func _on_game_over() -> void:
     is_game_running = false
     obstacle_timer.stop()
     satellite_timer.stop()
+    star_timer.stop()
 
 func restart_game() -> void:
     is_game_running = true
@@ -63,3 +69,6 @@ func _on_asteroid_timer_timeout() -> void:
 
 func _on_satellite_timer_timeout() -> void:
     spawn_obstacle(satellite_scene)
+
+func _on_star_timer_timeout() -> void:
+    spawn_obstacle(star_scene)

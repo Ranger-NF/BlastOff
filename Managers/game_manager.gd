@@ -14,7 +14,7 @@ var is_right_button_pressed: bool = false
 var screen_mid_x_pos: float # Changed from main.gd
 
 var flock_probability: float = 0.2
-var satellite_falling_propability: float = 1
+var satellite_falling_propability: float = 0.1
 
 func _ready() -> void:
     self.level_up.connect(_increase_difficulty)

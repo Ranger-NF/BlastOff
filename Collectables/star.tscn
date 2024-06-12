@@ -24,9 +24,9 @@ shader_parameter/shine_speed = 2.5
 shader_parameter/shine_size = 0.01
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2m6a"]
-radius = 87.0
+radius = 150.083
 
-[node name="Star" type="Area2D" groups=["Collectable"]]
+[node name="Star" type="Area2D" groups=["Collectables"]]
 scale = Vector2(0.4, 0.4)
 collision_layer = 4
 collision_mask = 2

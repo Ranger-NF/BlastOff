@@ -26,10 +26,20 @@ func free_fall(delta) -> void:
 func _physics_process(delta: float) -> void:
     free_fall(delta)
 
+func make_disappear() -> void:
+    var tween = create_tween().set_parallel(true)
+    tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, SHINE_TIME_PERIOD / 2)
+    tween.tween_property(back_shine_node, "modulate:a", 0, SHINE_TIME_PERIOD / 2)
+    await tween.finished
+
+    queue_free()
+
 func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
+    StatManager.emit_signal("star_count_changed", 1)
+
+    queue_free()
     #hit_sound.play()
-    if self.has_method("_after_hit"): self.call("_after_hit")
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     queue_free()

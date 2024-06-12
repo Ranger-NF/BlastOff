@@ -1,5 +1,8 @@
 extends Node
 
+signal star_count_changed(change_in_stars: int)
+signal stars_depleted
+
 var time_spent: float
 
 # Variables for score calculation
@@ -11,6 +14,14 @@ var satellite_number: int = 0 # Resets to zero whenver game restarts [Incremente
 
 func _ready() -> void:
     GameManager.game_over.connect(_check_high_score)
+    self.star_count_changed.connect(_on_star_count_changed)
+
+func _on_star_count_changed(change_in_stars: int) -> void:
+    DataManager.gameplay.total_stars += change_in_stars
+
+    if DataManager.gameplay.total_stars < 0:
+        DataManager.gameplay.total_stars = 0
+        emit_signal("stars_depleted")
 
 func _calculate_score() -> void:
     score_gained = roundi(current_level * time_spent)

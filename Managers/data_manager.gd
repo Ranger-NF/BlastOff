@@ -11,6 +11,7 @@ const SAVE_FILE_NAME: String = "user://blastoff_data.cfg"
 ## Gameplay
 var gameplay: Dictionary = {
     high_score = 0,
+    total_stars = 0
 }
 
 ## settings
@@ -49,9 +50,11 @@ func load_from_files() -> void:
     for each_section in saved_file.get_sections():
         match each_section:
             "gameplay":
-                gameplay = _load_data_to_dictionary(saved_file, each_section) # Overwrites all the data in dictionary
+                var loaded_gameplay_data = _load_data_to_dictionary(saved_file, each_section) # Overwrites all the data in dictionary
+                gameplay = _check_for_data_updation(gameplay, loaded_gameplay_data)
             "settings":
-                settings = _load_data_to_dictionary(saved_file, each_section)
+                var loaded_settings_data = _load_data_to_dictionary(saved_file, each_section)
+                settings = _check_for_data_updation(settings, loaded_settings_data)
     emit_signal("data_reloaded")
 
 
@@ -61,3 +64,17 @@ func _load_data_to_dictionary(save_file: ConfigFile, section_name: String) -> Di
         target_dict[each_key] = save_file.get_value(section_name, each_key)
 
     return target_dict
+
+func _check_for_data_updation(default_dict: Dictionary, newly_loaded_dict: Dictionary = {}) ->  Dictionary: ## This fn. checks whether the newly loaded dictionary contains all the entries of latest update, if add them with their default value
+    var updated_dict: Dictionary = {}
+
+    var keys_in_loaded_data: Array = newly_loaded_dict.keys()
+    var keys_in_default_dict: Array = default_dict.keys()
+
+    for each_key in keys_in_default_dict:
+        if keys_in_loaded_data.has(each_key):
+            updated_dict[each_key] = newly_loaded_dict.get(each_key)
+        else:
+            updated_dict[each_key] = default_dict.get(each_key)
+
+    return updated_dict
