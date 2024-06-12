@@ -24,29 +24,26 @@ shader_parameter/shine_speed = 2.5
 shader_parameter/shine_size = 0.01
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2m6a"]
-radius = 37.4833
+radius = 87.0
 
 [node name="Star" type="Area2D" groups=["Collectable"]]
+scale = Vector2(0.4, 0.4)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_m8spo")
 
 [node name="BackShine" type="Sprite2D" parent="."]
-rotation = 0.785398
-scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_jd53q")
 
 [node name="Star" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_x242d")
-scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_gpep0")
-offset = Vector2(0, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_y2m6a")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(3.71626, -3.64826)
+scale = Vector2(8.59626, -8.43897)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

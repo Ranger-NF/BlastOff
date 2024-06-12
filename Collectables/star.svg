@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
-   sodipodi:docname="star_fragment.svg"
+   sodipodi:docname="star.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
      id="layer1">
     <path
        sodipodi:type="star"
-       style="fill:#fff60d;stroke-width:0.264999;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;fill-opacity:1"
+       style="fill:#fff60d;fill-opacity:1;stroke-width:0.264999;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
        id="path2"
        inkscape:flatsided="false"
        sodipodi:sides="5"
@@ -56,6 +56,6 @@
        d="m 31.236899,24.051079 c -2.981912,0.905566 -5.417333,-7.3119 -8.362028,-8.332006 -2.944696,-1.020106 -9.94158,3.929805 -11.724285,1.373673 -1.7827052,-2.556132 5.279982,-7.4116913 5.3402,-10.5274934 0.06022,-3.1158018 -6.8095837,-8.2406275 -4.929444,-10.7259689 1.88014,-2.4853417 8.680542,2.7312231 11.662454,1.8256577 2.981912,-0.9055652 5.733025,-9.0227934 8.677721,-8.0026864 2.944695,1.0201062 0.08489,9.0996799 1.867592,11.6558118 1.782705,2.5561317 10.352789,2.6642348 10.292571,5.7800366 -0.06022,3.1158016 -8.628079,2.8926885 -10.508218,5.3780306 -1.88014,2.485341 0.665349,10.66938 -2.316563,11.574945 z"
        inkscape:transform-center-x="0.13274676"
        inkscape:transform-center-y="-1.8668164"
-       transform="matrix(1.1881947,-0.43917497,0.43917497,1.1881947,-7.2728838,31.324089)" />
+       transform="matrix(1.1881947,-0.43917497,0.43917497,1.1881947,-7.2449311,31.717211)" />
   </g>
 </svg>
