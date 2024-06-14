@@ -53,12 +53,14 @@ func determine_next_obstacle():
     spawn_obstacle(bird_scene)
 
 func _on_game_over() -> void:
+    $TextureRect.show()
     is_game_running = false
     obstacle_timer.stop()
     satellite_timer.stop()
     star_timer.stop()
 
 func restart_game() -> void:
+    $TextureRect.hide()
     is_game_running = true
     StatManager.time_spent = 0
     obstacle_timer.start()

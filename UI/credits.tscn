@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgpquglphwvyn"]
+[gd_scene load_steps=8 format=3 uid="uid://bgpquglphwvyn"]
 
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="1_855wc"]
 [ext_resource type="Script" path="res://UI/credits.gd" id="1_wt4pc"]
@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="3_r48nc"]
 [ext_resource type="FontFile" uid="uid://cei1qxr1sela7" path="res://Fonts/Rubik-Bold.ttf" id="4_wldcp"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="5_qyvdh"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utmdv"]
-load_path = "res://.godot/imported/ui_background.svg-477496d4bb343fa49d7c5faf51e4159c.ctex"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o3g1s"]
 
@@ -21,23 +18,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wt4pc")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_utmdv")
-region_rect = Rect2(47, 51, 717, 710)
-patch_margin_left = 224
-patch_margin_top = 230
-patch_margin_right = 226
-patch_margin_bottom = 234
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qyvdh")
+volume_db = 10.0
+bus = &"UI"
 
-[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 offset_right = 720.0
 offset_bottom = 1280.0
@@ -47,10 +33,10 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 texture_normal = ExtResource("2_8js3o")
@@ -60,23 +46,23 @@ texture_disabled = ExtResource("3_r48nc")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator2" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
 layout_mode = 2
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Category" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Category" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 50
 
-[node name="Music" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -91,7 +77,7 @@ text = "Music
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -105,7 +91,7 @@ text = "Font
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropShadow" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -118,7 +104,7 @@ Shadow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -131,12 +117,12 @@ Shader"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Names" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Names" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 50
 
-[node name="Music" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -150,7 +136,7 @@ By Spring spring
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -163,7 +149,7 @@ text = "Rubik
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropShadow" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -177,7 +163,7 @@ text = "deackor
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -190,13 +176,13 @@ text = "KingToot
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "Click to go to the website"
@@ -214,7 +200,7 @@ text = "[center]Source Code:
 scroll_active = false
 context_menu_enabled = true
 
-[node name="BlinkingShader" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -227,10 +213,5 @@ text = "Game by Fahad
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_qyvdh")
-volume_db = 10.0
-bus = &"UI"
-
-[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="meta_clicked" from="NinePatchRect/MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="meta_clicked" from="MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]

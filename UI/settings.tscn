@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqagkxdakpnt"]
+[gd_scene load_steps=11 format=3 uid="uid://cqagkxdakpnt"]
 
 [ext_resource type="Script" path="res://UI/settings.gd" id="1_elegj"]
 [ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="1_rwypn"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="2_ke0fy"]
 [ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="2_pqhcu"]
-[ext_resource type="Texture2D" uid="uid://0s05i0ifnymk" path="res://UI/ui_background.svg" id="3_2xbox"]
 [ext_resource type="Texture2D" uid="uid://c2d0dvy11hh33" path="res://UI/ui_grabber.svg" id="4_bslej"]
 [ext_resource type="Texture2D" uid="uid://bvtou6ptqdwbj" path="res://UI/Buttons/credits_normal.png" id="5_f1aw0"]
 [ext_resource type="Texture2D" uid="uid://dq35gw2dko3by" path="res://UI/Buttons/credits_pressed.png" id="6_ek507"]
@@ -46,24 +45,12 @@ grow_vertical = 2
 script = ExtResource("1_elegj")
 metadata/_edit_use_anchors_ = true
 
-[node name="UiBackground" type="NinePatchRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-texture = ExtResource("3_2xbox")
-region_rect = Rect2(47, 51, 717, 710)
-patch_margin_left = 224
-patch_margin_top = 230
-patch_margin_right = 226
-patch_margin_bottom = 234
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
+[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ke0fy")
+volume_db = 10.0
+bus = &"UI"
 
-[node name="MarginContainer" type="MarginContainer" parent="UiBackground"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,14 +63,14 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 100
 
-[node name="WholeScreen" type="VBoxContainer" parent="UiBackground/MarginContainer"]
+[node name="WholeScreen" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer2"]
+[node name="BackButton" type="TextureButton" parent="MarginContainer/WholeScreen/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -94,22 +81,22 @@ texture_disabled = ExtResource("2_pqhcu")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator2" type="HSeparator" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 theme_override_constants/separation = 80
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1kitb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Labels" type="VBoxContainer" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer"]
+[node name="Labels" type="VBoxContainer" parent="MarginContainer/WholeScreen/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="Master" type="Label" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Labels"]
+[node name="Master" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -122,7 +109,7 @@ text = "Master"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Music" type="Label" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Labels"]
+[node name="Music" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -135,7 +122,7 @@ text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sfx" type="Label" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Labels"]
+[node name="Sfx" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -149,7 +136,7 @@ Effects"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UI" type="Label" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Labels"]
+[node name="UI" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -163,13 +150,13 @@ Interface"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sliders" type="VBoxContainer" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer"]
+[node name="Sliders" type="VBoxContainer" parent="MarginContainer/WholeScreen/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 25
 
-[node name="MasterSlide" type="HSlider" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+[node name="MasterSlide" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -183,7 +170,7 @@ max_value = 1.0
 step = 0.05
 value = 0.5
 
-[node name="MusicSlider" type="HSlider" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -196,7 +183,7 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_oe6qt")
 max_value = 1.0
 step = 0.05
 
-[node name="SfxSlider" type="HSlider" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+[node name="SfxSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -209,7 +196,7 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_oe6qt")
 max_value = 1.0
 step = 0.05
 
-[node name="UiSlider" type="HSlider" parent="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+[node name="UiSlider" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
@@ -222,17 +209,17 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_oe6qt")
 max_value = 1.0
 step = 0.05
 
-[node name="HSeparator" type="HSeparator" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 theme_override_constants/separation = 80
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1kitb")
 
-[node name="MarginContainer" type="MarginContainer" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="CreditsButton" type="TextureButton" parent="UiBackground/MarginContainer/WholeScreen/MarginContainer"]
+[node name="CreditsButton" type="TextureButton" parent="MarginContainer/WholeScreen/MarginContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -243,19 +230,14 @@ texture_disabled = ExtResource("6_ek507")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="HSeparator3" type="HSeparator" parent="UiBackground/MarginContainer/WholeScreen"]
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/WholeScreen"]
 layout_mode = 2
 theme_override_constants/separation = 80
 theme_override_styles/separator = SubResource("StyleBoxEmpty_1kitb")
 
-[node name="ButtonSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_ke0fy")
-volume_db = 10.0
-bus = &"UI"
-
-[connection signal="pressed" from="UiBackground/MarginContainer/WholeScreen/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="drag_ended" from="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide" to="." method="_on_master_slide_drag_ended"]
-[connection signal="drag_ended" from="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider" to="." method="_on_music_slider_drag_ended"]
-[connection signal="drag_ended" from="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider" to="." method="_on_sfx_slider_drag_ended"]
-[connection signal="drag_ended" from="UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider" to="." method="_on_ui_slider_drag_ended"]
-[connection signal="pressed" from="UiBackground/MarginContainer/WholeScreen/MarginContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MarginContainer/WholeScreen/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide" to="." method="_on_master_slide_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider" to="." method="_on_ui_slider_drag_ended"]
+[connection signal="pressed" from="MarginContainer/WholeScreen/MarginContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

@@ -1,9 +1,9 @@
 extends Control
 
-@onready var master_slider: HSlider = $UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide
-@onready var music_slider: HSlider = $UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider
-@onready var sfx_slider: HSlider = $UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider
-@onready var ui_slider: HSlider = $UiBackground/MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider
+@onready var master_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide
+@onready var music_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider
+@onready var sfx_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider
+@onready var ui_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/UiSlider
 
 @onready var button_pressed_sound = $ButtonSound
 

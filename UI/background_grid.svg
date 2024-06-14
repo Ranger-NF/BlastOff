@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="94mm"
+   height="94mm"
+   viewBox="0 0 94 94"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="background_grid.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   sodipodi:docname="background_grid.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showguides="true"
+     inkscape:zoom="0.33835185"
+     inkscape:cx="174.37469"
+     inkscape:cy="229.0515"
+     inkscape:window-width="1366"
+     inkscape:window-height="699"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="false" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <g
+       id="g1"
+       inkscape:label="mid lines"
+       style="display:none">
+      <path
+         style="display:inline;fill:none;stroke:#454545;stroke-width:1.059;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.444236"
+         d="M 47.031105,-6.7957815 V 96.794402"
+         id="path1" />
+      <path
+         style="display:inline;fill:none;stroke:#454545;stroke-width:1.05865;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.444236"
+         d="M 98.826197,44.99931 H -4.7639868"
+         id="path2" />
+    </g>
+    <path
+       id="rect1"
+       style="display:inline;fill:#b4dafe;fill-opacity:1;stroke:none;stroke-width:1.12231;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:47.2176;paint-order:markers fill stroke"
+       d="M -2.8719788,-1.7550607 H 95.755059 V 96.871976 H -2.8719788 Z" />
+    <g
+       id="g4"
+       inkscape:label="BlackBox"
+       style="fill:#9fd1fd;fill-opacity:1">
+      <path
+         id="rect2"
+         style="fill:#9fd1fd;fill-opacity:1;stroke-width:7.61373;stroke-linejoin:bevel;stroke-dashoffset:47.2176;paint-order:markers stroke fill"
+         d="M 46.997253,44.85807 H 96.017818 V 98.899399 H 46.997253 Z" />
+      <path
+         id="rect2-5"
+         style="fill:#9fd1fd;fill-opacity:1;stroke-width:7.61373;stroke-linejoin:bevel;stroke-dashoffset:47.2176;paint-order:markers stroke fill"
+         d="M -1.8520842,-8.9958372 H 47.168481 V 45.045491 H -1.8520842 Z" />
+    </g>
+  </g>
+</svg>

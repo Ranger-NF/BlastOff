@@ -63,7 +63,7 @@ void fragment() {
 shader = SubResource("Shader_64uhu")
 shader_parameter/deform = Vector2(0, 0)
 shader_parameter/offset = Vector2(-10, -10)
-shader_parameter/modulate = Color(0, 0, 0, 0.392157)
+shader_parameter/modulate = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qd55y"]
 size = Vector2(100, 147)
