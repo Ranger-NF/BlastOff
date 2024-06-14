@@ -166,6 +166,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Change Skin"
 

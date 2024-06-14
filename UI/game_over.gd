@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _on_restart_button_pressed() -> void:
     _on_button_pressed()
-    GameManager.emit_signal("game_started")
+    UiManager.emit_signal("triggered_gamearea_setup")
 
 func _on_back_button_pressed() -> void:
     _on_button_pressed()

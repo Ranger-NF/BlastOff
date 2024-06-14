@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=9 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
@@ -60,6 +60,11 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_axw4p"]
+bg_color = Color(1, 1, 1, 0.364706)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
 [node name="ingame_ui" type="Control"]
@@ -81,29 +86,51 @@ sprite_frames = SubResource("SpriteFrames_l5kil")
 autoplay = "default"
 frame_progress = 0.989522
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="WholeScreen" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="WholeScreen" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScoreBox" type="HBoxContainer" parent="MarginContainer/WholeScreen"]
+[node name="ScoreBox" type="HBoxContainer" parent="WholeScreen"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
+alignment = 1
 
-[node name="Control" type="Control" parent="MarginContainer/WholeScreen/ScoreBox"]
+[node name="Panel" type="Panel" parent="WholeScreen/ScoreBox"]
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_axw4p")
 
-[node name="Score" type="Label" parent="MarginContainer/WholeScreen/ScoreBox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WholeScreen/ScoreBox/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="WholeScreen/ScoreBox/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StarCount" type="RichTextLabel" parent="WholeScreen/ScoreBox/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.313726, 0.313726, 0.313726, 1)
+theme_override_font_sizes/normal_font_size = 42
+text = "					Stars"
+fit_content = true
+scroll_active = false
+
+[node name="Score" type="Label" parent="WholeScreen/ScoreBox/Panel/VBoxContainer"]
 material = SubResource("ShaderMaterial_324iy")
 use_parent_material = true
 layout_mode = 2
@@ -117,17 +144,3 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
-
-[node name="StarCount" type="RichTextLabel" parent="MarginContainer/WholeScreen/ScoreBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 10
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/table_h_separation = 10
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/normal_font_size = 48
-text = "Stars: "
-fit_content = true
-scroll_active = false

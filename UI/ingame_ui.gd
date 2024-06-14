@@ -8,8 +8,8 @@ var active_warnings: Dictionary = {}
 
 const STAR_VISIBLE_TIME: float = 5
 
-@onready var score_label = $MarginContainer/WholeScreen/ScoreBox/Score
-@onready var star_count = $MarginContainer/WholeScreen/ScoreBox/StarCount
+@onready var score_label = $WholeScreen/ScoreBox/Panel/VBoxContainer/Score
+@onready var star_count = $WholeScreen/ScoreBox/Panel/VBoxContainer/StarCount
 @onready var warning_sign: AnimatedSprite2D = $WarningSign
 
 @onready var star_image: Texture = preload("res://Collectables/star.svg")
@@ -54,6 +54,6 @@ func _update_star_count(_change_in_stars = 0):
     star_count.clear()
 
     star_count.append_text("[center]")
-    star_count.add_image(star_image, 75, 75)
-    star_count.append_text("  "+ str(DataManager.gameplay.total_stars))
+    star_count.add_image(star_image, 40, 40)
+    star_count.append_text(str(DataManager.gameplay.total_stars))
 

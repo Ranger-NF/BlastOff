@@ -10,6 +10,14 @@ signal opened_credits
 signal first_startup
 signal show_tutorial
 
+# For scene transition
+signal show_transition ## Called when actual gameplay starts
+signal entered_transition
+signal remove_transition
+
+signal triggered_gamearea_setup
+signal triggered_menu_ui_setup ## Called when game is over --> This chains to GameManager.game_over
+
 #MENU_LEVEL.MAIN is index 1 not zero so keep that in mind if you change to an array
 enum MENU_IDS {
         NONE,
@@ -42,16 +50,25 @@ func _ready() -> void:
     self.opened_settings.connect(spawn_menu.bind(MENU_IDS.SETTINGS))
     self.opened_credits.connect(spawn_menu.bind(MENU_IDS.CREDITS))
 
-    GameManager.game_started.connect(_spawn_ingame_uis)
-    GameManager.game_over.connect(spawn_menu.bind(MENU_IDS.GAME_OVER))
+    self.triggered_gamearea_setup.connect(_spawn_ingame_uis)
+    self.triggered_menu_ui_setup.connect(spawn_menu.bind(MENU_IDS.GAME_OVER))
 
 
 func spawn_menu(menu_id: int):
+    if menu_id == MENU_IDS.GAME_OVER:
+        await _wait_till_transition()
+        GameManager.emit_signal("game_over")
+        self.emit_signal("remove_transition")
+
     call_deferred("_deferred_load_menu", menu_id)
 
 func _spawn_ingame_uis():
+    await _wait_till_transition()
+
     main_scene.add_child(menus[MENU_IDS.CONTROLS])
     spawn_menu(MENU_IDS.INGAME_UI)
+
+    GameManager.emit_signal("game_started")
 
 func _deferred_load_menu(menu_id: int):
     if not main_scene:
@@ -74,7 +91,15 @@ func _deferred_load_menu(menu_id: int):
     #add our selected menu
     menu_container.add_child(current_menu)
 
+    emit_signal("remove_transition")
+
 func _check_tutorial_need() -> void:
     if need_tutorial:
         emit_signal("show_tutorial")
         need_tutorial = false
+
+func _wait_till_transition() -> void:
+    emit_signal("show_transition")
+
+    await self.entered_transition
+

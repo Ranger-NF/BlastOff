@@ -141,7 +141,7 @@ func _on_hurt():
     if is_free_falling:
         return
 
-    GameManager.emit_signal("game_over")
+    UiManager.emit_signal("triggered_menu_ui_setup")
     flame_particle_node.emitting = false
     is_free_falling = true
 
@@ -168,6 +168,7 @@ func _on_game_start() -> void:
 
 func _on_game_over() -> void:
     flame_particle_node.emitting = false
+    self.hide()
 
 func _on_rocket_speed_changed(new_rocket_speed: float):
     flame_particle_node.speed_scale = new_rocket_speed / initial_flame_speed

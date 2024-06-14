@@ -89,16 +89,4 @@ func _on_hit() -> void:
     if self.has_method("_after_hit"): self.call("_after_hit")
 
 func _on_game_over() -> void:
-    collision_shape.set_deferred("disabled", true)
-    if horizontal_speed != 0:
-
-        if horizontal_speed < 0: # Preventing from changing directions
-            horizontal_speed = -1 * horizontal_max_speed * 1.5
-        else:
-            horizontal_speed = horizontal_max_speed * 1.5
-
-        free_fall_multiplier = 0
-        _change_anim_speed()
-    else:
-        free_fall_multiplier += 1
-
+    queue_free()

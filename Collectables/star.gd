@@ -8,9 +8,10 @@ const SHINE_TIME_PERIOD: float = 3
 var initial_shine_scale: Vector2
 
 func _ready() -> void:
-    _spin_shine()
+    _glow()
+    GameManager.game_over.connect(_on_game_over)
 
-func _spin_shine():
+func _glow():
     initial_shine_scale = back_shine_node.scale
     while 1 > 0:
         var tween = create_tween().set_parallel(true)
@@ -42,4 +43,7 @@ func _on_hit() -> void:
     #hit_sound.play()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+    queue_free()
+
+func _on_game_over() -> void:
     queue_free()
