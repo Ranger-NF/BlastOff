@@ -1,0 +1,27 @@
+{
+    "colors": [
+        {
+            "filename": "base.svg",
+            "id": 100,
+        },
+        {
+            "filename": "blue.svg",
+            "id": 101,
+        },
+        {
+            "filename": "yellow.svg",
+            "id": 102,
+        },
+    ],
+
+    "textures" : [
+        {
+            "filename": "base.svg",
+            "id": 10,
+        },
+        {
+            "filename": "apollo.svg",
+            "id": 11,
+        },
+    ]
+}

@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=11 format=3 uid="uid://c1tug87fw4xs"]
 
 [ext_resource type="Script" path="res://Player/rocket.gd" id="1_7uc35"]
 [ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
-[ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="1_tlx86"]
+[ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="3_ud6bj"]
+[ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="4_0xgas"]
+[ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_b3771"]
 
 [sub_resource type="Curve" id="Curve_7spor"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -11,6 +13,10 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_vflus"]
 offsets = PackedFloat32Array(0, 0.383929, 0.767857)
 colors = PackedColorArray(1, 1, 0.0313726, 1, 0.972549, 0.0431373, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_782wp"]
+radius = 40.0
+height = 209.0
 
 [sub_resource type="Shader" id="Shader_00np7"]
 code = "/**
@@ -51,10 +57,6 @@ shader_parameter/deform = Vector2(0, 0)
 shader_parameter/offset = Vector2(-20, -20)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_782wp"]
-radius = 40.0
-height = 209.0
-
 [node name="Rocket" type="Area2D"]
 collision_layer = 2
 collision_mask = 5
@@ -77,12 +79,6 @@ scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_7spor")
 color_ramp = SubResource("Gradient_vflus")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_5uuih")
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_tlx86")
-offset = Vector2(-1, 0)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_782wp")
@@ -90,6 +86,24 @@ shape = SubResource("CapsuleShape2D_782wp")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1.5, 18.5)
 scale = Vector2(8.05, 13.95)
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Base" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_5uuih")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_ud6bj")
+offset = Vector2(-1, 0)
+
+[node name="Color" type="Sprite2D" parent="Sprite"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_0xgas")
+offset = Vector2(-1, 0)
+
+[node name="Texture" type="Sprite2D" parent="Sprite"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_b3771")
+offset = Vector2(-1, 0)
 
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

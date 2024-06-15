@@ -3,71 +3,126 @@
 [ext_resource type="Script" path="res://Background/transition.gd" id="1_jgdp3"]
 [ext_resource type="Texture2D" uid="uid://gnbdubt8ncxq" path="res://Background/clouds.svg" id="1_v31b0"]
 
-[sub_resource type="Animation" id="Animation_46mp3"]
-resource_name = "move_in"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(297, 2256), Vector2(297, 655)]
-}
-
-[sub_resource type="Animation" id="Animation_vxdmt"]
+[sub_resource type="Animation" id="Animation_3tpjb"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("CloudCluster:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(297, 2256)]
+"values": [Vector2(0, 1403)]
 }
 
-[sub_resource type="Animation" id="Animation_285gt"]
-resource_name = "move_out"
+[sub_resource type="Animation" id="Animation_y0w2h"]
+resource_name = "move_in"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath("CloudCluster:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(297, 655), Vector2(297, -793)]
+"values": [Vector2(0, 1392), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7luyp"]
+resource_name = "move_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CloudCluster:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1458)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rcaw8"]
 _data = {
-"RESET": SubResource("Animation_vxdmt"),
-"move_in": SubResource("Animation_46mp3"),
-"move_out": SubResource("Animation_285gt")
+"RESET": SubResource("Animation_3tpjb"),
+"move_in": SubResource("Animation_y0w2h"),
+"move_out": SubResource("Animation_7luyp")
 }
 
 [node name="Transition" type="CanvasLayer"]
 script = ExtResource("1_jgdp3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(297, 2256)
-scale = Vector2(7.85902, 19.0405)
-texture = ExtResource("1_v31b0")
-region_enabled = true
-region_rect = Rect2(12, 263, 266, 148)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_rcaw8")
 }
+
+[node name="CloudCluster" type="Node2D" parent="."]
+position = Vector2(0, 1403)
+
+[node name="top" type="Node2D" parent="CloudCluster"]
+position = Vector2(5, -1391)
+
+[node name="Top2" type="Sprite2D" parent="CloudCluster/top"]
+position = Vector2(130, 1375)
+texture = ExtResource("1_v31b0")
+region_enabled = true
+region_rect = Rect2(11, 11, 502, 203)
+
+[node name="Top3" type="Sprite2D" parent="CloudCluster/top"]
+position = Vector2(544, 1406)
+texture = ExtResource("1_v31b0")
+region_enabled = true
+region_rect = Rect2(-9, 435, 641, 228)
+
+[node name="Top" type="Sprite2D" parent="CloudCluster/top"]
+position = Vector2(166, 1477)
+texture = ExtResource("1_v31b0")
+region_enabled = true
+region_rect = Rect2(-26, 670, 892, 262)
+
+[node name="ColorRect" type="ColorRect" parent="CloudCluster"]
+custom_minimum_size = Vector2(900, 1200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = 47.0
+offset_right = 786.0
+offset_bottom = 1247.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bottom" type="Node2D" parent="CloudCluster"]
+position = Vector2(48, -683)
+
+[node name="Bottom" type="Sprite2D" parent="CloudCluster/Bottom"]
+position = Vector2(123, 1923.5)
+texture = ExtResource("1_v31b0")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(11, 11, 502, 203)
+
+[node name="Bottom2" type="Sprite2D" parent="CloudCluster/Bottom"]
+position = Vector2(537, 1954.5)
+texture = ExtResource("1_v31b0")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(-9, 435, 641, 228)
+
+[node name="Bottom3" type="Sprite2D" parent="CloudCluster/Bottom"]
+position = Vector2(159, 2025.5)
+texture = ExtResource("1_v31b0")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(-26, 670, 892, 262)

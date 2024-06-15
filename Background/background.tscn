@@ -8,8 +8,12 @@
 script/source = "extends ParallaxBackground
 
 @onready var night_cloud_changer: CanvasModulate = $NightCanvasModulate
+@onready var ui_canvas_modulate: CanvasModulate = $UICanvasModulate
+
 @onready var day_sky: TextureRect = $Node2D/DaySky
 @onready var night_sky: TextureRect = $Node2D/NightSky
+
+@onready var distant_clouds_node: ParallaxLayer = $DistantClouds
 
 var is_game_running: bool = false
 const IDLE_WIND_SPEED: float = 10
@@ -18,6 +22,8 @@ var day_propability: float = 0.5
 var is_day_time: bool = true
 
 func _ready() -> void:
+    _change_background_mode(true)
+
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
 
@@ -41,15 +47,26 @@ func _ready() -> void:
 
 func _on_game_start() -> void:
     is_game_running = true
+    _change_background_mode(false)
 
 func _on_game_over() -> void:
     is_game_running = false
+    _change_background_mode(true)
 
 func _physics_process(delta: float) -> void:
     if is_game_running:
         scroll_offset.y += GameManager.rocket_speed * delta
-    if not is_game_running:
-        scroll_offset.x += IDLE_WIND_SPEED * delta
+    scroll_offset.x += IDLE_WIND_SPEED * delta
+
+func _change_background_mode(is_in_menu: bool):
+    if is_in_menu:
+        distant_clouds_node.hide()
+        ui_canvas_modulate.show()
+    else:
+        distant_clouds_node.show()
+        ui_canvas_modulate.hide()
+
+
 "
 
 [sub_resource type="Shader" id="Shader_64uhu"]
@@ -94,55 +111,55 @@ shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 [node name="Background" type="ParallaxBackground"]
 script = SubResource("GDScript_f6ao8")
 
-[node name="BigClouds" type="ParallaxLayer" parent="."]
+[node name="DistantClouds" type="ParallaxLayer" parent="."]
 position = Vector2(0, 17)
 scale = Vector2(1, 0.988805)
 motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(1440, 1640)
 
-[node name="CanvasGroup" type="CanvasGroup" parent="BigClouds"]
+[node name="CanvasGroup" type="CanvasGroup" parent="DistantClouds"]
 self_modulate = Color(1, 1, 1, 0.156863)
 
-[node name="Sprite2D" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(230, 195.703)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
-[node name="Sprite2D4" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D4" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(361.5, 143.738)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
-[node name="Sprite2D5" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D5" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(724, 195.005)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
-[node name="Sprite2D7" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D7" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(590, 1355.17)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
-[node name="Sprite2D2" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D2" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(40, 815.125)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
 
-[node name="Sprite2D3" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D3" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(643, 566.34)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(-0.21991, 697.955, 827.855, 226.362)
 
-[node name="Sprite2D6" type="Sprite2D" parent="BigClouds/CanvasGroup"]
+[node name="Sprite2D6" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(269, 1212.57)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_povin")
@@ -215,6 +232,9 @@ region_rect = Rect2(393.57, 914.338, 326.585, 205.065)
 visible = false
 color = Color(0.560955, 0.560955, 0.560955, 1)
 
+[node name="UICanvasModulate" type="CanvasModulate" parent="."]
+color = Color(1, 1, 1, 0.313726)
+
 [node name="Node2D" type="CanvasLayer" parent="."]
 layer = -110
 
@@ -227,7 +247,6 @@ grow_vertical = 2
 texture = ExtResource("1_rxhcj")
 
 [node name="NightSky" type="TextureRect" parent="Node2D"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

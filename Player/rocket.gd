@@ -7,6 +7,8 @@ const rotation_per_frame = 50 # in degrees
 
 @onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
 @onready var rocket_collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var color_overlay_node: Sprite2D = $Sprite/Color
+@onready var texture_overlay_node: Sprite2D = $Sprite/Texture
 
 enum {
     LEFT = -1,
@@ -30,6 +32,7 @@ var initial_flame_speed: float
 var half_of_rocket_width: float
 
 func _reset_properties() -> void:
+    _update_current_skin()
     self.show()
     $CollisionShape2D.disabled = false
 
@@ -173,6 +176,10 @@ func _on_game_start() -> void:
 func _on_game_over() -> void:
     flame_particle_node.emitting = false
     self.hide()
+
+func _update_current_skin() -> void:
+    color_overlay_node.texture = SkinManager.current_skin_textures.color
+    texture_overlay_node.texture = SkinManager.current_skin_textures.texture
 
 func _on_rocket_speed_changed(new_rocket_speed: float):
     flame_particle_node.speed_scale = new_rocket_speed / initial_flame_speed
