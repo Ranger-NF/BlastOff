@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=11 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lyfac"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bwtlhy46ebjdw" path="res://Collectables/star.tscn" id="4_3h5cl"]
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
 [ext_resource type="AudioStream" uid="uid://ciqy1wnkunlb1" path="res://Music/homely_arcade.ogg" id="6_bev8e"]
-[ext_resource type="Texture2D" uid="uid://mif6b36vbfns" path="res://UI/background_grid.png" id="9_qc47w"]
 [ext_resource type="PackedScene" uid="uid://c7khim02dfxsw" path="res://Background/transition.tscn" id="10_ngmpp"]
 [ext_resource type="PackedScene" uid="uid://cd02qtpq2ias" path="res://UI/tutorial.tscn" id="11_ldlc6"]
 
@@ -32,8 +31,6 @@ wait_time = 3.0
 
 [node name="SatelliteTimer" type="Timer" parent="."]
 
-[node name="Background" parent="." instance=ExtResource("5_rc5yt")]
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_bev8e")
 autoplay = true
@@ -45,18 +42,10 @@ curve = SubResource("Curve2D_e3rry")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="ObstaclePath"]
 
+[node name="Background" parent="." instance=ExtResource("5_rc5yt")]
+
 [node name="Tutorial" parent="." instance=ExtResource("11_ldlc6")]
 visible = false
-
-[node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_qc47w")
-expand_mode = 5
-stretch_mode = 1
 
 [node name="Transition" parent="." instance=ExtResource("10_ngmpp")]
 

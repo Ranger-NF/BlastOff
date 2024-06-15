@@ -84,7 +84,6 @@ texture = ExtResource("1_tlx86")
 offset = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 8)
 shape = SubResource("CapsuleShape2D_782wp")
 

@@ -1,15 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://cihqkayqkp35l"]
+[gd_scene load_steps=7 format=3 uid="uid://cihqkayqkp35l"]
 
 [ext_resource type="Texture2D" uid="uid://gnbdubt8ncxq" path="res://Background/clouds.svg" id="1_povin"]
+[ext_resource type="Texture2D" uid="uid://tojlhqhpamox" path="res://Background/day_sky.svg" id="1_rxhcj"]
+[ext_resource type="Texture2D" uid="uid://bb2aqu78ih2bi" path="res://Background/night_sky.svg" id="2_hv1ns"]
 
 [sub_resource type="GDScript" id="GDScript_f6ao8"]
 script/source = "extends ParallaxBackground
 
+@onready var night_cloud_changer: CanvasModulate = $NightCanvasModulate
+@onready var day_sky: TextureRect = $Node2D/DaySky
+@onready var night_sky: TextureRect = $Node2D/NightSky
+
 var is_game_running: bool = false
+const IDLE_WIND_SPEED: float = 10
+
+var day_propability: float = 0.5
+var is_day_time: bool = true
 
 func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
+
+    var rand_num: float = randf()
+
+    if rand_num > day_propability:
+        is_day_time = true
+    else:
+        is_day_time = false
+
+    if not is_day_time:
+        night_sky.show()
+        night_cloud_changer.show()
+
+        day_sky.hide()
+    else:
+        day_sky.show()
+
+        night_sky.hide()
+        night_cloud_changer.hide()
 
 func _on_game_start() -> void:
     is_game_running = true
@@ -20,6 +48,8 @@ func _on_game_over() -> void:
 func _physics_process(delta: float) -> void:
     if is_game_running:
         scroll_offset.y += GameManager.rocket_speed * delta
+    if not is_game_running:
+        scroll_offset.x += IDLE_WIND_SPEED * delta
 "
 
 [sub_resource type="Shader" id="Shader_64uhu"]
@@ -68,7 +98,7 @@ script = SubResource("GDScript_f6ao8")
 position = Vector2(0, 17)
 scale = Vector2(1, 0.988805)
 motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(0, 1640)
+motion_mirroring = Vector2(1440, 1640)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="BigClouds"]
 self_modulate = Color(1, 1, 1, 0.156863)
@@ -121,7 +151,7 @@ region_enabled = true
 region_rect = Rect2(-0.21991, 697.955, 827.855, 226.362)
 
 [node name="Clouds" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(0, 2105)
+motion_mirroring = Vector2(951, 2105)
 
 [node name="Cloud Grouped" type="Node2D" parent="Clouds"]
 
@@ -180,3 +210,28 @@ position = Vector2(609, 1037)
 texture = ExtResource("1_povin")
 region_enabled = true
 region_rect = Rect2(393.57, 914.338, 326.585, 205.065)
+
+[node name="NightCanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.560955, 0.560955, 0.560955, 1)
+
+[node name="Node2D" type="CanvasLayer" parent="."]
+layer = -110
+
+[node name="DaySky" type="TextureRect" parent="Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rxhcj")
+
+[node name="NightSky" type="TextureRect" parent="Node2D"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hv1ns")
+stretch_mode = 3

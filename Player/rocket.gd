@@ -6,6 +6,7 @@ const friction = 90
 const rotation_per_frame = 50 # in degrees
 
 @onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
+@onready var rocket_collision_shape: CollisionShape2D = $CollisionShape2D
 
 enum {
     LEFT = -1,
@@ -26,10 +27,13 @@ var faceplant_tween: Tween
 var time_idle: float = 0
 
 var initial_flame_speed: float
+var half_of_rocket_width: float
 
 func _reset_properties() -> void:
     self.show()
     $CollisionShape2D.disabled = false
+
+    half_of_rocket_width = rocket_collision_shape.shape.radius + 5
 
     if faceplant_tween:
         faceplant_tween.stop()
@@ -126,9 +130,9 @@ func move(delta: float):
     # Preventing player from moving outside the screen
     var horizontal_screen_size = get_viewport_rect().size.x
 
-    if (self.position.x >= horizontal_screen_size) or (self.position.x <= 0):
+    if (self.position.x >= horizontal_screen_size - half_of_rocket_width) or (self.position.x <= half_of_rocket_width):
         sway(RESET, delta)
-        self.position.x = clamp(self.position.x , 0, horizontal_screen_size) # Prevents the rocket from going off the screen
+        self.position.x = clamp(self.position.x , half_of_rocket_width, horizontal_screen_size - half_of_rocket_width) # Prevents the rocket from going off the screen
         move_vec = Vector2.ZERO # Resets the velocity to sudden stop
 
 func _physics_process(delta: float) -> void:
