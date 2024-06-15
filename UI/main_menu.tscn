@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dv70mhv0hjj0y" path="res://UI/Buttons/options_pressed.png" id="6_06i4e"]
 [ext_resource type="Texture2D" uid="uid://dqsn001eavjho" path="res://UI/Buttons/quit_pressed.png" id="6_bv2wb"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="9_8itks"]
-[ext_resource type="Texture2D" uid="uid://bnld3xtndxy4o" path="res://Player/rocket.svg" id="9_pv127"]
+[ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="9_8rulx"]
 [ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="10_g51ex"]
 [ext_resource type="Texture2D" uid="uid://c064vw75gfid1" path="res://UI/Buttons/button_background.svg" id="10_t8npn"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="11_sygac"]
@@ -123,7 +123,7 @@ size_flags_stretch_ratio = 1.75
 [node name="Base" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("9_pv127")
+texture = ExtResource("9_8rulx")
 expand_mode = 1
 stretch_mode = 5
 

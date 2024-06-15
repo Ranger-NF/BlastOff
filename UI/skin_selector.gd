@@ -10,7 +10,7 @@ func _ready() -> void:
     self.child_entered_tree.connect(_update_current_skin)
     _update_current_skin()
 
-func _update_current_skin(node: Node = null) -> void:
+func _update_current_skin(_node: Node = null) -> void:
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture
 

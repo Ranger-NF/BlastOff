@@ -19,7 +19,7 @@ func _update_current_skin(_node: Node = null) -> void:
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture
 
-func _update_high_score(node: Node = null) -> void:
+func _update_high_score(_node: Node = null) -> void:
     if DataManager.gameplay.high_score > 0:
         high_score_label.text = "High Score: " + str(DataManager.gameplay.high_score)
         high_score_label.show()

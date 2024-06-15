@@ -20,7 +20,6 @@ func _ready() -> void:
     UiManager.main_scene = self
     UiManager.emit_signal("skipped_to_main_menu")
 
-
 func _physics_process(delta: float) -> void:
     if is_game_running:
         StatManager.time_spent += delta
