@@ -1,5 +1,7 @@
 extends Control
 
+signal back_button_pressed
+
 @onready var color_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer2/RocketSkin/Color
 @onready var texture_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer2/RocketSkin/Texture
 
@@ -7,6 +9,8 @@ var current_color_index: int # Useful for cycling through colors
 var current_texture_index: int
 
 func _ready() -> void:
+    self.back_button_pressed.connect(_on_back_button_pressed)
+
     self.child_entered_tree.connect(_update_current_skin)
     _update_current_skin()
 

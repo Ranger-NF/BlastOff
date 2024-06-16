@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgpquglphwvyn"]
+[gd_scene load_steps=7 format=3 uid="uid://bgpquglphwvyn"]
 
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="1_855wc"]
 [ext_resource type="Script" path="res://UI/credits.gd" id="1_wt4pc"]
-[ext_resource type="Texture2D" uid="uid://b8bl66xk32oyg" path="res://UI/Buttons/mainmenu_normal.png" id="2_8js3o"]
-[ext_resource type="Texture2D" uid="uid://dbm4vt3ejt3l2" path="res://UI/Buttons/mainmenu_pressed.png" id="3_r48nc"]
+[ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="3_ch2n8"]
 [ext_resource type="FontFile" uid="uid://cei1qxr1sela7" path="res://Fonts/Rubik-Bold.ttf" id="4_wldcp"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="5_qyvdh"]
 
@@ -36,15 +35,11 @@ theme_override_constants/margin_bottom = 100
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="BackButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
+[node name="BackButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ch2n8")]
 layout_mode = 2
-texture_normal = ExtResource("2_8js3o")
-texture_pressed = ExtResource("3_r48nc")
-texture_hover = ExtResource("3_r48nc")
-texture_disabled = ExtResource("3_r48nc")
-ignore_texture_size = true
-stretch_mode = 5
+button_text = "Back"
+pressed_signal_name = "back_button_pressed"
+font_size = 36
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 material = ExtResource("1_855wc")
@@ -213,5 +208,4 @@ text = "Game by Fahad
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="meta_clicked" from="MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
