@@ -70,5 +70,3 @@ func update_smoke_speed(new_rocket_speed: float):
     var calculated_smoke_speed = absf((new_rocket_speed - (new_rocket_speed * free_fall_multiplier)))
     smoke_partcile_node.initial_velocity_min = calculated_smoke_speed * 0.5
     smoke_partcile_node.initial_velocity_max = calculated_smoke_speed
-
-    print(calculated_smoke_speed)

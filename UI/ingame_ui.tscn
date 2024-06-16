@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=10 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
+[ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_pcjc4"]
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -121,14 +122,8 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="StarCount" type="RichTextLabel" parent="WholeScreen/ScoreBox/Panel/VBoxContainer"]
+[node name="StarCount" parent="WholeScreen/ScoreBox/Panel/VBoxContainer" instance=ExtResource("3_pcjc4")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0.313726, 0.313726, 0.313726, 1)
-theme_override_font_sizes/normal_font_size = 42
-text = "					Stars"
-fit_content = true
-scroll_active = false
 
 [node name="Score" type="Label" parent="WholeScreen/ScoreBox/Panel/VBoxContainer"]
 material = SubResource("ShaderMaterial_324iy")

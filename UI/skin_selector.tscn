@@ -1,11 +1,49 @@
-[gd_scene load_steps=7 format=3 uid="uid://du26e5thk4fq0"]
+[gd_scene load_steps=12 format=3 uid="uid://du26e5thk4fq0"]
 
 [ext_resource type="Texture2D" uid="uid://c064vw75gfid1" path="res://UI/Buttons/button_background.svg" id="1_4yf6e"]
 [ext_resource type="Script" path="res://UI/skin_selector.gd" id="1_j3i5v"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="2_aw7yp"]
-[ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="3_6kwsp"]
-[ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="4_6fa4w"]
-[ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_g0775"]
+[ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_fjdu4"]
+[ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/star.svg" id="5_x6cwi"]
+[ext_resource type="PackedScene" uid="uid://bdjjpk7wmljd5" path="res://UI/rocket_skin.tscn" id="7_gv3ki"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtsyl"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 25
+border_width_top = 10
+border_width_right = 25
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1rok"]
+bg_color = Color(0.797659, 0.797659, 0.797658, 1)
+border_width_left = 25
+border_width_top = 10
+border_width_right = 25
+border_width_bottom = 5
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rahsd"]
+bg_color = Color(0, 0, 0, 0.188235)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0m5am"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_40b53"]
 
 [node name="SkinSelector" type="Control"]
 layout_mode = 3
@@ -24,7 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
@@ -34,7 +72,6 @@ layout_mode = 2
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
 
 [node name="GameButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("2_aw7yp")]
 layout_mode = 2
@@ -46,81 +83,201 @@ font_size = 36
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="Control2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="StarCount" parent="MarginContainer/VBoxContainer/HBoxContainer4/Control2" instance=ExtResource("3_fjdu4")]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_unselected_color = Color(0.169245, 0.169245, 0.169245, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_dtsyl")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_g1rok")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rahsd")
+tab_alignment = 1
+current_tab = 1
+tabs_rearrange_group = 0
 
-[node name="Category" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Paint" type="TabBar" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "Paints & Stickers"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="PreviousButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="PreviousButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 texture_normal = ExtResource("1_4yf6e")
 stretch_mode = 5
 
-[node name="RocketSkin" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="RocketSkin" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2" instance=ExtResource("7_gv3ki")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="Base" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/RocketSkin"]
-layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
-offset_bottom = 664.0
-size_flags_horizontal = 3
-texture = ExtResource("3_6kwsp")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Color" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/RocketSkin"]
-layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
-offset_bottom = 664.0
-size_flags_horizontal = 3
-texture = ExtResource("4_6fa4w")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Texture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/RocketSkin"]
-layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
-offset_bottom = 664.0
-size_flags_horizontal = 3
-texture = ExtResource("5_g0775")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 texture_normal = ExtResource("1_4yf6e")
 stretch_mode = 5
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BuyButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="BuyButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("1_4yf6e")
 stretch_mode = 5
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/PreviousButton" to="." method="_on_previous_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/NextButton" to="." method="_on_next_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/BuyButton" to="." method="_on_buy_button_pressed"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Repaint"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+
+[node name="PaintCost" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.37918, 0.37918, 0.37918, 1)
+theme_override_colors/font_disabled_color = Color(0.380392, 0.380392, 0.380392, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0m5am")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_40b53")
+disabled = true
+text = "10 "
+icon = ExtResource("5_x6cwi")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[node name="Stickers" type="TabBar" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="PreviousButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("1_4yf6e")
+stretch_mode = 5
+
+[node name="RocketSkin" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2" instance=ExtResource("7_gv3ki")]
+layout_mode = 2
+
+[node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("1_4yf6e")
+stretch_mode = 5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuyButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_4yf6e")
+stretch_mode = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Apply Sticker
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="StickerCost" type="Button" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton/CenterContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.37918, 0.37918, 0.37918, 1)
+theme_override_colors/font_disabled_color = Color(0.380392, 0.380392, 0.380392, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0m5am")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_40b53")
+disabled = true
+text = "10 "
+icon = ExtResource("5_x6cwi")
+flat = true
+text_overrun_behavior = 3
+expand_icon = true
+
+[connection signal="tab_changed" from="MarginContainer/VBoxContainer/TabContainer" to="." method="_on_refresh"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2/PreviousButton" to="." method="_on_previous_button_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2/NextButton" to="." method="_on_next_button_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton" to="." method="_on_buy_button_pressed" binds= [0]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2/PreviousButton" to="." method="_on_previous_button_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2/NextButton" to="." method="_on_next_button_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton" to="." method="_on_buy_button_pressed" binds= [1]]

@@ -3,14 +3,17 @@
         {
             "filename": "base.svg",
             "id": 100,
+            "cost": 0,
         },
         {
             "filename": "blue.svg",
             "id": 101,
+            "cost": 10,
         },
         {
             "filename": "yellow.svg",
             "id": 102,
+            "cost": 10,
         },
     ],
 
@@ -18,10 +21,12 @@
         {
             "filename": "base.svg",
             "id": 10,
+            "cost": 0,
         },
         {
             "filename": "apollo.svg",
             "id": 11,
+            "cost": 5,
         },
     ]
 }

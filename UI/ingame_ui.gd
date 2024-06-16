@@ -9,20 +9,13 @@ var active_warnings: Dictionary = {}
 const STAR_VISIBLE_TIME: float = 5
 
 @onready var score_label = $WholeScreen/ScoreBox/Panel/VBoxContainer/Score
-@onready var star_count = $WholeScreen/ScoreBox/Panel/VBoxContainer/StarCount
 @onready var warning_sign: AnimatedSprite2D = $WarningSign
-
-@onready var star_image: Texture = preload("res://Collectables/star.svg")
 
 var is_warning_on: bool = false
 
 func _ready() -> void:
     UiManager.warning_announced.connect(_flash_warning)
     UiManager.warning_withdrawn.connect(_stop_warning)
-
-    self.child_entered_tree.connect(_update_star_count)
-    StatManager.star_count_changed.connect(_update_star_count)
-    _update_star_count()
 
 func _physics_process(_delta: float) -> void:
     score_label.text = "{score}".format({"score": StatManager.score_gained})
@@ -50,10 +43,5 @@ func _stop_warning(warning_id: int):
     active_warning_sign.queue_free()
     active_warnings.erase(str(warning_id))
 
-func _update_star_count(_change_in_stars = 0):
-    star_count.clear()
 
-    star_count.append_text("[center]")
-    star_count.add_image(star_image, 40, 40)
-    star_count.append_text(str(DataManager.gameplay.total_stars))
 

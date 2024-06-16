@@ -26,7 +26,6 @@ func _on_pressed() -> void:
     $AudioStreamPlayer.play()
 
 func _on_audio_stream_player_finished() -> void:
-    print(owner, owner)
     if not owner:
         push_error("No owner to call from!")
         return

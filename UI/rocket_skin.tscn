@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdjjpk7wmljd5"]
+
+[ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="1_5wldl"]
+[ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="2_r64mg"]
+[ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="3_54k5p"]
+
+[sub_resource type="GDScript" id="GDScript_hexhy"]
+script/source = "extends Control
+
+@onready var color_overlay_node: TextureRect = $Color
+@onready var sticker_overlay_node: TextureRect = $Texture
+
+func _ready() -> void:
+    _update_current_skin()
+
+    SkinManager.requested_skin_updation.connect(_update_current_skin)
+    SkinManager.preview_color.connect(_preview_color)
+    SkinManager.preview_sticker.connect(_preview_sticker)
+
+func _update_current_skin(_node: Node = null) -> void:
+    color_overlay_node.texture = SkinManager.current_skin_textures.color
+    sticker_overlay_node.texture = SkinManager.current_skin_textures.texture
+
+
+func _preview_color(color_texture:Texture):
+    color_overlay_node.texture = color_texture
+
+func _preview_sticker(sticker_texture: Texture):
+    sticker_overlay_node.texture = sticker_texture
+"
+
+[node name="RocketSkin" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+script = SubResource("GDScript_hexhy")
+
+[node name="Base" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 352.0
+offset_bottom = 664.0
+size_flags_horizontal = 3
+texture = ExtResource("1_5wldl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Color" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 352.0
+offset_bottom = 664.0
+size_flags_horizontal = 3
+texture = ExtResource("2_r64mg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 352.0
+offset_bottom = 664.0
+size_flags_horizontal = 3
+texture = ExtResource("3_54k5p")
+expand_mode = 1
+stretch_mode = 5

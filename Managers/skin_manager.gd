@@ -1,5 +1,7 @@
 extends Node
 
+signal preview_color(color_texture: Texture)
+signal preview_sticker(sticker_texture: Texture)
 
 signal requested_skin_updation
 signal skin_updated(color: Texture, texture: Texture)
@@ -14,6 +16,12 @@ var available_color_ids: Array[int] = []
 var available_texture_ids: Array[int] = []
 
 var current_skin_textures: Dictionary = {}
+
+enum SKIN_TYPES {
+    NONE,
+    PAINT,
+    STICKER,
+}
 
 func _ready() -> void:
     _reload_skin_data()
@@ -33,21 +41,52 @@ func _on_skin_updation(color_sprite: Texture, texture_sprite: Texture) -> void:
     current_skin_textures.color = color_sprite
     current_skin_textures.texture = texture_sprite
 
-func get_color(color_id: int = 100) -> Texture:
-    var matched_colors: Array = skin_data_dict.colors.filter(func (each_entry): return each_entry.id == color_id)
+func get_skin_data(skin_id: int, skin_type: int = SKIN_TYPES.NONE) -> Dictionary:
+    if skin_type == SKIN_TYPES.NONE:
+        if skin_id > 99: ## Works for now as paints have values from 100 to 999, and stickers have 10 to 99
+            skin_type = SKIN_TYPES.PAINT
+        else:
+            skin_type = SKIN_TYPES.STICKER
 
-    if matched_colors.is_empty():
-        return load(ROCKET_COLOR_DIR + "base.svg")
+    var matched_textures: Array
 
-    return load(ROCKET_COLOR_DIR + matched_colors.front().filename)
-
-func get_texture(texture_id: int = 10) -> Texture:
-    var matched_textures: Array = skin_data_dict.textures.filter(func (each_entry): return each_entry.id == texture_id)
+    match skin_type:
+        SKIN_TYPES.PAINT:
+            matched_textures = skin_data_dict.colors.filter(func (each_entry): return each_entry.id == skin_id)
+        SKIN_TYPES.STICKER:
+            matched_textures = skin_data_dict.textures.filter(func (each_entry): return each_entry.id == skin_id)
 
     if matched_textures.is_empty():
+        return {}
+    else:
+        return matched_textures.front()
+
+func get_color(color_id: int = 100) -> Texture:
+    #var matched_colors: Array = skin_data_dict.colors.filter(func (each_entry): return each_entry.id == color_id)
+    var skin_data: Dictionary = get_skin_data(color_id, SKIN_TYPES.PAINT)
+
+    if skin_data.is_empty():
+        return load(ROCKET_COLOR_DIR + "base.svg")
+
+    return load(ROCKET_COLOR_DIR + skin_data.filename)
+
+func get_texture(sticker_id: int = 10) -> Texture:
+    var skin_data: Dictionary = get_skin_data(sticker_id, SKIN_TYPES.STICKER)
+
+    if skin_data.is_empty():
         return load(ROCKET_TEXTURE_DIR + "base.svg")
 
-    return load(ROCKET_TEXTURE_DIR + matched_textures.front().filename)
+    return load(ROCKET_TEXTURE_DIR + skin_data.filename)
+
+func get_cost(skin_id: int, skin_type: int = SKIN_TYPES.NONE) -> int:
+    var skin_data = get_skin_data(skin_id, skin_type)
+
+    var skin_cost: int = 100000
+
+    if not skin_data.is_empty():
+        skin_cost = skin_data.cost
+
+    return skin_cost
 
 func _reload_skin_data() -> void:
     var file_content: String = FileAccess.get_file_as_string(SKIN_DATA_FILE)

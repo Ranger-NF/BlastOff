@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://buxy1ejbko412"]
+
+[sub_resource type="GDScript" id="GDScript_b725a"]
+script/source = "extends RichTextLabel
+
+@onready var star_image: Texture = preload(\"res://Collectables/star.svg\")
+
+func _ready() -> void:
+    self.child_entered_tree.connect(_update_star_count)
+    StatManager.star_count_changed.connect(_update_star_count)
+    _update_star_count()
+
+func _update_star_count(_change_in_stars = 0):
+    self.clear()
+
+    self.append_text(\"[center]\")
+    self.add_image(star_image, 40, 40)
+    self.append_text(str(DataManager.gameplay.total_stars))
+"
+
+[node name="StarCount" type="RichTextLabel"]
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.313726, 0.313726, 0.313726, 1)
+theme_override_font_sizes/normal_font_size = 42
+text = "					Stars"
+fit_content = true
+scroll_active = false
+script = SubResource("GDScript_b725a")
