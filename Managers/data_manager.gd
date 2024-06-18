@@ -13,7 +13,7 @@ var gameplay: Dictionary = {
     high_score = 0,
     total_stars = 0,
     current_texture = 10,
-    current_color = 102,
+    current_color = 100,
 }
 
 ## settings

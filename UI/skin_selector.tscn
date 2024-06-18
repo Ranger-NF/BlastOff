@@ -127,6 +127,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_font_sizes/font_size = 64
+text = "Paints"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -226,6 +235,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_font_sizes/font_size = 64
+text = "Stickers"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer"]
 layout_mode = 2

@@ -11,7 +11,6 @@ extends TextureButton
         pressed_signal_name = value
 
         if not owner:
-            push_warning("There is no owner to call from!!")
             return
 
         if not owner.has_signal(pressed_signal_name):

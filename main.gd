@@ -4,6 +4,12 @@ extends Node
 @export var satellite_scene: PackedScene
 @export var star_scene: PackedScene
 
+@onready var bg_music_list: Array = [
+    preload("res://Music/bravery_demon.ogg"),
+    preload("res://Music/bravery_run.ogg"),
+    preload("res://Music/homely_arcade.ogg")
+]
+
 @onready var obstacle_timer: Timer = $ObstacleTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
 @onready var star_timer: Timer = $StarTimer
@@ -19,6 +25,8 @@ func _ready() -> void:
 
     UiManager.main_scene = self
     UiManager.emit_signal("skipped_to_main_menu")
+
+    _start_rand_music()
 
 func _physics_process(delta: float) -> void:
     if is_game_running:
@@ -44,10 +52,10 @@ func determine_next_obstacle():
     var random_num = randf()
     if (random_num < GameManager.satellite_falling_propability):
         if satellite_timer.is_stopped():
-            satellite_timer.start(randi_range(4, 6))
+            satellite_timer.start(randi_range(2, 6))
     else:
         if star_timer.is_stopped():
-            star_timer.start(randi_range(3, 5))
+            star_timer.start(randi_range(1, 5))
 
     spawn_obstacle(bird_scene)
 
@@ -63,7 +71,7 @@ func restart_game() -> void:
     obstacle_timer.start()
 
 func _on_asteroid_timer_timeout() -> void:
-    obstacle_timer.wait_time = randf_range(1, 3)
+    obstacle_timer.wait_time = randf_range(0.5, 2.5)
     determine_next_obstacle()
 
 func _on_satellite_timer_timeout() -> void:
@@ -71,3 +79,10 @@ func _on_satellite_timer_timeout() -> void:
 
 func _on_star_timer_timeout() -> void:
     spawn_obstacle(star_scene)
+
+func _on_music_finished() -> void:
+    _start_rand_music()
+
+func _start_rand_music() -> void:
+    music_player.stream = bg_music_list.pick_random()
+    music_player.play()

@@ -4,7 +4,9 @@ signal preview_color(color_texture: Texture)
 signal preview_sticker(sticker_texture: Texture)
 
 signal requested_skin_updation
-signal skin_updated(color: Texture, texture: Texture)
+signal ordered_skin_reload(color: Texture, texture: Texture)
+
+signal bought_new_skin(sking_type: int)
 
 const ROCKET_COLOR_DIR: String = "res://Player/Custom/Colors/"
 const ROCKET_TEXTURE_DIR: String = "res://Player/Custom/Textures/"
@@ -27,19 +29,15 @@ func _ready() -> void:
     _reload_skin_data()
 
     self.requested_skin_updation.connect(_get_current_skin_texture)
-    self.skin_updated.connect(_on_skin_updation)
 
     _get_current_skin_texture()
 
 func _get_current_skin_texture() -> void:
-    var color_sprite: Texture = get_color(DataManager.gameplay.current_color)
-    var texture_sprite: Texture = get_texture(DataManager.gameplay.current_texture)
+    current_skin_textures.color = get_color(DataManager.gameplay.current_color)
+    current_skin_textures.texture = get_texture(DataManager.gameplay.current_texture)
 
-    self.emit_signal("skin_updated", color_sprite, texture_sprite)
+    self.emit_signal("ordered_skin_reload", current_skin_textures.color, current_skin_textures.texture)
 
-func _on_skin_updation(color_sprite: Texture, texture_sprite: Texture) -> void:
-    current_skin_textures.color = color_sprite
-    current_skin_textures.texture = texture_sprite
 
 func get_skin_data(skin_id: int, skin_type: int = SKIN_TYPES.NONE) -> Dictionary:
     if skin_type == SKIN_TYPES.NONE:

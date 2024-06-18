@@ -1,12 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgpquglphwvyn"]
+[gd_scene load_steps=6 format=3 uid="uid://bgpquglphwvyn"]
 
-[ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="1_855wc"]
 [ext_resource type="Script" path="res://UI/credits.gd" id="1_wt4pc"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="3_ch2n8"]
 [ext_resource type="FontFile" uid="uid://cei1qxr1sela7" path="res://Fonts/Rubik-Bold.ttf" id="4_wldcp"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="5_qyvdh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o3g1s"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tfu05"]
+content_margin_right = 15.0
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -34,6 +34,7 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="BackButton" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ch2n8")]
 layout_mode = 2
@@ -41,24 +42,27 @@ button_text = "Back"
 pressed_signal_name = "back_button_pressed"
 font_size = 36
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-material = ExtResource("1_855wc")
-layout_mode = 2
-theme_override_constants/separation = 100
-theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="Category" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 50
+size_flags_stretch_ratio = 5.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tfu05")
+horizontal_scroll_mode = 0
 
-[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 35
+
+[node name="Music" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
@@ -72,53 +76,9 @@ text = "Music
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
+[node name="HomelyArcade" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 32
-text = "Font
-
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 32
-text = "Drop
-Shadow"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Category"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 32
-text = "Blinking
-Shader"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Names" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 50
-
-[node name="Music" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
-layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
@@ -131,8 +91,79 @@ By Spring spring
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Music2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Music2" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Music3" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Bracey Run
+By MintoDog
+(OpenGameArt)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Music4" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Music3" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Music3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Bravery Knight
+By MintoDog
+(OpenGameArt)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Font" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Font" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Font"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Font
+
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Font2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Font"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
@@ -144,42 +175,72 @@ text = "Rubik
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="Shader" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Shader" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Shader"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "deackor
+text = "Shader"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DropShadow" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Shader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Drop Shadow
+By deackor
 (Godot Shaders)
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Names"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Shader" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BlinkingShader2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
-text = "KingToot
-(Godot Shaders)"
+text = "Blinking Shdader
+(Godot Shader)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-material = ExtResource("1_855wc")
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
-theme_override_styles/separator = SubResource("StyleBoxEmpty_o3g1s")
+size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 tooltip_text = "Click to go to the website"
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

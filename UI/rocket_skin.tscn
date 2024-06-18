@@ -1,66 +1,88 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdjjpk7wmljd5"]
+[gd_scene load_steps=11 format=3 uid="uid://bdjjpk7wmljd5"]
 
 [ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="1_5wldl"]
-[ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="2_r64mg"]
+[ext_resource type="Script" path="res://UI/Skin Selector/rocket_skin.gd" id="1_11c3q"]
+[ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="2_72aj8"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="3_54k5p"]
+[ext_resource type="Shader" path="res://Shader/controlled_shine.gdshader" id="4_h8ee2"]
+[ext_resource type="Texture2D" uid="uid://c064vw75gfid1" path="res://UI/Buttons/button_background.svg" id="4_k84u4"]
 
-[sub_resource type="GDScript" id="GDScript_hexhy"]
-script/source = "extends Control
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7qm37"]
+shader = ExtResource("4_h8ee2")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.1
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0
 
-@onready var color_overlay_node: TextureRect = $Color
-@onready var sticker_overlay_node: TextureRect = $Texture
+[sub_resource type="Curve" id="Curve_xs1c2"]
+max_value = 1.5
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-func _ready() -> void:
-    _update_current_skin()
+[sub_resource type="Gradient" id="Gradient_krnda"]
+colors = PackedColorArray(0.342453, 0.608102, 0.92994, 1, 1, 1, 1, 1)
 
-    SkinManager.requested_skin_updation.connect(_update_current_skin)
-    SkinManager.preview_color.connect(_preview_color)
-    SkinManager.preview_sticker.connect(_preview_sticker)
-
-func _update_current_skin(_node: Node = null) -> void:
-    color_overlay_node.texture = SkinManager.current_skin_textures.color
-    sticker_overlay_node.texture = SkinManager.current_skin_textures.texture
-
-
-func _preview_color(color_texture:Texture):
-    color_overlay_node.texture = color_texture
-
-func _preview_sticker(sticker_texture: Texture):
-    sticker_overlay_node.texture = sticker_texture
-"
+[sub_resource type="Curve" id="Curve_iixpv"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="RocketSkin" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-script = SubResource("GDScript_hexhy")
+script = ExtResource("1_11c3q")
 
 [node name="Base" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
+offset_right = 348.0
 offset_bottom = 664.0
 size_flags_horizontal = 3
 texture = ExtResource("1_5wldl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Color" type="TextureRect" parent="."]
+[node name="Paint" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
+offset_right = 348.0
 offset_bottom = 664.0
 size_flags_horizontal = 3
-texture = ExtResource("2_r64mg")
+texture = ExtResource("2_72aj8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Texture" type="TextureRect" parent="."]
+[node name="Sticker" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_7qm37")
 layout_mode = 0
-offset_left = 4.0
-offset_right = 352.0
+offset_right = 348.0
 offset_bottom = 664.0
 size_flags_horizontal = 3
 texture = ExtResource("3_54k5p")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="PaintSprayParticles" type="CPUParticles2D" parent="."]
+position = Vector2(184, 349)
+emitting = false
+amount = 10
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.5
+lifetime_randomness = 0.5
+texture = ExtResource("4_k84u4")
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 200.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_xs1c2")
+color_ramp = SubResource("Gradient_krnda")
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_iixpv")
