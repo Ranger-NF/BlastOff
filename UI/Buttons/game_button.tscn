@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0h7ptlod7ywd"]
+[gd_scene load_steps=6 format=3 uid="uid://d0h7ptlod7ywd"]
 
 [ext_resource type="Texture2D" uid="uid://c064vw75gfid1" path="res://UI/Buttons/button_background.svg" id="1_gq5mb"]
 [ext_resource type="Script" path="res://UI/Buttons/game_button.gd" id="2_2iw6i"]
+[ext_resource type="Texture2D" uid="uid://ctpidl3kl83x1" path="res://UI/Buttons/button_pressed.svg" id="2_tea0a"]
+[ext_resource type="Texture2D" uid="uid://bqgyl66vbr8na" path="res://UI/Buttons/button_hover.svg" id="3_h51ae"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="3_kagay"]
 
 [node name="GameButton" type="TextureButton"]
@@ -11,6 +13,10 @@ offset_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = ExtResource("1_gq5mb")
+texture_pressed = ExtResource("2_tea0a")
+texture_hover = ExtResource("3_h51ae")
+texture_disabled = ExtResource("2_tea0a")
+texture_focused = ExtResource("3_h51ae")
 ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("2_2iw6i")

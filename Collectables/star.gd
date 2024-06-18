@@ -1,7 +1,10 @@
 extends Area2D
 
 @onready var back_shine_node = $BackShine
+@onready var star_sptite: Sprite2D = $Star
+
 @onready var collision_shape = $CollisionShape2D
+@onready var star_collected_sound: AudioStreamPlayer = $StarCollectedSound
 
 const SHINE_TIME_PERIOD: float = 3
 
@@ -39,11 +42,18 @@ func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
     StatManager.emit_signal("star_count_changed", 1)
 
-    queue_free()
-    #hit_sound.play()
+    star_collected_sound.pitch_scale = randf_range(1, 1.5)
+    star_collected_sound.play()
+
+    $CPUParticles2D.emitting = true
+    star_sptite.hide()
+    back_shine_node.hide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     queue_free()
 
 func _on_game_over() -> void:
+    queue_free()
+
+func _on_star_collected_sound_finished() -> void:
     queue_free()

@@ -1,11 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://du26e5thk4fq0"]
+[gd_scene load_steps=21 format=3 uid="uid://du26e5thk4fq0"]
 
 [ext_resource type="Texture2D" uid="uid://c064vw75gfid1" path="res://UI/Buttons/button_background.svg" id="1_4yf6e"]
 [ext_resource type="Script" path="res://UI/skin_selector.gd" id="1_j3i5v"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="2_aw7yp"]
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_fjdu4"]
+[ext_resource type="Texture2D" uid="uid://1e2q5kbsgp8i" path="res://UI/Buttons/nav_button.svg" id="4_ugj72"]
+[ext_resource type="Texture2D" uid="uid://bi25htbpjfklv" path="res://UI/Buttons/nav_button_pressed.svg" id="5_he8ef"]
 [ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/star.svg" id="5_x6cwi"]
+[ext_resource type="Texture2D" uid="uid://blt4uox6082cn" path="res://UI/Buttons/nav_button_hover.svg" id="6_jy2i7"]
+[ext_resource type="AudioStream" uid="uid://cu8ikpra35rw0" path="res://UI/Skin Selector/repainting.wav" id="7_dhw6y"]
 [ext_resource type="PackedScene" uid="uid://bdjjpk7wmljd5" path="res://UI/rocket_skin.tscn" id="7_gv3ki"]
+[ext_resource type="AudioStream" uid="uid://2s3ptdi4nocp" path="res://UI/Skin Selector/sticker_applying.wav" id="7_nknji"]
+[ext_resource type="AudioStream" uid="uid://dyy1idox3bsv" path="res://UI/error.wav" id="9_avkpq"]
+[ext_resource type="Texture2D" uid="uid://ctpidl3kl83x1" path="res://UI/Buttons/button_pressed.svg" id="9_f7l8e"]
+[ext_resource type="Texture2D" uid="uid://bqgyl66vbr8na" path="res://UI/Buttons/button_hover.svg" id="10_lxkfv"]
+[ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="13_7jg0q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtsyl"]
 bg_color = Color(1, 1, 1, 1)
@@ -125,15 +134,24 @@ size_flags_stretch_ratio = 3.0
 
 [node name="PreviousButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("1_4yf6e")
+texture_normal = ExtResource("4_ugj72")
+texture_pressed = ExtResource("5_he8ef")
+texture_hover = ExtResource("6_jy2i7")
+texture_disabled = ExtResource("5_he8ef")
+texture_focused = ExtResource("6_jy2i7")
 stretch_mode = 5
+flip_h = true
 
 [node name="RocketSkin" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2" instance=ExtResource("7_gv3ki")]
 layout_mode = 2
 
 [node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("1_4yf6e")
+texture_normal = ExtResource("4_ugj72")
+texture_pressed = ExtResource("5_he8ef")
+texture_hover = ExtResource("6_jy2i7")
+texture_disabled = ExtResource("5_he8ef")
+texture_focused = ExtResource("6_jy2i7")
 stretch_mode = 5
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer"]
@@ -144,6 +162,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("1_4yf6e")
+texture_pressed = ExtResource("9_f7l8e")
+texture_hover = ExtResource("10_lxkfv")
+texture_disabled = ExtResource("9_f7l8e")
 stretch_mode = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer3/BuyButton"]
@@ -177,6 +198,7 @@ theme_override_constants/margin_right = 25
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.37918, 0.37918, 0.37918, 1)
 theme_override_colors/font_disabled_color = Color(0.380392, 0.380392, 0.380392, 1)
 theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
@@ -189,6 +211,10 @@ icon = ExtResource("5_x6cwi")
 flat = true
 text_overrun_behavior = 3
 expand_icon = true
+
+[node name="RepaintingSound" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/TabContainer/Paint"]
+stream = ExtResource("7_dhw6y")
+bus = &"UI"
 
 [node name="Stickers" type="TabBar" parent="MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
@@ -208,15 +234,24 @@ size_flags_stretch_ratio = 3.0
 
 [node name="PreviousButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("1_4yf6e")
+texture_normal = ExtResource("4_ugj72")
+texture_pressed = ExtResource("5_he8ef")
+texture_hover = ExtResource("6_jy2i7")
+texture_disabled = ExtResource("5_he8ef")
+texture_focused = ExtResource("6_jy2i7")
 stretch_mode = 5
+flip_h = true
 
 [node name="RocketSkin" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2" instance=ExtResource("7_gv3ki")]
 layout_mode = 2
 
 [node name="NextButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("1_4yf6e")
+texture_normal = ExtResource("4_ugj72")
+texture_pressed = ExtResource("5_he8ef")
+texture_hover = ExtResource("6_jy2i7")
+texture_disabled = ExtResource("5_he8ef")
+texture_focused = ExtResource("6_jy2i7")
 stretch_mode = 5
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer"]
@@ -227,6 +262,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("1_4yf6e")
+texture_pressed = ExtResource("9_f7l8e")
+texture_hover = ExtResource("10_lxkfv")
+texture_disabled = ExtResource("9_f7l8e")
 stretch_mode = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers/VBoxContainer/HBoxContainer3/BuyButton"]
@@ -261,6 +299,7 @@ theme_override_constants/margin_right = 50
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.37918, 0.37918, 0.37918, 1)
 theme_override_colors/font_disabled_color = Color(0.380392, 0.380392, 0.380392, 1)
 theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
@@ -273,6 +312,18 @@ icon = ExtResource("5_x6cwi")
 flat = true
 text_overrun_behavior = 3
 expand_icon = true
+
+[node name="ApplyStickerSound" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/TabContainer/Stickers"]
+stream = ExtResource("7_nknji")
+bus = &"UI"
+
+[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_avkpq")
+bus = &"UI"
+
+[node name="UISound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_7jg0q")
+bus = &"UI"
 
 [connection signal="tab_changed" from="MarginContainer/VBoxContainer/TabContainer" to="." method="_on_refresh"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/TabContainer/Paint/VBoxContainer/HBoxContainer2/PreviousButton" to="." method="_on_previous_button_pressed" binds= [0]]

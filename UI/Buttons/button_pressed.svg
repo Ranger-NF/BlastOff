@@ -8,7 +8,7 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
-   sodipodi:docname="button_background.svg"
+   sodipodi:docname="button_pressed.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +24,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      inkscape:zoom="1.6067251"
-     inkscape:cx="81.532304"
-     inkscape:cy="85.5778"
+     inkscape:cx="81.532305"
+     inkscape:cy="84.955417"
      inkscape:window-width="1366"
      inkscape:window-height="699"
      inkscape:window-x="0"
@@ -42,7 +42,7 @@
      id="layer1">
     <path
        id="path1"
-       style="fill:#ffffff;stroke-width:0.26823;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke;fill-opacity:1;stroke:none;stroke-opacity:1"
-       d="M 24.742286,0.73638892 A 8.9317334,9.0693054 0 0 0 16.341879,6.7887639 10.572458,10.369471 0 0 0 11.233631,5.4952218 10.572458,10.369471 0 0 0 0.6614583,15.86497 10.572458,10.369471 0 0 0 11.233631,26.234202 a 10.572458,10.369471 0 0 0 3.014947,-0.432054 7.2599608,5.6315198 0 0 0 6.071727,2.56563 7.2599608,5.6315198 0 0 0 6.689471,-3.448574 9.4573872,9.9658547 0 0 0 3.88166,0.882412 9.4573872,9.9658547 0 0 0 9.457523,-9.965944 9.4573872,9.9658547 0 0 0 -7.451058,-9.7127692 8.9317334,9.0693054 0 0 0 -8.155615,-5.38651388 z" />
+       style="fill:#7c7c7c;fill-opacity:1;stroke:none;stroke-width:0.252189;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:markers fill stroke"
+       d="m 24.488903,1.5625866 a 8.3976033,8.5269483 0 0 0 -7.898051,5.6904346 9.9402103,9.7493622 0 0 0 -4.802768,-1.2161865 9.9402103,9.7493622 0 0 0 -9.9399419,9.7496233 9.9402103,9.7493622 0 0 0 9.9399419,9.749137 9.9402103,9.7493622 0 0 0 2.834649,-0.406216 6.8258051,5.2947471 0 0 0 5.708629,2.412201 6.8258051,5.2947471 0 0 0 6.289432,-3.242344 8.8918223,9.3698828 0 0 0 3.649531,0.829642 8.8918223,9.3698828 0 0 0 8.89195,-9.369966 8.8918223,9.3698828 0 0 0 -7.005474,-9.1319325 8.3976033,8.5269483 0 0 0 -7.667898,-5.0643929 z" />
   </g>
 </svg>

@@ -1,8 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwtlhy46ebjdw"]
+[gd_scene load_steps=10 format=3 uid="uid://bwtlhy46ebjdw"]
 
 [ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/star.svg" id="1_gpep0"]
 [ext_resource type="Texture2D" uid="uid://bq0mcldbwkdkm" path="res://Collectables/star_back_shine.svg" id="1_jd53q"]
 [ext_resource type="Script" path="res://Collectables/star.gd" id="1_m8spo"]
+[ext_resource type="AudioStream" uid="uid://w4vgojt0y6i8" path="res://Collectables/star_collected.wav" id="4_23doc"]
+
+[sub_resource type="Curve" id="Curve_011u0"]
+_data = [Vector2(0, 0.124528), 0.0, 0.0, 0, 0, Vector2(0.767176, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_sk0uw"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Shader" id="Shader_hmw3a"]
 code = "shader_type canvas_item;
@@ -32,6 +40,22 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_m8spo")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(1, 1)
+emitting = false
+amount = 12
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.8
+texture = ExtResource("1_gpep0")
+spread = 180.0
+initial_velocity_min = 900.0
+initial_velocity_max = 900.0
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+scale_amount_curve = SubResource("Curve_011u0")
+color_ramp = SubResource("Gradient_sk0uw")
+
 [node name="BackShine" type="Sprite2D" parent="."]
 texture = ExtResource("1_jd53q")
 
@@ -46,4 +70,9 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(8.59626, -8.43897)
 
+[node name="StarCollectedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_23doc")
+bus = &"Sfx"
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="finished" from="StarCollectedSound" to="." method="_on_star_collected_sound_finished"]
