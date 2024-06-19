@@ -1,5 +1,5 @@
 <p align="center">
-<img src="UI/title.svg" width="300" title="BlastOff Logo">
+<img src="UI/title.svg" width="350" title="BlastOff Logo">
 </p>
 
 <h3 align="center">BlastOff</h3>
@@ -12,14 +12,16 @@
 
 ## Ingame
 <p align="center">
-    <img src="Docs/Screenshots/v1.1.0/main-menu.png" width="auto" height="400">&nbsp;&nbsp;
-    <img src="Docs/Screenshots/v1.1.0/ingame.png" width="auto" height="400">&nbsp;&nbsp;
-    <img src="Docs/Screenshots/v1.1.0/death-screen.png" width="auto" height="400">&nbsp;&nbsp;
-    <img src="Docs/Screenshots/v1.1.0/settings.png" width="auto" height="400">&nbsp;&nbsp;
-    <img src="Docs/Screenshots/v1.1.0/credits.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/main-menu.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/ingame.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/death-screen.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/settings.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/credits.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/paint-selection.png" width="auto" height="400">&nbsp;&nbsp;
+    <img src="Docs/Screenshots/v1.2.0/sticker-selection.png" width="auto" height="400">&nbsp;&nbsp;
 </p>
 
-## Credits
+## Credits [Outdated]
 - Art style inspired from [Goodgis](https://goodgis.fun/)
 - Music by [Spring spring](https://opengameart.org/content/homely-arcade)
 - Font by [Hubert & Fischer](https://www.fontsquirrel.com/fonts/rubik)
