@@ -4,21 +4,20 @@ signal play_button_pressed
 signal settings_button_pressed
 signal quit_button_pressed
 signal change_skin_button_pressed
+signal statistics_button_pressed
 
-@onready var high_score_label: Label = $MarginContainer/VBoxContainer/VBoxContainer/HighScore
 @onready var title_texture: TextureRect = $MarginContainer/VBoxContainer/VBoxContainer/Title
 @onready var color_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin/Color
 @onready var texture_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin/Texture
 
 func _ready() -> void:
     self.play_button_pressed.connect(_on_play_button_pressed)
+    self.statistics_button_pressed.connect(_on_statistics_button_pressed)
     self.settings_button_pressed.connect(_on_settings_button_pressed)
     self.quit_button_pressed.connect(_on_quit_button_pressed)
     self.change_skin_button_pressed.connect(_on_change_skin_button_pressed)
 
-    self.child_entered_tree.connect(_update_high_score)
     self.child_entered_tree.connect(_update_current_skin)
-    _update_high_score()
     _pulsate()
 
     _update_current_skin()
@@ -28,13 +27,11 @@ func _update_current_skin(_node: Node = null) -> void:
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture
 
-func _update_high_score(_node: Node = null) -> void:
-    if DataManager.gameplay.high_score > 0:
-        high_score_label.text = "High Score: " + str(DataManager.gameplay.high_score)
-        high_score_label.show()
-
 func _on_play_button_pressed() -> void:
     UiManager.emit_signal("triggered_gamearea_setup")
+
+func _on_statistics_button_pressed() -> void:
+    UiManager.emit_signal("opened_statistics")
 
 func _on_quit_button_pressed() -> void:
     get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
@@ -42,7 +39,6 @@ func _on_quit_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
     UiManager.emit_signal("opened_settings")
-
 
 func _pulsate() -> void:
     var PULSATE_PERIOD: float = 0.5

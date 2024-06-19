@@ -114,7 +114,8 @@ func _indicate_insufficient_stars() -> void:
 func _on_refresh(skin_type: int, is_initial_refresh: bool = false) -> void:
 
     if is_in_initial_setup: # To prevent errors saying the child in not in tree
-        await self.ready
+        if not self.is_node_ready():
+            await self.ready
         is_in_initial_setup = false
     elif not is_initial_refresh: # To make sound, when changing tab and prevent simultaneous sound when entering from other menus
         _play_ui_sound()

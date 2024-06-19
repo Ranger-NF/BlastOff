@@ -117,14 +117,8 @@ scale = Vector2(1, 0.988805)
 motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(1440, 1640)
 
-[node name="CanvasGroup" type="CanvasGroup" parent="DistantClouds"]
-self_modulate = Color(1, 1, 1, 0.156863)
-
-[node name="Sprite2D" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
-position = Vector2(230, 195.703)
-texture = ExtResource("1_povin")
-region_enabled = true
-region_rect = Rect2(-29.2852, 431.356, 690.879, 245.227)
+[node name="CanvasGroup" type="Node2D" parent="DistantClouds"]
+modulate = Color(1, 1, 1, 0.215686)
 
 [node name="Sprite2D4" type="Sprite2D" parent="DistantClouds/CanvasGroup"]
 position = Vector2(361.5, 143.738)

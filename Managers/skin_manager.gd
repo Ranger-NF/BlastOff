@@ -64,17 +64,17 @@ func get_color(color_id: int = 100) -> Texture:
     var skin_data: Dictionary = get_skin_data(color_id, SKIN_TYPES.PAINT)
 
     if skin_data.is_empty():
-        return load(ROCKET_COLOR_DIR + "base.svg")
+        return ResourceLoader.load(ROCKET_COLOR_DIR + "base.svg")
 
-    return load(ROCKET_COLOR_DIR + skin_data.filename)
+    return ResourceLoader.load(ROCKET_COLOR_DIR + skin_data.filename)
 
 func get_texture(sticker_id: int = 10) -> Texture:
     var skin_data: Dictionary = get_skin_data(sticker_id, SKIN_TYPES.STICKER)
 
     if skin_data.is_empty():
-        return load(ROCKET_TEXTURE_DIR + "base.svg")
+        return ResourceLoader.load(ROCKET_TEXTURE_DIR + "base.svg")
 
-    return load(ROCKET_TEXTURE_DIR + skin_data.filename)
+    return ResourceLoader.load(ROCKET_TEXTURE_DIR + skin_data.filename)
 
 func get_cost(skin_id: int, skin_type: int = SKIN_TYPES.NONE) -> int:
     var skin_data = get_skin_data(skin_id, skin_type)

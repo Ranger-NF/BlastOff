@@ -39,6 +39,7 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 1.25
 
 [node name="Title" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -47,18 +48,6 @@ size_flags_vertical = 3
 texture = ExtResource("2_j4afl")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="HighScore" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 36
-text = "High Score: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -74,6 +63,12 @@ size_flags_horizontal = 3
 layout_mode = 2
 button_text = "Play"
 pressed_signal_name = "play_button_pressed"
+font_size = 36
+
+[node name="Stat" parent="MarginContainer/VBoxContainer/HBoxContainer/ButtonBox" instance=ExtResource("9_i0x8t")]
+layout_mode = 2
+button_text = "Statistics"
+pressed_signal_name = "statistics_button_pressed"
 font_size = 36
 
 [node name="Settings" parent="MarginContainer/VBoxContainer/HBoxContainer/ButtonBox" instance=ExtResource("9_i0x8t")]
@@ -97,7 +92,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 
 [node name="Base" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin"]
 layout_mode = 2
