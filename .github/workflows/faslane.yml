@@ -1,9 +1,10 @@
-name: Fastlane Checl
+name: Fastlane Check
 run-name: ${{ github.actor }} is running fastlane check 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
+  runs-on: ubuntu-latest
+  steps:
     - uses: actions/checkout@v3
     - uses: ashutoshgngwr/validate-fastlane-supply-metadata@v2
+      with:
+        fastlaneDir: /fastlane
