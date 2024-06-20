@@ -1,5 +1,3 @@
-name: Fastlane Check
-run-name: ${{ github.actor }} is running fastlane check 🚀
 on: [push]
 jobs:
   runs-on: ubuntu-latest
