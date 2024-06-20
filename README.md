@@ -3,7 +3,7 @@
 </p>
 
 <p align="center" style="font-size: 14px;">Simple 2D vertical scroller with vector graphics</p>
----
+<br>
 Who doesn't love to endlessly cruise through the sky where birds and satellite are your enemies? This simple, yet never ending game gives you just that!
 
 **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
