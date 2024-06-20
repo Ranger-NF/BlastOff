@@ -2,10 +2,22 @@
 <img src="UI/title.svg" width="350" title="BlastOff Logo">
 </p>
 
-<h3 align="center">BlastOff</h3>
 <p align="center" style="font-size: 14px;">Simple 2D vertical scroller with vector graphics</p>
+[![Available on itch.io](http://jessemillar.github.io/available-on-itchio-badge/badge-bw.png)](https://ranger-nf.itch.io/blastoff)
 
-## Idea
+Who doesn't love to endlessly cruise through the sky where birds and satellite are your enemies? This simple, yet never ending game gives you just that!
+
+**BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
+
+How to Play?
+
+- **Touch/Press on the right side** to move to right
+- **Touch/Press on the left side** to move to left
+- Avoid all obstacles
+- Survive and get high scores
+- Customize your skin to you liking!!
+
+## Intial Idea
 - Simple mechanics
 - Infinitely scrolling
 - Polish and publish the game
