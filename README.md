@@ -1,14 +1,13 @@
 <p align="center">
 <img src="UI/title.svg" width="350" title="BlastOff Logo">
 </p>
-
-<p align="center" style="font-size: 14px;">Simple 2D vertical scroller with vector graphics</p>
+<br>
 <br>
 Who doesn't love to endlessly cruise through the sky where birds and satellite are your enemies? This simple, yet never ending game gives you just that!
-
+<br>
 **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
 
-How to Play?
+## How to Play?
 
 - **Touch/Press on the right side** to move to right
 - **Touch/Press on the left side** to move to left
