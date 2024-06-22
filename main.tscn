@@ -21,6 +21,8 @@ bird_scene = ExtResource("2_poxg6")
 satellite_scene = ExtResource("3_pltus")
 star_scene = ExtResource("4_3h5cl")
 
+[node name="Background" parent="." instance=ExtResource("5_rc5yt")]
+
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 
 [node name="ObstacleTimer" type="Timer" parent="."]
@@ -39,8 +41,6 @@ curve = SubResource("Curve2D_e3rry")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="ObstaclePath"]
 position = Vector2(20, 0)
-
-[node name="Background" parent="." instance=ExtResource("5_rc5yt")]
 
 [node name="Tutorial" parent="." instance=ExtResource("11_ldlc6")]
 visible = false

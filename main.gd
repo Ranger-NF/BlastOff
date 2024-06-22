@@ -24,6 +24,8 @@ const OBSTACLE_SPAWN_MARGIN: float = 20
 var is_game_running: bool = false
 
 func _ready() -> void:
+    GameManager.screen_size_updated.connect(_on_screen_size_updated)
+
     GameManager.game_started.connect(restart_game)
     GameManager.game_over.connect(_on_game_over)
 
@@ -81,7 +83,6 @@ func restart_game() -> void:
     is_game_running = true
     StatManager.time_spent = 0
     obstacle_timer.start()
-    _setup_spawn_line()
 
 func _on_asteroid_timer_timeout() -> void:
     obstacle_timer.wait_time = randf_range(0.5, 2.5)
@@ -99,3 +100,6 @@ func _on_music_finished() -> void:
 func _start_rand_music() -> void:
     music_player.stream = bg_music_list.pick_random()
     music_player.play()
+
+func _on_screen_size_updated(screen_size: Vector2) -> void:
+    _setup_spawn_line()
