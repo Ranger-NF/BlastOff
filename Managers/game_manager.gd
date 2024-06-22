@@ -6,6 +6,8 @@ signal game_over
 signal rocket_speed_changed(new_speed: float)
 signal level_up
 
+var game_screen_size: Vector2
+
 var rocket_speed: float = 600
 
 ## For controlling inputs

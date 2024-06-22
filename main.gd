@@ -10,12 +10,16 @@ extends Node
     preload("res://Music/homely_arcade.ogg")
 ]
 
+@onready var obstacle_spawn_node: Path2D = $ObstaclePath
+
 @onready var obstacle_timer: Timer = $ObstacleTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
 @onready var star_timer: Timer = $StarTimer
 
 @onready var obstacle_path = $ObstaclePath/PathFollow2D
 @onready var music_player = $Music
+
+const OBSTACLE_SPAWN_MARGIN: float = 20
 
 var is_game_running: bool = false
 
@@ -27,6 +31,14 @@ func _ready() -> void:
     UiManager.emit_signal("skipped_to_main_menu")
 
     _start_rand_music()
+
+func _setup_spawn_line() -> void:
+    obstacle_spawn_node.curve.clear_points()
+
+    var horizontal_screen_size = GameManager.game_screen_size.x
+
+    obstacle_spawn_node.curve.add_point(Vector2(0 + OBSTACLE_SPAWN_MARGIN, 0))
+    obstacle_spawn_node.curve.add_point(Vector2(horizontal_screen_size - OBSTACLE_SPAWN_MARGIN, 0))
 
 func _physics_process(delta: float) -> void:
     if is_game_running:
@@ -69,6 +81,7 @@ func restart_game() -> void:
     is_game_running = true
     StatManager.time_spent = 0
     obstacle_timer.start()
+    _setup_spawn_line()
 
 func _on_asteroid_timer_timeout() -> void:
     obstacle_timer.wait_time = randf_range(0.5, 2.5)
