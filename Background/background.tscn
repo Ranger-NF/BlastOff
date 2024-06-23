@@ -6,13 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://d3y2gy53d64nc" path="res://Background/bg_star_white.svg" id="3_nxmsk"]
 [ext_resource type="Texture2D" uid="uid://c1h51q548aweb" path="res://Background/moon.svg" id="5_4h3xb"]
 
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_ce8ja"]
-frames = 2
-pause = true
-frame_0/texture = ExtResource("2_44itj")
-frame_1/texture = ExtResource("3_nxmsk")
-frame_1/duration = 1.0
-
 [sub_resource type="Gradient" id="Gradient_5vfty"]
 colors = PackedColorArray(0.231373, 0.203922, 0.431373, 1, 0.117647, 0.0666667, 0.180392, 1)
 
@@ -29,6 +22,13 @@ gradient = SubResource("Gradient_fyh6c")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ce8ja"]
+frames = 2
+pause = true
+frame_0/texture = ExtResource("2_44itj")
+frame_1/texture = ExtResource("3_nxmsk")
+frame_1/duration = 1.0
+
 [node name="Control" type="Control"]
 y_sort_enabled = true
 layout_mode = 3
@@ -40,12 +40,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_c882g")
-
-[node name="Star" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 60.0
-texture = SubResource("AnimatedTexture_ce8ja")
 
 [node name="NightSky" type="TextureRect" parent="."]
 layout_mode = 1
@@ -66,21 +60,20 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_778mg")
 
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="MotherStar" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+texture = SubResource("AnimatedTexture_ce8ja")
+expand_mode = 1
+
 [node name="LightEmitter" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -653.0
-offset_right = -34.0
-offset_bottom = -653.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
 texture = ExtResource("5_4h3xb")
 expand_mode = 1
 stretch_mode = 2

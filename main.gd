@@ -101,5 +101,5 @@ func _start_rand_music() -> void:
     music_player.stream = bg_music_list.pick_random()
     music_player.play()
 
-func _on_screen_size_updated(screen_size: Vector2) -> void:
+func _on_screen_size_updated(_screen_size: Vector2) -> void:
     _setup_spawn_line()
