@@ -13,16 +13,19 @@ var star_textures = [
 
 const DAY_PROPABILITY: float = 1 # CHANGE!!!
 
-const MIN_CLUSTERS: int = 3
-const MAX_CLUSTERS: int = 4
+const MIN_CLUSTERS: int = 5
+const MAX_CLUSTERS: int = 6
 
-const MOTHER_STAR_SPAWN_MARGIN: float = 200 ## defines How far from the screen edge should be the boundary
-const MIN_CLUSTER_LENGTH: float = 100
-const MAX_CLUSTER_LENGTH: float = 100
+const MOTHER_STAR_SPAWN_MARGIN: float = 250 ## defines How far from the screen edge should be the boundary
+const MIN_CLUSTER_LENGTH: float = 200
+const MAX_CLUSTER_LENGTH: float = 249
+const MIN_CLUSTER_GAP: float = 200
 
-const CHILD_STAR_SPACING: float = 20
-const CHILD_STAR_MAX_DEVIATION: float = 500
+const CHILD_STAR_SPACING: float = 50
+const CHILD_STAR_MIN_DEVIATION: float = 350
+const CHILD_STAR_MAX_DEVIATION: float = 750
 
+var current_mother_stars: Array[Vector2] = []
 
 var is_day_time: bool = true
 
@@ -64,14 +67,16 @@ func _on_screen_size_updated(screen_size: Vector2):
         $LightEmitter.position.y = randf_range(0, screen_size.y * 0.3)
 
 func _spawn_stars() -> void:
+    current_mother_stars.clear()
+
     var num_of_clusters = randi_range(MIN_CLUSTERS , MAX_CLUSTERS)
-    var current_cluster_count: float = 0
 
-    while current_cluster_count < num_of_clusters:
-        _setup_clusters()
-        current_cluster_count += 1
+    while current_mother_stars.size() < num_of_clusters:
+        current_mother_stars.append(_setup_clusters())
 
-func _setup_clusters() -> void:
+        ## TODO: Setup check for gap between gaps
+
+func _setup_clusters() -> Vector2: # Returns mothers star location (i.e cluster origin)
     star_ray.clear_points()
 
     var new_mother_star: TextureRect = mother_star_node.duplicate()
@@ -109,6 +114,7 @@ func _setup_clusters() -> void:
             is_ray_in_optimal_spot = false
 
     _spawn_cluster_members(new_mother_star, cluster_rotation, current_cluster_length)
+    return new_mother_star.position
 
 func  _check_if_inside_range(value_to_check:float, range_start: float, range_end: float) -> bool:
     if value_to_check > range_start or value_to_check < range_end:
@@ -117,7 +123,7 @@ func  _check_if_inside_range(value_to_check:float, range_start: float, range_end
         return false
 
 func _spawn_cluster_members(mother_star: Node, cluster_rotation, cluster_length: float = MIN_CLUSTER_LENGTH) -> void:
-    var num_of_child_stars: int = roundi(cluster_length / CHILD_STAR_SPACING)
+    var num_of_child_stars: int = roundi(cluster_length / CHILD_STAR_SPACING) * 2
     var child_stars: Array[TextureRect] = []
 
     var current_spacing: float = 0
@@ -126,9 +132,8 @@ func _spawn_cluster_members(mother_star: Node, cluster_rotation, cluster_length:
         var new_child_star: TextureRect = TextureRect.new()
         new_child_star.texture = star_textures.pick_random()
 
+        new_child_star.position = Vector2(current_spacing, randf_range(CHILD_STAR_MIN_DEVIATION, CHILD_STAR_MAX_DEVIATION))
         current_spacing += CHILD_STAR_SPACING
-
-        new_child_star.position = Vector2(current_spacing, randf_range(0, CHILD_STAR_MAX_DEVIATION))
         var rand_scale_value = randf_range(0.2, 0.5)
         new_child_star.scale = Vector2(rand_scale_value, rand_scale_value)
 
