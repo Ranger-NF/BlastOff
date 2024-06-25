@@ -1,0 +1,18 @@
+BlastOff is a casual endless runner with an emphasize on vector graphics. Here, You control a rocket and try to survive the endless obstacles in your path!
+
+How to Play?
+
+- Touch/Press on the right side to move to right
+- Touch/Press on the left side to move to left
+- Avoid all obstacles
+- Survive and get high scores
+- Customize your skin to you liking!!
+    
+Features:
+- Open source
+- Fully free with no ads
+- Easy to start with minimal controls
+- Also avaiable for linux and web
+
+For linux and web version: https://ranger-nf.itch.io/blastoff
+
