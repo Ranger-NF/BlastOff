@@ -13,7 +13,7 @@ var star_textures = [
 
 @onready var light_emitter_node: TextureRect = $LightEmitter
 
-const DAY_PROPABILITY: float = 0.5
+const DAY_PROPABILITY: float = 1
 
 const CHUNK_WIDTH: float = 350 # For determining no. of clusters
 
@@ -23,7 +23,7 @@ const MAX_CLUSTER_LENGTH: float = 130
 
 const MIN_CLUSTER_GAP: float = 100
 
-const CHILD_STAR_SPACING: float = 50
+const CHILD_STAR_SPACING: float = 30
 const CHILD_STAR_MIN_DEVIATION: float = 100
 const CHILD_STAR_MAX_DEVIATION: float = 350
 
