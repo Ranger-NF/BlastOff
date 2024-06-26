@@ -11,22 +11,23 @@ var star_textures = [
 @onready var mother_star_node: TextureRect = $MotherStar
 @onready var star_ray: Line2D = $Line2D
 
+@onready var light_emitter_node: TextureRect = $LightEmitter
+
 const DAY_PROPABILITY: float = 1 # CHANGE!!!
 
-const MIN_CLUSTERS: int = 5
-const MAX_CLUSTERS: int = 6
+const CHUNK_WIDTH: float = 520 # For determining no. of clusters
 
 const MOTHER_STAR_SPAWN_MARGIN: float = 250 ## defines How far from the screen edge should be the boundary
 const MIN_CLUSTER_LENGTH: float = 200
 const MAX_CLUSTER_LENGTH: float = 249
+
 const MIN_CLUSTER_GAP: float = 200
 
 const CHILD_STAR_SPACING: float = 50
 const CHILD_STAR_MIN_DEVIATION: float = 350
-const CHILD_STAR_MAX_DEVIATION: float = 750
+const CHILD_STAR_MAX_DEVIATION: float = 700
 
-var current_mother_stars: Array[Vector2] = []
-
+var current_mother_stars: Array[TextureRect] = []
 var is_day_time: bool = true
 
 var is_in_initial_setup: bool = true
@@ -63,20 +64,31 @@ func _on_screen_size_updated(screen_size: Vector2):
     if is_in_initial_setup:
         is_in_initial_setup = false
 
-        $LightEmitter.position.x = screen_size.x * 0.8
-        $LightEmitter.position.y = randf_range(0, screen_size.y * 0.3)
+        light_emitter_node.position.x = screen_size.x * [0.8, 0.1].pick_random()
+        light_emitter_node.position.y = randf_range(0, screen_size.y * 0.2)
 
 func _spawn_stars() -> void:
+    star_ray.show()
     current_mother_stars.clear()
 
-    var num_of_clusters = randi_range(MIN_CLUSTERS , MAX_CLUSTERS)
+    var num_of_clusters = _determine_cluster_count()
 
     while current_mother_stars.size() < num_of_clusters:
         current_mother_stars.append(_setup_clusters())
 
-        ## TODO: Setup check for gap between gaps
+    var adjacent_clusters: Array[TextureRect]
+    for each_star in current_mother_stars:
+        adjacent_clusters = current_mother_stars.filter(func (cluster_origin: TextureRect): return each_star.position.distance_to(cluster_origin.position) < MIN_CLUSTER_GAP)
 
-func _setup_clusters() -> Vector2: # Returns mothers star location (i.e cluster origin)
+    if not adjacent_clusters.is_empty():
+        for each_origin_star in adjacent_clusters:
+            each_origin_star.queue_free()
+
+    star_ray.hide()
+    light_emitter_node.move_to_front()
+
+
+func _setup_clusters() -> TextureRect: # Returns mothers star location (i.e cluster origin)
     star_ray.clear_points()
 
     var new_mother_star: TextureRect = mother_star_node.duplicate()
@@ -95,14 +107,19 @@ func _setup_clusters() -> Vector2: # Returns mothers star location (i.e cluster 
     var cluster_rotation: float ## In radians
 
     while not is_ray_in_optimal_spot: # For checking
-        print(star_ray.get_point_count())
+        star_ray.rotation = 0
+
         if star_ray.get_point_count() > 2:
             push_error("Unexpected no. of points")
         elif star_ray.get_point_count() == 2:
             star_ray.remove_point(star_ray.get_point_count() - 1)
 
         star_ray.add_point( Vector2(star_ray.position.x + ([1, -1].pick_random() * current_cluster_length), star_ray.position.y))
-        cluster_rotation = deg_to_rad(randi_range(0, 360))
+
+        if new_mother_star.position.x < (GameManager.game_screen_size.x / 2): # Cluster on the left side of screen
+            cluster_rotation = deg_to_rad(randi_range(-90, 90))
+        else:
+            cluster_rotation = deg_to_rad(randi_range(90, 270))
 
         star_ray.rotate(cluster_rotation)
 
@@ -113,8 +130,9 @@ func _setup_clusters() -> Vector2: # Returns mothers star location (i.e cluster 
         else:
             is_ray_in_optimal_spot = false
 
+        star_ray.rotation = 0
     _spawn_cluster_members(new_mother_star, cluster_rotation, current_cluster_length)
-    return new_mother_star.position
+    return new_mother_star
 
 func  _check_if_inside_range(value_to_check:float, range_start: float, range_end: float) -> bool:
     if value_to_check > range_start or value_to_check < range_end:
@@ -143,3 +161,6 @@ func _spawn_cluster_members(mother_star: Node, cluster_rotation, cluster_length:
         mother_star.add_child(star)
 
     mother_star.rotation = cluster_rotation
+
+func _determine_cluster_count() -> int:
+    return roundi(GameManager.game_screen_size.x / CHUNK_WIDTH)

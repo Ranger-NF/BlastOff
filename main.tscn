@@ -22,8 +22,6 @@ satellite_scene = ExtResource("3_pltus")
 star_scene = ExtResource("4_3h5cl")
 
 [node name="Background" parent="." instance=ExtResource("5_rc5yt")]
-z_index = -100
-y_sort_enabled = false
 
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(359, 129)

@@ -29,8 +29,10 @@ frame_0/texture = ExtResource("2_44itj")
 frame_1/texture = ExtResource("3_nxmsk")
 frame_1/duration = 1.0
 
-[node name="Control" type="Control"]
-y_sort_enabled = true
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = -101
+
+[node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,7 +43,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_c882g")
 
-[node name="NightSky" type="TextureRect" parent="."]
+[node name="NightSky" type="TextureRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_u6w7p")
 
-[node name="DaySky" type="TextureRect" parent="."]
+[node name="DaySky" type="TextureRect" parent="Control"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -60,22 +62,22 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_778mg")
 
-[node name="Line2D" type="Line2D" parent="."]
-
-[node name="MotherStar" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 60.0
-texture = SubResource("AnimatedTexture_ce8ja")
-expand_mode = 1
-
-[node name="LightEmitter" type="TextureRect" parent="."]
+[node name="LightEmitter" type="TextureRect" parent="Control"]
 layout_mode = 0
 offset_right = 60.0
 offset_bottom = 60.0
 texture = ExtResource("5_4h3xb")
 expand_mode = 1
 stretch_mode = 2
+
+[node name="Line2D" type="Line2D" parent="Control"]
+
+[node name="MotherStar" type="TextureRect" parent="Control"]
+visible = false
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 60.0
+texture = SubResource("AnimatedTexture_ce8ja")
+expand_mode = 1
 
 [node name="Background" parent="." instance=ExtResource("3_627mq")]
