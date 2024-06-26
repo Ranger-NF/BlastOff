@@ -1,10 +1,25 @@
 extends Node
 
+signal screen_size_updated(new_screen_size: Vector2)
+
 signal game_started
 signal game_over
 
 signal rocket_speed_changed(new_speed: float)
 signal level_up
+
+signal time_phase_changed(current_time_phase: int)
+
+enum TIME_PHASES {
+    DAY,
+    NIGHT
+}
+
+var game_screen_size: Vector2:
+    set(value):
+        if value != game_screen_size: # Value has changed
+            game_screen_size = value
+            self.emit_signal("screen_size_updated", value)
 
 var rocket_speed: float = 600
 

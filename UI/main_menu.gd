@@ -11,6 +11,7 @@ signal statistics_button_pressed
 @onready var texture_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin/Texture
 
 func _ready() -> void:
+
     self.play_button_pressed.connect(_on_play_button_pressed)
     self.statistics_button_pressed.connect(_on_statistics_button_pressed)
     self.settings_button_pressed.connect(_on_settings_button_pressed)
@@ -23,6 +24,7 @@ func _ready() -> void:
     _update_current_skin()
 
 func _update_current_skin(_node: Node = null) -> void:
+    GameManager.game_screen_size = get_viewport_rect().size
 
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture

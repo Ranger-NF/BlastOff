@@ -76,7 +76,7 @@ func _spawn_ingame_uis():
     main_scene.add_child(menus[MENU_IDS.CONTROLS])
     spawn_menu(MENU_IDS.INGAME_UI)
 
-    GameManager.emit_signal("game_started")
+    GameManager.call_deferred("emit_signal","game_started")
 
 func _deferred_load_menu(menu_id: int):
     if not main_scene:
