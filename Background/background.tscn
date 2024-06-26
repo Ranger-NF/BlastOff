@@ -63,6 +63,7 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_778mg")
 
 [node name="LightEmitter" type="TextureRect" parent="Control"]
+self_modulate = Color(0.949158, 0.991849, 0.977159, 1)
 layout_mode = 0
 offset_right = 60.0
 offset_bottom = 60.0
@@ -71,6 +72,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="Line2D" type="Line2D" parent="Control"]
+visible = false
 
 [node name="MotherStar" type="TextureRect" parent="Control"]
 visible = false
