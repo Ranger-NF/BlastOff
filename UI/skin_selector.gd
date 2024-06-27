@@ -44,7 +44,7 @@ func _update_current_skin(_node: Node = null) -> void:
     call_deferred("emit_signal", "refresh_ui", current_tab, true)
 
 func _on_back_button_pressed() -> void:
-    UiManager.emit_signal("skipped_to_main_menu")
+    UiManager.emit_signal("opened_start_menu")
 
 func _on_next_button_pressed(tab: int) -> void:
     _play_ui_sound()

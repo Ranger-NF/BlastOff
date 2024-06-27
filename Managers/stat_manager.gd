@@ -2,6 +2,7 @@ extends Node
 
 signal star_count_changed(change_in_stars: int)
 signal stars_depleted
+signal new_high_score_gained
 
 var time_spent: float
 
@@ -36,4 +37,5 @@ func _physics_process(_delta: float) -> void:
 func _check_high_score() -> void:
     if score_gained > DataManager.gameplay.high_score:
         DataManager.gameplay.high_score = score_gained
+        self.emit_signal("new_high_score_gained", score_gained)
         DataManager.emit_signal("save_triggered")

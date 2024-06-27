@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://e1b43p4v5huu"]
+[gd_scene load_steps=5 format=3 uid="uid://e1b43p4v5huu"]
 
 [ext_resource type="Script" path="res://UI/main_menu.gd" id="1_p0qic"]
 [ext_resource type="Texture2D" uid="uid://um1qa2qyq4vl" path="res://UI/title.svg" id="2_j4afl"]
-[ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="9_8rulx"]
+[ext_resource type="PackedScene" uid="uid://b2h8ok8yfc7wb" path="res://addons/silent_wolf/Scores/Leaderboard.tscn" id="4_s7dff"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="9_i0x8t"]
-[ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="10_g51ex"]
-[ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="11_sygac"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -61,14 +59,8 @@ size_flags_horizontal = 3
 
 [node name="Play" parent="MarginContainer/VBoxContainer/HBoxContainer/ButtonBox" instance=ExtResource("9_i0x8t")]
 layout_mode = 2
-button_text = "Play"
-pressed_signal_name = "play_button_pressed"
-font_size = 36
-
-[node name="Stat" parent="MarginContainer/VBoxContainer/HBoxContainer/ButtonBox" instance=ExtResource("9_i0x8t")]
-layout_mode = 2
-button_text = "Statistics"
-pressed_signal_name = "statistics_button_pressed"
+button_text = "Start"
+pressed_signal_name = "start_button_pressed"
 font_size = 36
 
 [node name="Settings" parent="MarginContainer/VBoxContainer/HBoxContainer/ButtonBox" instance=ExtResource("9_i0x8t")]
@@ -88,38 +80,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="RocketSkin" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Leaderboard2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_s7dff")]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
-
-[node name="Base" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("9_8rulx")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Color" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_g51ex")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Texture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("11_sygac")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="ChangeSkin" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("9_i0x8t")]
-layout_mode = 2
-button_text = "Change Skin"
-pressed_signal_name = "change_skin_button_pressed"
-font_size = 36
 
 [node name="Version" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

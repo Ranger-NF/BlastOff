@@ -4,6 +4,7 @@ signal warning_announced(x_position: float, warning_id: int) # For showing a war
 signal warning_withdrawn(warning_id: int)
 
 signal skipped_to_main_menu
+signal opened_start_menu
 signal opened_settings
 signal opened_credits
 signal opened_skin_selector
@@ -24,6 +25,7 @@ signal triggered_menu_ui_setup ## Called when game is over --> This chains to Ga
 enum MENU_IDS {
         NONE,
         MAIN_MENU,
+        START_MENU,
         SETTINGS,
         CREDITS,
         CONTROLS,
@@ -35,6 +37,7 @@ enum MENU_IDS {
 
 var menus = {
     MENU_IDS.MAIN_MENU : preload("res://UI/main_menu.tscn").instantiate(),
+    MENU_IDS.START_MENU: preload("res://UI/start_menu.tscn").instantiate(),
     MENU_IDS.SETTINGS : preload("res://UI/settings.tscn").instantiate(),
     MENU_IDS.CREDITS : preload("res://UI/credits.tscn").instantiate(),
     MENU_IDS.INGAME_UI : preload("res://UI/ingame_ui.tscn").instantiate(),
@@ -53,6 +56,7 @@ func _ready() -> void:
     GameManager.game_started.connect(_check_tutorial_need)
 
     self.skipped_to_main_menu.connect(spawn_menu.bind(MENU_IDS.MAIN_MENU))
+    self.opened_start_menu.connect(spawn_menu.bind(MENU_IDS.START_MENU))
     self.opened_settings.connect(spawn_menu.bind(MENU_IDS.SETTINGS))
     self.opened_credits.connect(spawn_menu.bind(MENU_IDS.CREDITS))
     self.opened_skin_selector.connect(spawn_menu.bind(MENU_IDS.SKIN_SELECTOR))

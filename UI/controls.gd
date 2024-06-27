@@ -19,7 +19,6 @@ func switch_pressed_button(current_button: int) -> void:
 
 func _input(event: InputEvent) -> void:
     GameManager.game_screen_size = get_viewport_rect().size
-    print(GameManager.game_screen_size)
     if (event is InputEventScreenTouch and event.is_pressed()) or (event is InputEventScreenDrag):
 
         if event.position.x > (GameManager.game_screen_size.x / 2):

@@ -19,7 +19,7 @@ func _update_high_score(_node: Node = null) -> void:
     high_score_label.show()
 
 func _on_back_button_pressed() -> void:
-    UiManager.emit_signal(\"skipped_to_main_menu\")
+    UiManager.emit_signal(\"opened_start_menu\")
 "
 
 [node name="Statistics" type="Control"]

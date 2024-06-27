@@ -38,18 +38,24 @@ size_flags_horizontal = 3
 script = ExtResource("1_11c3q")
 
 [node name="Base" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 348.0
-offset_bottom = 664.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_5wldl")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Paint" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 348.0
-offset_bottom = 664.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_72aj8")
 expand_mode = 1
@@ -57,16 +63,19 @@ stretch_mode = 5
 
 [node name="Sticker" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_7qm37")
-layout_mode = 0
-offset_right = 348.0
-offset_bottom = 664.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_54k5p")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="PaintSprayParticles" type="CPUParticles2D" parent="."]
-position = Vector2(184, 349)
+position = Vector2(360, 651)
 emitting = false
 amount = 10
 lifetime = 0.8
