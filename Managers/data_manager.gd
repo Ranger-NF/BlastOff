@@ -29,9 +29,12 @@ func _ready() -> void:
     self.save_triggered.connect(save_to_files)
     self.reload_triggered.connect(load_from_files)
 
-    self.data_reloaded.connect(func (): is_initialisation_complete = true)
+    self.data_reloaded.connect(_on_data_reloaded)
 
     GameManager.game_over.connect(func (): self.emit_signal("save_triggered"))
+
+func _on_data_reloaded() -> void:
+    is_initialisation_complete = true
 
 func save_to_files() -> void:
     SoundManager._report_bus_volumes()

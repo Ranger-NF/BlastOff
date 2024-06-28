@@ -17,7 +17,7 @@ var max_scores = 10
 func _ready():
 
     LeaderboardManager.triggered_leaderboard_reload.connect(_reload_data)
-    LeaderboardManager.display_name_changed.connect(_reload_data)
+    LeaderboardManager.display_name_changed.connect(add_loading_scores_message)
 
     self.child_entered_tree.connect(_reload_data)
 
@@ -27,7 +27,7 @@ func _reload_data(_node = null) -> void:
     if not LeaderboardManager.is_leaderboard_allowed:
         $Panel/MarginContainer/Board/DisplayNameContainer.hide()
         score_list_node.hide()
-        score_message_node.text = "Leaderboard is disabled in thsi version\nTry reinstalling from itch.io"
+        score_message_node.text = "Leaderboard is disabled in this version\nTry reinstalling from itch.io"
 
         return
     else:
@@ -131,15 +131,17 @@ func add_no_scores_message() -> void:
     item.offset_top = 135
 
 
-func add_loading_scores_message() -> void:
+func add_loading_scores_message(_signal_placeholder = null) -> void:
     var item = score_message_node
     item.text = "Loading scores..."
     score_message_node.show()
+    score_list_node.hide()
     item.offset_top = 135
 
 
 func hide_message() -> void:
     score_message_node.hide()
+    score_list_node.show()
 
 func clear_leaderboard() -> void:
     list_index = 0
