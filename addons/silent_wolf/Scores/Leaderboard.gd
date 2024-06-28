@@ -6,6 +6,7 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 
 @onready var score_list_node: VBoxContainer = $Panel/MarginContainer/Board/ScoreItemContainer
 @onready var score_message_node: Label = $Panel/MarginContainer/Board/TextMessage
+@onready var name_changer_node: TextEdit = $Panel/MarginContainer/Board/DisplayNameContainer/NameChanger
 
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard
@@ -14,6 +15,27 @@ var max_scores = 10
 
 
 func _ready():
+
+    LeaderboardManager.triggered_leaderboard_reload.connect(_reload_data)
+    LeaderboardManager.display_name_changed.connect(_reload_data)
+
+    self.child_entered_tree.connect(_reload_data)
+
+    _reload_data()
+
+func _reload_data(_node = null) -> void:
+    if not LeaderboardManager.is_leaderboard_allowed:
+        $Panel/MarginContainer/Board/DisplayNameContainer.hide()
+        score_list_node.hide()
+        score_message_node.text = "Leaderboard is disabled in thsi version\nTry reinstalling from itch.io"
+
+        return
+    else:
+        $Panel/MarginContainer/Board/DisplayNameContainer.show()
+        score_list_node.show()
+
+    name_changer_node.text = LeaderboardManager.current_display_name
+
     print("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))
     print("SilentWolf.Scores.ldboard_config: " + str(SilentWolf.Scores.ldboard_config))
     var scores = SilentWolf.Scores.scores
@@ -21,33 +43,39 @@ func _ready():
     if ld_name in SilentWolf.Scores.leaderboards:
         scores = SilentWolf.Scores.leaderboards[ld_name]
     var local_scores = SilentWolf.Scores.local_scores
-
-    if len(scores) > 0:
-        render_board(scores, local_scores)
-    else:
-        # use a signal to notify when the high scores have been returned, and show a "loading" animation until it's the case...
-        add_loading_scores_message()
-        var sw_result = await SilentWolf.Scores.get_scores().sw_get_scores_complete
-        scores = sw_result.scores
-        hide_message()
-        render_board(scores, local_scores)
+#
+    #if len(scores) > 0:
+        #render_board(scores, local_scores)
+    #else:
+    ## use a signal to notify when the high scores have been returned, and show a "loading" animation until it's the case...
+    add_loading_scores_message()
+    var sw_result = await SilentWolf.Scores.get_scores().sw_get_scores_complete
+    scores = sw_result.scores
+    hide_message()
+    render_board(scores, local_scores)
 
 
 func render_board(scores: Array, local_scores: Array) -> void:
-    var all_scores = scores
+    clear_leaderboard()
+
     if ld_name in SilentWolf.Scores.ldboard_config and is_default_leaderboard(SilentWolf.Scores.ldboard_config[ld_name]):
-        all_scores = merge_scores_with_local_scores(scores, local_scores, max_scores)
-        if scores.is_empty() and local_scores.is_empty():
+        if scores.is_empty():
             add_no_scores_message()
     else:
         if scores.is_empty():
             add_no_scores_message()
-    if all_scores.is_empty():
+    if scores.is_empty():
         for score in scores:
-            add_item(score.player_name, str(int(score.score)))
+            if score.has("metadata") and score.metadata.has("display_name"):
+                add_item(score.metadata.display_name, str(int(score.score)))
+            else:
+                add_item(score.player_name, str(int(score.score)))
     else:
-        for score in all_scores:
-            add_item(score.player_name, str(int(score.score)))
+        for score in scores:
+            if score.has("metadata") and score.metadata.has("display_name"):
+                add_item(score.metadata.display_name, str(int(score.score)))
+            else:
+                add_item(score.player_name, str(int(score.score)))
 
 
 func is_default_leaderboard(ld_config: Dictionary) -> bool:
@@ -113,10 +141,17 @@ func add_loading_scores_message() -> void:
 func hide_message() -> void:
     score_message_node.hide()
 
-
 func clear_leaderboard() -> void:
+    list_index = 0
     if score_list_node.get_child_count() > 0:
         var children = score_list_node.get_children()
         for c in children:
             score_list_node.remove_child(c)
             c.queue_free()
+
+
+func _on_change_name_pressed() -> void:
+    if name_changer_node.text.is_empty():
+        name_changer_node.text = LeaderboardManager.current_display_name
+    else:
+        LeaderboardManager.emit_signal("display_name_changed", name_changer_node.text)

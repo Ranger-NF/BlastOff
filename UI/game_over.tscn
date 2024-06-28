@@ -71,8 +71,8 @@ font_size = 36
 
 [node name="GameButton2" parent="NavBoxMargin/NavBox" instance=ExtResource("2_jr6sm")]
 layout_mode = 2
-button_text = "Main Menu"
-pressed_signal_name = "main_menu_button_pressed"
+button_text = "Start Menu"
+pressed_signal_name = "start_menu_button_pressed"
 font_size = 36
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]

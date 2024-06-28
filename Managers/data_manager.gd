@@ -18,13 +18,18 @@ var gameplay: Dictionary = {
 
 ## settings
 var settings: Dictionary = {
+    display_name = "",
     bus_volumes = {}, # Bus volume mapped to their id value is decibels
 }
+
+var is_initialisation_complete: bool = false
 
 func _ready() -> void:
     load_from_files()
     self.save_triggered.connect(save_to_files)
     self.reload_triggered.connect(load_from_files)
+
+    self.data_reloaded.connect(func (): is_initialisation_complete = true)
 
     GameManager.game_over.connect(func (): self.emit_signal("save_triggered"))
 
@@ -47,6 +52,7 @@ func load_from_files() -> void:
 
     if load_status != OK: # No save file, treating as if the game is started for the first time
         UiManager.emit_signal("first_startup")
+        emit_signal("data_reloaded")
         return
 
     for each_section in saved_file.get_sections():
