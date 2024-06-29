@@ -7,6 +7,7 @@ signal display_name_changed(new_name: String)
 var is_leaderboard_allowed: bool = false
 
 var current_display_name: String = OS.get_unique_id()
+var username_last_changed: float
 
 func _ready() -> void:
 

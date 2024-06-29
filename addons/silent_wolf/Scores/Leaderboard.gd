@@ -151,9 +151,17 @@ func clear_leaderboard() -> void:
             score_list_node.remove_child(c)
             c.queue_free()
 
-
 func _on_change_name_pressed() -> void:
+    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = true
+    $Panel/MarginContainer/Board/DisplayNameContainer/Tip.show()
+
+    $NameChangeTime.start()
     if name_changer_node.text.is_empty():
         name_changer_node.text = LeaderboardManager.current_display_name
     else:
         LeaderboardManager.emit_signal("display_name_changed", name_changer_node.text)
+
+
+func _on_name_change_time_timeout() -> void:
+    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = false
+    $Panel/MarginContainer/Board/DisplayNameContainer/Tip.hide()
