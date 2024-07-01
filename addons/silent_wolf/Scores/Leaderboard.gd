@@ -1,4 +1,3 @@
-@tool
 extends Control
 
 const ScoreItem = preload("ScoreItem.tscn")
@@ -7,6 +6,9 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 @onready var score_list_node: VBoxContainer = $Panel/MarginContainer/Board/ScoreItemContainer
 @onready var score_message_node: Label = $Panel/MarginContainer/Board/TextMessage
 @onready var name_changer_node: TextEdit = $Panel/MarginContainer/Board/DisplayNameContainer/NameChanger
+@onready var display_name_error: Label = $Panel/MarginContainer/Board/DisplayNameContainer/Tip
+
+const NAME_CHANGE_COOLDOWN_TEXT = "Username can only be changed after 2 minutes"
 
 var list_index = 0
 # Replace the leaderboard name if you're not using the default leaderboard
@@ -17,7 +19,9 @@ var max_scores = 10
 func _ready():
 
     LeaderboardManager.triggered_leaderboard_reload.connect(_reload_data)
-    LeaderboardManager.display_name_changed.connect(add_loading_scores_message)
+
+    LeaderboardManager.tried_new_display_name.connect(add_loading_scores_message)
+    LeaderboardManager.display_name_change_failed.connect(_on_display_name_error)
 
     self.child_entered_tree.connect(_reload_data)
 
@@ -136,8 +140,7 @@ func add_loading_scores_message(_signal_placeholder = null) -> void:
     item.text = "Loading scores..."
     score_message_node.show()
     score_list_node.hide()
-    item.offset_top = 135
-
+    #item.offset_top = 135
 
 func hide_message() -> void:
     score_message_node.hide()
@@ -152,16 +155,33 @@ func clear_leaderboard() -> void:
             c.queue_free()
 
 func _on_change_name_pressed() -> void:
-    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = true
-    $Panel/MarginContainer/Board/DisplayNameContainer/Tip.show()
-
-    $NameChangeTime.start()
     if name_changer_node.text.is_empty():
         name_changer_node.text = LeaderboardManager.current_display_name
-    else:
-        LeaderboardManager.emit_signal("display_name_changed", name_changer_node.text)
 
+        display_name_error.text = "Name can't be empty"
+        display_name_error.show()
+        return
+
+    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = true
+
+    $NameChangeTime.start()
+
+    display_name_error.text = NAME_CHANGE_COOLDOWN_TEXT
+    display_name_error.show()
+    LeaderboardManager.emit_signal("tried_new_display_name", name_changer_node.text)
+
+func _on_display_name_error(error_status: int):
+    hide_message()
+
+    $NameChangeTime.stop()
+    display_name_error.text = LeaderboardManager.DISPLAY_NAME_ERROR_MSGS.get(error_status)
+    display_name_error.show()
+    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = false
 
 func _on_name_change_time_timeout() -> void:
     $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = false
-    $Panel/MarginContainer/Board/DisplayNameContainer/Tip.hide()
+    display_name_error.hide()
+
+func _on_name_changer_text_changed() -> void:
+    if display_name_error.is_visible_in_tree():
+        display_name_error.hide()

@@ -2,17 +2,42 @@ extends Node
 
 signal triggered_leaderboard_reload
 signal display_name_changed(new_name: String)
+signal tried_new_display_name(new_name: String)
+signal display_name_change_failed(error_code: int)
 
 @onready var player_id: String = OS.get_unique_id()
+
+enum DISPLAY_NAME_ERRORS {
+    NONE,
+    HAS_SPACE,
+    TOO_LONG,
+    HAS_SPECIAL_CHARS,
+    HAS_EXPLICIT_WORDS,
+}
+
+const DISPLAY_NAME_ERROR_MSGS = {
+    DISPLAY_NAME_ERRORS.HAS_SPACE : "Name should not contains spaces",
+    DISPLAY_NAME_ERRORS.TOO_LONG : "Name is too long, try reducing number of letters",
+    DISPLAY_NAME_ERRORS.HAS_SPECIAL_CHARS : "Name can't have special characters (%, _, #, etc. )",
+    DISPLAY_NAME_ERRORS.HAS_EXPLICIT_WORDS : "Name can't have explicit words, try another name",
+}
+
+const PATH_TO_FILTER_WORD_FILE = "res://Data/bad_words_filter.txt"
+
+const MAX_NAME_LENGTH: int = 8
+
 var is_leaderboard_allowed: bool = false
 
 var current_display_name: String = OS.get_unique_id()
 var username_last_changed: float
 
+var offensive_filter_words: PackedStringArray = []
+
 func _ready() -> void:
+    offensive_filter_words = _setup_filter_word_list()
 
     StatManager.new_high_score_gained.connect(_add_player_high_score)
-    self.display_name_changed.connect(_process_new_display_name)
+    self.tried_new_display_name.connect(_process_new_display_name)
 
     var sw_api_key = _get_api_key()
 
@@ -89,8 +114,20 @@ func _add_player_high_score(new_high_score: int, is_updating_display_name: bool 
     if is_leaderboard_allowed:
         _replace_high_score(new_high_score, is_updating_display_name)
 
+func _setup_filter_word_list() -> PackedStringArray:
+    var txt_file = FileAccess.open(PATH_TO_FILTER_WORD_FILE, FileAccess.READ)
+    var file_content: String = txt_file.get_as_text(true)
+
+    return file_content.split("\n")
+
 func _process_new_display_name(new_name: String):
     # TODO: Add bad word filter
+    var word_status = _filter_word(new_name)
+
+    if word_status != DISPLAY_NAME_ERRORS.NONE:
+        emit_signal("display_name_change_failed", word_status)
+        return
+
     if new_name == DataManager.settings.display_name:
         return
 
@@ -101,3 +138,25 @@ func _process_new_display_name(new_name: String):
 
     if is_leaderboard_allowed:
         _add_player_high_score(DataManager.gameplay.high_score, true) # To trigger save, with new metadata
+
+func _filter_word(word_to_filter: String) -> int:
+    word_to_filter = word_to_filter.trim_suffix(" ").trim_prefix(" ")
+    var current_status: int = DISPLAY_NAME_ERRORS.NONE
+
+    var special_char_regex: RegEx = RegEx.new()
+    special_char_regex.compile("[@_!#$%^&*()<>?/|}{~:]")
+
+    # Check if its a single word (can't have spaces)
+    if word_to_filter.contains(" "):
+        current_status = DISPLAY_NAME_ERRORS.HAS_SPACE
+    # Limit length to 8 letters
+    if word_to_filter.length() > MAX_NAME_LENGTH:
+        current_status = DISPLAY_NAME_ERRORS.TOO_LONG
+    # No _ or -, or any other special letters
+    if special_char_regex.search(word_to_filter):
+        current_status = DISPLAY_NAME_ERRORS.HAS_SPECIAL_CHARS
+    # No offensive wording
+    if offensive_filter_words.has(word_to_filter):
+        current_status = DISPLAY_NAME_ERRORS.HAS_EXPLICIT_WORDS
+
+    return current_status

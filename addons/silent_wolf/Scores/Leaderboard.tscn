@@ -99,6 +99,9 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 theme_override_fonts/font = ExtResource("3_tqjnp")
 placeholder_text = "Your Name..."
+wrap_mode = 1
+caret_blink = true
+caret_multiple = false
 
 [node name="ChangeName" type="Button" parent="Panel/MarginContainer/Board/DisplayNameContainer"]
 layout_mode = 2
@@ -114,7 +117,7 @@ custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_tqjnp")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 text = "Username can only be changed after 2 minutes"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,5 +126,6 @@ autowrap_mode = 3
 [node name="NameChangeTime" type="Timer" parent="."]
 wait_time = 120.0
 
+[connection signal="text_changed" from="Panel/MarginContainer/Board/DisplayNameContainer/NameChanger" to="." method="_on_name_changer_text_changed"]
 [connection signal="pressed" from="Panel/MarginContainer/Board/DisplayNameContainer/ChangeName" to="." method="_on_change_name_pressed"]
 [connection signal="timeout" from="NameChangeTime" to="." method="_on_name_change_time_timeout"]
