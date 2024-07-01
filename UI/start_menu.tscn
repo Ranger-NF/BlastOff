@@ -36,12 +36,18 @@ size_flags_vertical = 3
 
 [node name="StarCount" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_aost8")]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_colors/default_color = Color(1, 1, 1, 1)
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 20
 
 [node name="ButtonBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -103,3 +109,8 @@ layout_mode = 2
 button_text = "Change Skin"
 pressed_signal_name = "change_skin_button_pressed"
 font_size = 36
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5

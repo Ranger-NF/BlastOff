@@ -30,7 +30,5 @@ func _on_change_skin_button_pressed() -> void:
     UiManager.emit_signal("opened_skin_selector")
 
 func _update_current_skin(_node: Node = null) -> void:
-    GameManager.game_screen_size = get_viewport_rect().size
-
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture

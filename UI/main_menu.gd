@@ -7,6 +7,7 @@ signal quit_button_pressed
 @onready var title_texture: TextureRect = $MarginContainer/VBoxContainer/VBoxContainer/Title
 
 func _ready() -> void:
+    GameManager.game_screen_size = get_viewport_rect().size
 
     self.settings_button_pressed.connect(_on_settings_button_pressed)
     self.quit_button_pressed.connect(_on_quit_button_pressed)
