@@ -5,7 +5,7 @@ const SWLogger = preload("res://addons/silent_wolf/utils/SWLogger.gd")
 
 @onready var score_list_node: VBoxContainer = $Panel/MarginContainer/Board/ScoreItemContainer
 @onready var score_message_node: Label = $Panel/MarginContainer/Board/TextMessage
-@onready var name_changer_node: TextEdit = $Panel/MarginContainer/Board/DisplayNameContainer/NameChanger
+@onready var name_changer_node: LineEdit = $Panel/MarginContainer/Board/DisplayNameContainer/NameChanger
 @onready var display_name_error: Label = $Panel/MarginContainer/Board/DisplayNameContainer/Tip
 
 const NAME_CHANGE_COOLDOWN_TEXT = "Username can only be changed after 2 minutes"
@@ -31,7 +31,8 @@ func _reload_data(_node = null) -> void:
     if not LeaderboardManager.is_leaderboard_allowed:
         $Panel/MarginContainer/Board/DisplayNameContainer.hide()
         score_list_node.hide()
-        score_message_node.text = "Leaderboard is disabled in this version\nTry reinstalling from itch.io"
+        score_message_node.text = "Leaderboard is disabled in this version
+        Try reinstalling from itch.io"
 
         return
     else:
@@ -162,7 +163,7 @@ func _on_change_name_pressed() -> void:
         display_name_error.show()
         return
 
-    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = true
+    $Panel/MarginContainer/Board/DisplayNameContainer/CenterContainer/ChangeName.disabled = true
 
     $NameChangeTime.start()
 
@@ -176,12 +177,12 @@ func _on_display_name_error(error_status: int):
     $NameChangeTime.stop()
     display_name_error.text = LeaderboardManager.DISPLAY_NAME_ERROR_MSGS.get(error_status)
     display_name_error.show()
-    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = false
+    $Panel/MarginContainer/Board/DisplayNameContainer/CenterContainer/ChangeName.disabled = false
 
 func _on_name_change_time_timeout() -> void:
-    $Panel/MarginContainer/Board/DisplayNameContainer/ChangeName.disabled = false
+    $Panel/MarginContainer/Board/DisplayNameContainer/CenterContainer/ChangeName.disabled = false
     display_name_error.hide()
 
-func _on_name_changer_text_changed() -> void:
+func _on_line_edit_text_changed(new_text: String) -> void:
     if display_name_error.is_visible_in_tree():
         display_name_error.hide()

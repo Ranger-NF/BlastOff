@@ -4,6 +4,12 @@ signal stars_increased
 signal stars_decreased
 signal indicate_insufficiency
 
+const DEFAULT_STAR_SIZE: int = 40
+const DEFAULT_FONT_SIZE: int = 42
+
+@export var font_size: float = DEFAULT_FONT_SIZE
+
+
 enum COLORS {
     NORMAL,
     GREEN,
@@ -39,11 +45,16 @@ func _ready() -> void:
     _update_star_count()
 
 func _update_star_count(_change_in_stars = 0):
+    var star_scale: float = font_size / DEFAULT_FONT_SIZE
+
     self.add_theme_color_override("default_color", COLOR_VALUES[COLORS.NORMAL])
     self.clear()
 
     self.append_text("[center]")
-    self.add_image(star_image, 40, 40)
+
+    self.add_image(star_image, star_scale * DEFAULT_STAR_SIZE, star_scale * DEFAULT_STAR_SIZE)
+    self.add_theme_font_size_override("normal_font_size", font_size)
+
     self.append_text(str(DataManager.gameplay.total_stars))
 
     if last_star_count < DataManager.gameplay.total_stars:

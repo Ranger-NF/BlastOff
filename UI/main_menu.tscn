@@ -82,10 +82,9 @@ alignment = 1
 
 [node name="Leaderboard2" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_s7dff")]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Version" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "v1.2.0"
+text = "v1.3.0"
 horizontal_alignment = 1

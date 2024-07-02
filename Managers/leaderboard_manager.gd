@@ -39,9 +39,9 @@ func _ready() -> void:
     StatManager.new_high_score_gained.connect(_add_player_high_score)
     self.tried_new_display_name.connect(_process_new_display_name)
 
-    var sw_api_key = _get_api_key()
+    var sw_api_key: String = _get_api_key()
 
-    if sw_api_key:
+    if not sw_api_key.is_empty():
         is_leaderboard_allowed = true
 
         SilentWolf.configure({
@@ -105,10 +105,12 @@ func _replace_high_score(new_high_score: int, is_updating_display_name: bool = f
 
 func _get_api_key() -> String:
     var f = FileAccess.open('res://secrets.env', FileAccess.READ)
-    var api_key:String =f.get_line()
-    f.close()
+    if f:
+        var api_key:String =f.get_line()
+        f.close()
 
-    return api_key
+        return api_key
+    return ""
 
 func _add_player_high_score(new_high_score: int, is_updating_display_name: bool = false) -> void:
     if is_leaderboard_allowed:

@@ -1,26 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://4ift2b3slw3r"]
 
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="1_eeyp5"]
+[ext_resource type="Script" path="res://UI/statistics.gd" id="1_jepgh"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="2_mir6r"]
-
-[sub_resource type="GDScript" id="GDScript_5y743"]
-script/source = "extends Control
-
-signal back_button_pressed
-
-@onready var high_score_label: Label = $MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/HighScore
-
-func _ready() -> void:
-    self.back_button_pressed.connect(_on_back_button_pressed)
-    self.child_entered_tree.connect(_update_high_score)
-
-func _update_high_score(_node: Node = null) -> void:
-    high_score_label.text = str(DataManager.gameplay.high_score)
-    high_score_label.show()
-
-func _on_back_button_pressed() -> void:
-    UiManager.emit_signal(\"opened_start_menu\")
-"
 
 [node name="Statistics" type="Control"]
 layout_mode = 3
@@ -29,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_5y743")
+script = ExtResource("1_jepgh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -77,6 +59,19 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="Player Name" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 56
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StarCount" parent="MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_eeyp5")]
 layout_mode = 2
 size_flags_vertical = 3
@@ -86,8 +81,10 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 56
 bbcode_enabled = true
 text = "[center]Stars[/center]"
+font_size = 56.0
 
 [node name="Control" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -105,7 +102,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 56
 text = "High Score"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -118,7 +115,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 56
 text = "0
 "
 horizontal_alignment = 1
