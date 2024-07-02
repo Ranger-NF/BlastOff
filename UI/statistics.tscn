@@ -53,12 +53,14 @@ size_flags_vertical = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_stretch_ratio = 0.25
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="GameButton" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("2_mir6r")]
 layout_mode = 2
 button_text = "Back"
 pressed_signal_name = "back_button_pressed"
+font_size = 36
 
 [node name="Control2" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
