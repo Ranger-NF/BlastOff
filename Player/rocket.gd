@@ -1,20 +1,14 @@
 extends Area2D
 
-const max_speed: float = 100
-const acceleration: float = 70
-const friction = 90
-const rotation_per_frame = 50 # in degrees
+const MAX_SPEED: float = 100
+const ACCELERATION: float = 70
+const FRICTION = 90
+const ROTATION_PER_FRAME = 50 # in degrees
 
 @onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
 @onready var rocket_collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var color_overlay_node: Sprite2D = $Sprite/Color
 @onready var texture_overlay_node: Sprite2D = $Sprite/Texture
-
-enum {
-    LEFT = -1,
-    RESET,
-    RIGHT
-}
 
 signal player_hurt
 
@@ -22,7 +16,7 @@ var is_game_running: bool = false
 var is_free_falling: bool = false
 
 var move_vec: Vector2
-var last_sway_direction: int = RESET
+var last_sway_direction: int = UiManager.DIRECTIONS.RESET
 
 var rotation_reset_tween: Tween
 var faceplant_tween: Tween
@@ -30,6 +24,12 @@ var time_idle: float = 0
 
 var initial_flame_speed: float
 var half_of_rocket_width: float
+
+# Variable to control rocket using FOLLOW control
+var has_target_pos: bool
+var target_x_pos: float
+var targetted_side: int
+
 
 func _reset_properties() -> void:
     _update_current_skin()
@@ -56,6 +56,9 @@ func _ready() -> void:
     GameManager.game_over.connect(_on_game_over)
 
     GameManager.rocket_speed_changed.connect(_on_rocket_speed_changed)
+    GameManager.ordered_rocket_to_target.connect(_set_target_pos)
+    GameManager.rocket_has_reached_target.connect(_on_target_reached)
+
     self.connect("player_hurt", _on_hurt)
 
     initial_flame_speed = GameManager.rocket_speed
@@ -63,19 +66,19 @@ func _ready() -> void:
 func apply_friction(velocity: float, delta: float) -> float:
     var magniitude_of_vec = abs(velocity)
     var direction_of_vec = (velocity / magniitude_of_vec) # Gives either 1 or -1 (left or right)
-    magniitude_of_vec -= friction * delta # Reduces the velocity
+    magniitude_of_vec -= FRICTION * delta # Reduces the velocity
 
-    if direction_of_vec == LEFT:
-        sway(RIGHT, delta)
+    if direction_of_vec == UiManager.DIRECTIONS.LEFT:
+        sway(UiManager.DIRECTIONS.RIGHT, delta)
     else:
-        sway(LEFT, delta)
+        sway(UiManager.DIRECTIONS.LEFT, delta)
     return (direction_of_vec * magniitude_of_vec)
 
 func sway(sway_direction: int, delta: float) -> void:
     if not sway_direction in [-1, 0, 1]:
         push_error("Inputted a value other than -1 or 1")
         return
-    if sway_direction != RESET:
+    if sway_direction != UiManager.DIRECTIONS.RESET:
 
         # if last rotation was opposite to current, set to zero then, sway to current side
         if last_sway_direction != sway_direction and self.rotation != 0:
@@ -88,7 +91,7 @@ func sway(sway_direction: int, delta: float) -> void:
                 rotation_reset_tween.kill()
 
             last_sway_direction = sway_direction
-            self.rotate(sway_direction * deg_to_rad(rotation_per_frame * delta))
+            self.rotate(sway_direction * deg_to_rad(ROTATION_PER_FRAME * delta))
     else:
         if not rotation_reset_tween or not rotation_reset_tween.is_running() :
             rotation_reset_tween = create_tween()
@@ -97,10 +100,15 @@ func sway(sway_direction: int, delta: float) -> void:
 func _free_fall(delta) -> void:
     self.position.y += (GameManager.rocket_speed * delta)
 
+func _set_target_pos(new_target_x_pos: float, taget_side: int):
+    has_target_pos = true
+    target_x_pos = new_target_x_pos
+    targetted_side = taget_side
+
 func move(delta: float):
     if is_free_falling:
         return
-    # Increment velocity with acceleration if given the input
+    # Increment velocity with ACCELERATION if given the input
     if GameManager.is_left_button_pressed or GameManager.is_right_button_pressed: # Checking whether either button is pressed
         if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If both buttons are pressed, cancel it
             move_vec.x = apply_friction(move_vec.x, delta)
@@ -109,15 +117,15 @@ func move(delta: float):
             time_idle = 0
 
             if GameManager.is_left_button_pressed: # If asked to move left, accelerate to max speed
-                move_vec.x += -1 * (acceleration * delta) # Accelerate to -ve x
-                sway(LEFT, delta)
+                move_vec.x += -1 * (ACCELERATION * delta) # Accelerate to -ve x
+                sway(UiManager.DIRECTIONS.LEFT, delta)
 
             elif GameManager.is_right_button_pressed:
-                move_vec.x += (acceleration * delta)
-                sway(RIGHT, delta)
+                move_vec.x += (ACCELERATION * delta)
+                sway(UiManager.DIRECTIONS.RIGHT, delta)
 
     # Slowing down (gradually)
-    elif move_vec.length() > (friction * delta):
+    elif move_vec.length() > (FRICTION * delta):
         time_idle += delta
         move_vec.x = apply_friction(move_vec.x, delta)
     else:
@@ -125,18 +133,23 @@ func move(delta: float):
         move_vec = Vector2.ZERO # Stop the character
 
     if time_idle > 0.2:
-        sway(RESET, delta)
+        sway(UiManager.DIRECTIONS.RESET, delta)
 
-    move_vec = move_vec.limit_length(max_speed)
+    move_vec = move_vec.limit_length(MAX_SPEED)
     self.position += move_vec
 
     # Preventing player from moving outside the screen
     var horizontal_screen_size = get_viewport_rect().size.x
 
     if (self.position.x >= horizontal_screen_size - half_of_rocket_width) or (self.position.x <= half_of_rocket_width):
-        sway(RESET, delta)
+        sway(UiManager.DIRECTIONS.RESET, delta)
         self.position.x = clamp(self.position.x , half_of_rocket_width, horizontal_screen_size - half_of_rocket_width) # Prevents the rocket from going off the screen
         move_vec = Vector2.ZERO # Resets the velocity to sudden stop
+
+    GameManager.current_rocket_x_pos = self.position.x
+
+    if has_target_pos:
+        _check_if_passed_point(self.position.x, target_x_pos, targetted_side)
 
 func _physics_process(delta: float) -> void:
     if is_game_running and not is_free_falling:
@@ -187,3 +200,16 @@ func _on_rocket_speed_changed(new_rocket_speed: float):
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     self.hide()
     is_game_running = false
+
+func _check_if_passed_point(current_x_pos: float, target_pos: float, target_side: int):
+    match target_side:
+        UiManager.DIRECTIONS.LEFT:
+            if current_x_pos <= target_pos:
+                GameManager.emit_signal("rocket_has_reached_target")
+
+        UiManager.DIRECTIONS.RIGHT:
+            if current_x_pos >= target_pos:
+                GameManager.emit_signal("rocket_has_reached_target")
+
+func _on_target_reached():
+    has_target_pos = false

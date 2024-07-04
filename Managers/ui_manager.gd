@@ -21,6 +21,17 @@ signal remove_transition
 signal triggered_gamearea_setup
 signal triggered_menu_ui_setup ## Called when game is over --> This chains to GameManager.game_over
 
+enum CONTROL_TYPES {
+    GUIDE,
+    FOLLOW
+}
+
+enum DIRECTIONS {
+    LEFT = -1,
+    RESET,
+    RIGHT
+}
+
 #MENU_LEVEL.MAIN is index 1 not zero so keep that in mind if you change to an array
 enum MENU_IDS {
         NONE,
@@ -50,6 +61,8 @@ var need_tutorial: bool = false
 
 var main_scene: Node
 var current_menu: Node
+
+var current_control_type: int = CONTROL_TYPES.FOLLOW
 
 func _ready() -> void:
     self.first_startup.connect(func () -> void: need_tutorial = true)

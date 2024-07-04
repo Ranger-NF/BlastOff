@@ -6,6 +6,10 @@ signal game_started
 signal game_over
 
 signal rocket_speed_changed(new_speed: float)
+signal ordered_rocket_to_target(new_target_x_pos: float, side_expected: int)
+signal rocket_has_reached_target
+
+
 signal level_up
 
 signal time_phase_changed(current_time_phase: int)
@@ -22,6 +26,7 @@ var game_screen_size: Vector2:
             self.emit_signal("screen_size_updated", value)
 
 var rocket_speed: float = 600
+var current_rocket_x_pos: float
 
 ## For controlling inputs
 var is_left_button_pressed: bool = false

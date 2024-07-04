@@ -52,8 +52,8 @@ func _update_star_count(_change_in_stars = 0):
 
     self.append_text("[center]")
 
-    self.add_image(star_image, star_scale * DEFAULT_STAR_SIZE, star_scale * DEFAULT_STAR_SIZE)
-    self.add_theme_font_size_override("normal_font_size", font_size)
+    self.add_image(star_image, roundi(star_scale * DEFAULT_STAR_SIZE), roundi(star_scale * DEFAULT_STAR_SIZE))
+    self.add_theme_font_size_override("normal_font_size", roundi(font_size))
 
     self.append_text(str(DataManager.gameplay.total_stars))
 
