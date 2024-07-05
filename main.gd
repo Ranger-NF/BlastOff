@@ -1,7 +1,5 @@
 extends Node
 
-@export var bird_scene: PackedScene
-@export var satellite_scene: PackedScene
 @export var star_scene: PackedScene
 
 @onready var bg_music_list: Array = [
@@ -46,32 +44,31 @@ func _physics_process(delta: float) -> void:
     if is_game_running:
         StatManager.time_spent += delta
 
-func spawn_obstacle(obstacle_scene: PackedScene):
-    if not obstacle_scene:
-        push_error("PackedScene is not set in the export section!")
+func spawn_obstacle(obstacle_node: Node):
+    if not obstacle_node:
+        push_error("No such obstacle found in the path!")
 
     obstacle_path.progress_ratio = randf()
 
     var rand_xpos_on_path = obstacle_path.position.x
     var spawn_location = Vector2(rand_xpos_on_path, -250)
 
-    var new_obstacle = obstacle_scene.instantiate()
-    new_obstacle.position = spawn_location
+    obstacle_node.position = spawn_location
 
-    add_child(new_obstacle)
+    add_child(obstacle_node)
 
 
 func determine_next_obstacle():
 
     var random_num = randf()
-    if (random_num < GameManager.satellite_falling_propability):
+    if (random_num < ObstacleManager.satellite_falling_propability):
         if satellite_timer.is_stopped():
             satellite_timer.start(randi_range(2, 6))
     else:
         if star_timer.is_stopped():
             star_timer.start(randi_range(1, 5))
 
-    spawn_obstacle(bird_scene)
+    spawn_obstacle(ObstacleManager.OBSTACLE_SCENES.get(ObstacleManager.BIRD))
 
 func _on_game_over() -> void:
     is_game_running = false
@@ -89,10 +86,10 @@ func _on_asteroid_timer_timeout() -> void:
     determine_next_obstacle()
 
 func _on_satellite_timer_timeout() -> void:
-    spawn_obstacle(satellite_scene)
+    spawn_obstacle(ObstacleManager.OBSTACLE_SCENES.get(ObstacleManager.SATELLITE))
 
 func _on_star_timer_timeout() -> void:
-    spawn_obstacle(star_scene)
+    spawn_obstacle(star_scene.instantiate())
 
 func _on_music_finished() -> void:
     _start_rand_music()

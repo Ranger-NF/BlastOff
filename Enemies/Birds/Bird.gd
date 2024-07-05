@@ -1,7 +1,5 @@
 extends "res://Enemies/Obstacle.gd"
 
-@export var max_flock_size: int = 4
-
 @onready var clipping_area: CollisionShape2D = $DetectionArea/CollisionShape2D
 
 enum {
@@ -16,10 +14,10 @@ var spawnable_locations: Array[int] = [TOP, BACK, BOTTOM]
 func _further_setup() -> void: ## Extension of _ready() to implement extra logic per class of obstacle
     var rand_num = randf()
 
-    if rand_num < GameManager.flock_probability and is_flock_leader:
+    if rand_num < ObstacleManager.flock_probability and is_flock_leader:
         initial_leader_pos = self.position
 
-        var flock_size = randi_range(2, max_flock_size)
+        var flock_size = randi_range(ObstacleManager.min_bird_flock_size, ObstacleManager.max_bird_flock_size)
         _spawn_flock(flock_size)
 
 

@@ -29,6 +29,7 @@ DataManager="*res://Managers/data_manager.gd"
 SkinManager="*res://Managers/skin_manager.gd"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 LeaderboardManager="*res://Managers/leaderboard_manager.gd"
+ObstacleManager="*res://Managers/obstacle_manager.gd"
 
 [display]
 

@@ -1,9 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=8 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lyfac"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
-[ext_resource type="PackedScene" uid="uid://c1quod1k2hh1j" path="res://Enemies/Birds/Bird.tscn" id="2_poxg6"]
-[ext_resource type="PackedScene" uid="uid://bgdnuqx4a3jm7" path="res://Enemies/Satellite/satellite.tscn" id="3_pltus"]
 [ext_resource type="PackedScene" uid="uid://bwtlhy46ebjdw" path="res://Collectables/star.tscn" id="4_3h5cl"]
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
 [ext_resource type="PackedScene" uid="uid://c7khim02dfxsw" path="res://Background/transition.tscn" id="10_ngmpp"]
@@ -17,8 +15,6 @@ point_count = 2
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lyfac")
-bird_scene = ExtResource("2_poxg6")
-satellite_scene = ExtResource("3_pltus")
 star_scene = ExtResource("4_3h5cl")
 
 [node name="Background" parent="." instance=ExtResource("5_rc5yt")]
