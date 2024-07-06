@@ -41,7 +41,6 @@ collision_mask = 2
 script = ExtResource("1_m8spo")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-scale = Vector2(1, 1)
 emitting = false
 amount = 12
 lifetime = 0.8

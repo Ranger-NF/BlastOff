@@ -1,5 +1,7 @@
 extends Area2D
 
+signal setup_node
+
 @onready var back_shine_node = $BackShine
 @onready var star_sptite: Sprite2D = $Star
 
@@ -9,14 +11,20 @@ extends Area2D
 const SHINE_TIME_PERIOD: float = 3
 
 var initial_shine_scale: Vector2
+var can_glow: bool
 
 func _ready() -> void:
-    _glow()
     GameManager.game_over.connect(_on_game_over)
+    self.setup_node.connect(_setup_star)
+
+
+func _setup_star() -> void:
+    can_glow = true
+    _glow()
 
 func _glow():
     initial_shine_scale = back_shine_node.scale
-    while 1 > 0:
+    while can_glow:
         var tween = create_tween().set_parallel(true)
         tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, SHINE_TIME_PERIOD / 2)
         tween.tween_property(back_shine_node, "scale", initial_shine_scale, SHINE_TIME_PERIOD / 2).set_delay(SHINE_TIME_PERIOD / 2)
@@ -36,7 +44,7 @@ func make_disappear() -> void:
     tween.tween_property(back_shine_node, "modulate:a", 0, SHINE_TIME_PERIOD / 2)
     await tween.finished
 
-    queue_free()
+    free_obstacle()
 
 func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
@@ -46,14 +54,16 @@ func _on_hit() -> void:
     star_collected_sound.play()
 
     $CPUParticles2D.emitting = true
-    star_sptite.hide()
-    back_shine_node.hide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-    queue_free()
+    free_obstacle()
 
 func _on_game_over() -> void:
-    queue_free()
+    free_obstacle()
 
 func _on_star_collected_sound_finished() -> void:
-    queue_free()
+    free_obstacle()
+
+func free_obstacle() -> void:
+    can_glow = false
+    ObstacleManager.make_obstacle_free(self, ObstacleManager.STAR)

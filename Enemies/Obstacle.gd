@@ -1,9 +1,13 @@
 class_name Obstacle
 extends Area2D
 
+signal setup_node
+
 @export var free_fall_multiplier: float = 1 # Ideally more than 1, for faster obstacle
 @export var can_be_grouped: bool = false
 @export var can_move_horizontally: bool = true
+
+@export_enum("Bird", "Satellite") var obstacle_type: int
 
 ## Variables to configure groups
 var is_flock_leader: bool = true
@@ -23,13 +27,17 @@ var horizontal_max_speed: float = 6
 var horizontal_speed: float = 0 # Should be constant speed
 
 func _ready() -> void:
-    can_move = true
     GameManager.game_over.connect(_on_game_over)
+    self.setup_node.connect(_on_setup_node)
+
+func _on_setup_node() -> void:
+    can_move = true
     if can_move_horizontally:
         _determine_horizontal_movement()
 
     if self.has_method("_further_setup"):
         self.call("_further_setup")
+
 
 func _determine_horizontal_movement() -> void:
     if is_flock_leader:
@@ -81,7 +89,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     if hit_sound.playing:
         await hit_sound.finished
 
-    queue_free()
+    free_obstacle()
 
 func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
@@ -89,4 +97,7 @@ func _on_hit() -> void:
     if self.has_method("_after_hit"): self.call("_after_hit")
 
 func _on_game_over() -> void:
-    queue_free()
+    free_obstacle()
+
+func free_obstacle() -> void:
+    ObstacleManager.make_obstacle_free(self, obstacle_type)

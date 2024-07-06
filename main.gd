@@ -44,9 +44,8 @@ func _physics_process(delta: float) -> void:
     if is_game_running:
         StatManager.time_spent += delta
 
-func spawn_obstacle(obstacle_node: Node):
-    if not obstacle_node:
-        push_error("No such obstacle found in the path!")
+func spawn_obstacle(obstacle_type: int):
+    var obstacle_node: Node2D = ObstacleManager.get_free_obstacle(obstacle_type)
 
     obstacle_path.progress_ratio = randf()
 
@@ -55,8 +54,8 @@ func spawn_obstacle(obstacle_node: Node):
 
     obstacle_node.position = spawn_location
 
-    add_child(obstacle_node)
-
+    if obstacle_node.has_signal("setup_node"):
+        obstacle_node.emit_signal("setup_node")
 
 func determine_next_obstacle():
 
@@ -68,7 +67,7 @@ func determine_next_obstacle():
         if star_timer.is_stopped():
             star_timer.start(randi_range(1, 5))
 
-    spawn_obstacle(ObstacleManager.OBSTACLE_SCENES.get(ObstacleManager.BIRD))
+    spawn_obstacle(ObstacleManager.BIRD)
 
 func _on_game_over() -> void:
     is_game_running = false
@@ -86,10 +85,11 @@ func _on_asteroid_timer_timeout() -> void:
     determine_next_obstacle()
 
 func _on_satellite_timer_timeout() -> void:
-    spawn_obstacle(ObstacleManager.OBSTACLE_SCENES.get(ObstacleManager.SATELLITE))
+    spawn_obstacle(ObstacleManager.SATELLITE)
 
 func _on_star_timer_timeout() -> void:
-    spawn_obstacle(star_scene.instantiate())
+    return
+    spawn_obstacle(ObstacleManager.STAR)
 
 func _on_music_finished() -> void:
     _start_rand_music()
