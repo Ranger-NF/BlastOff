@@ -98,6 +98,7 @@ scale = Vector2(0.6, 0.6)
 script = ExtResource("2_6vcrh")
 free_fall_multiplier = 1.5
 can_move_horizontally = false
+obstacle_type = 1
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
 position = Vector2(10, -97.5004)

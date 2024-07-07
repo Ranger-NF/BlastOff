@@ -29,7 +29,7 @@ func _on_main_menu_button_pressed() -> void:
 func _on_change_skin_button_pressed() -> void:
     UiManager.emit_signal("opened_skin_selector")
 
-func _on_refresh() -> void:
+func _on_refresh(_node: Node = null) -> void:
     $MarginContainer/VBoxContainer/Name.text = LeaderboardManager.current_display_name
     _update_current_skin()
 

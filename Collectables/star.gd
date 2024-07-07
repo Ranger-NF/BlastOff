@@ -1,7 +1,5 @@
 extends Area2D
 
-signal setup_node
-
 @onready var back_shine_node = $BackShine
 @onready var star_sptite: Sprite2D = $Star
 
@@ -15,8 +13,7 @@ var can_glow: bool
 
 func _ready() -> void:
     GameManager.game_over.connect(_on_game_over)
-    self.setup_node.connect(_setup_star)
-
+    _setup_star()
 
 func _setup_star() -> void:
     can_glow = true
@@ -54,6 +51,8 @@ func _on_hit() -> void:
     star_collected_sound.play()
 
     $CPUParticles2D.emitting = true
+    $Star.hide()
+    $BackShine.hide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     free_obstacle()

@@ -54,8 +54,7 @@ func spawn_obstacle(obstacle_type: int):
 
     obstacle_node.position = spawn_location
 
-    if obstacle_node.has_signal("setup_node"):
-        obstacle_node.emit_signal("setup_node")
+    add_child(obstacle_node)
 
 func determine_next_obstacle():
 
@@ -88,7 +87,6 @@ func _on_satellite_timer_timeout() -> void:
     spawn_obstacle(ObstacleManager.SATELLITE)
 
 func _on_star_timer_timeout() -> void:
-    return
     spawn_obstacle(ObstacleManager.STAR)
 
 func _on_music_finished() -> void:

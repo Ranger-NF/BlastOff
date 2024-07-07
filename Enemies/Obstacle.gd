@@ -1,16 +1,21 @@
 class_name Obstacle
 extends Area2D
 
-signal setup_node
-
 @export var free_fall_multiplier: float = 1 # Ideally more than 1, for faster obstacle
 @export var can_be_grouped: bool = false
 @export var can_move_horizontally: bool = true
 
 @export_enum("Bird", "Satellite") var obstacle_type: int
 
+
+enum ROLES {
+    LEADER,
+    COLEADER,
+    MEMBER
+}
+
 ## Variables to configure groups
-var is_flock_leader: bool = true
+var current_role: int = ROLES.LEADER
 var flock_speed: float = 10
 var initial_leader_pos: Vector2 = Vector2.ZERO
 
@@ -28,9 +33,9 @@ var horizontal_speed: float = 0 # Should be constant speed
 
 func _ready() -> void:
     GameManager.game_over.connect(_on_game_over)
-    self.setup_node.connect(_on_setup_node)
+    _setup_node()
 
-func _on_setup_node() -> void:
+func _setup_node() -> void:
     can_move = true
     if can_move_horizontally:
         _determine_horizontal_movement()
@@ -40,18 +45,17 @@ func _on_setup_node() -> void:
 
 
 func _determine_horizontal_movement() -> void:
-    if is_flock_leader:
-        horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
-        flock_speed = horizontal_speed
-    else:
-        horizontal_speed = flock_speed
+    var initial_pos: Vector2 = self.position
+
+    match current_role:
+        ROLES.LEADER:
+            horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
+            flock_speed = horizontal_speed
+        ROLES.COLEADER or ROLES.MEMBER:
+            horizontal_speed = flock_speed
+            initial_pos = initial_leader_pos # To prevent members of flock from flying to opposite side
 
     var horizontal_screen_size = get_viewport_rect().size.x
-
-    var initial_pos = self.position
-
-    if not is_flock_leader: # To prevent members of flock from flying to opposite side
-        initial_pos = initial_leader_pos
 
     if initial_pos.x > (horizontal_screen_size / 2): # If on the right side move to left
         horizontal_speed *= -1 # Make it move to left side (-ve x)
