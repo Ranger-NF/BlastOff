@@ -27,8 +27,6 @@ var can_move: bool = false
 var move_vec: Vector2 = Vector2.ZERO
 
 # For objects that move across the screen
-var horizontal_min_speed: float = 3
-var horizontal_max_speed: float = 6
 var horizontal_speed: float = 0 # Should be constant speed
 
 func _ready() -> void:
@@ -48,7 +46,7 @@ func _determine_horizontal_movement() -> void:
     var initial_pos: Vector2 = self.position
 
     if current_role == ROLES.LEADER:
-        horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
+        horizontal_speed = randf_range(ObstacleManager.bird_horizontal_speed.x, ObstacleManager.bird_horizontal_speed.y) # Randomize
         flock_speed = horizontal_speed
     elif current_role == ROLES.COLEADER or current_role == ROLES.MEMBER:
         horizontal_speed = flock_speed
@@ -62,7 +60,7 @@ func _determine_horizontal_movement() -> void:
 
 
 func _change_anim_speed():
-    var new_speed_scale =  horizontal_speed / ((horizontal_min_speed + horizontal_max_speed)/2)
+    var new_speed_scale =  horizontal_speed / ((ObstacleManager.bird_horizontal_speed.x + ObstacleManager.bird_horizontal_speed.y)/2)
     animated_sprite.speed_scale = new_speed_scale
 
 func free_fall(delta) -> void:

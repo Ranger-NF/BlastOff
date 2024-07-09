@@ -59,7 +59,7 @@ func spawn_obstacle(obstacle_type: int):
 func determine_next_obstacle():
 
     var random_num = randf()
-    if (random_num < ObstacleManager.satellite_falling_propability):
+    if (random_num < ObstacleManager.current_satellite_spawning_propability):
         if satellite_timer.is_stopped():
             satellite_timer.start(randi_range(2, 6))
     else:

@@ -4,6 +4,11 @@ signal star_count_changed(change_in_stars: int)
 signal stars_depleted
 signal new_high_score_gained
 
+const SCORE_MULTIPLIER: Dictionary = {
+    GameManager.DIFFICULTY_LEVELS.EASY: 1,
+    GameManager.DIFFICULTY_LEVELS.HARD: 1.5,
+}
+
 var time_spent: float
 
 # Variables for score calculation
@@ -25,7 +30,7 @@ func _on_star_count_changed(change_in_stars: int) -> void:
         emit_signal("stars_depleted")
 
 func _calculate_score() -> void:
-    score_gained = roundi(current_level * time_spent)
+    score_gained = roundi(current_level * time_spent * SCORE_MULTIPLIER.get(GameManager.current_difficulty_level))
 
     if !(roundi(score_gained) % roundi(pow(10, current_level))) and score_gained != 0:
         current_level += 1

@@ -20,20 +20,74 @@ var active_obstacles: Dictionary = {
     STAR: [],
 }
 
+var difficulty_level_values = {
+    GameManager.DIFFICULTY_LEVELS.EASY: {
+        BIRD: {
+            "flock_probability" = 0.2,
+            "horizontal_speed" = {
+                "min": 6,
+                "max": 8,
+            },
+            "flock_size" = {
+                "min": 3,
+                "max": 5,
+            },
+        },
+        SATELLITE: {
+            "spawning_propabilty" = 0.3
+        },
+    },
+    GameManager.DIFFICULTY_LEVELS.HARD: {
+        BIRD: {
+            "flock_probability" = 0.8,
+            "horizontal_speed" = {
+                "min": 7,
+                "max": 10,
+            },
+            "flock_size" = {
+                "min": 5,
+                "max": 8,
+            },
+        },
+        SATELLITE: {
+            "spawning_propabilty" = 1
+        },
+    },
+}
+
 # Related to spawning
-var flock_probability: float = 0.2
-var satellite_falling_propability: float = 0.1
+var current_bird_flock_probability: float
+var current_satellite_spawning_propability: float
 
 # Related to grouping
-var min_bird_flock_size: int = 6
-var max_bird_flock_size: int = 8
+var current_bird_flock_size: Vector2i = Vector2i(6, 8)
+
+# Related to horizontal movment
+var bird_horizontal_speed: Vector2 = Vector2(3, 6) # Represents minimum and maxmum speed
 
 func _ready() -> void:
     GameManager.level_up.connect(_on_level_up)
 
+    GameManager.game_started.connect(_reload_difficulty_data)
+    _reload_difficulty_data()
+
+func _reload_difficulty_data(difficulty_level: int = GameManager.current_difficulty_level):
+    var current_difficulty_data: Dictionary = difficulty_level_values.get(difficulty_level)
+
+    var bird_data: Dictionary = current_difficulty_data.get(BIRD)
+
+    current_bird_flock_probability = bird_data.flock_probability
+    current_bird_flock_size = Vector2i(bird_data.get("flock_size").min, bird_data.get("flock_size").max)
+    bird_horizontal_speed = Vector2(bird_data.get("horizontal_speed").min, bird_data.get("horizontal_speed").max)
+
+    var satellite_data: Dictionary = current_difficulty_data.get(SATELLITE)
+
+    current_satellite_spawning_propability = satellite_data.get("spawning_propabilty")
+
 func _on_level_up() -> void:
-    flock_probability += 0.05
-    satellite_falling_propability += 0.05
+    return
+    #current_bird_flock_probability += 0.05
+    #current_satellite_spawning_propability += 0.05
 
 func get_free_obstacle(obstacle_type: int) -> Node2D:
     var instantiable_res: PackedScene = OBSTACLE_SCENES.get(obstacle_type)

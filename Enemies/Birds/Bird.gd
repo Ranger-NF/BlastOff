@@ -18,10 +18,10 @@ var members_remaining_to_spawn: int = 0
 func _further_setup() -> void: ## Extension of _ready() to implement extra logic per class of obstacle
     var rand_num = randf()
 
-    if current_role == ROLES.LEADER and rand_num < ObstacleManager.flock_probability:
+    if current_role == ROLES.LEADER and rand_num < ObstacleManager.current_bird_flock_probability:
         initial_leader_pos = self.position
 
-        total_flock_size = randi_range(ObstacleManager.min_bird_flock_size, ObstacleManager.max_bird_flock_size)
+        total_flock_size = randi_range(ObstacleManager.current_bird_flock_size.x, ObstacleManager.current_bird_flock_size.y)
         print(total_flock_size)
         members_remaining_to_spawn = total_flock_size
         _spawn_flock(members_remaining_to_spawn)
