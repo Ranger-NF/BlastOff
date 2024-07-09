@@ -62,11 +62,12 @@ var need_tutorial: bool = false
 var main_scene: Node
 var current_menu: Node
 
-var current_control_type: int = CONTROL_TYPES.FOLLOW
+var current_control_type: int = CONTROL_TYPES.GUIDE
 
 func _ready() -> void:
     self.first_startup.connect(func () -> void: need_tutorial = true)
     GameManager.game_started.connect(_check_tutorial_need)
+    DataManager.data_reloaded.connect(_reload_data)
 
     self.skipped_to_main_menu.connect(spawn_menu.bind(MENU_IDS.MAIN_MENU))
     self.opened_start_menu.connect(spawn_menu.bind(MENU_IDS.START_MENU))
@@ -78,6 +79,9 @@ func _ready() -> void:
     self.triggered_gamearea_setup.connect(_spawn_ingame_uis)
     self.triggered_menu_ui_setup.connect(spawn_menu.bind(MENU_IDS.GAME_OVER))
 
+
+func _reload_data() -> void:
+    current_control_type = DataManager.settings.control_type
 
 func spawn_menu(menu_id: int):
     if menu_id == MENU_IDS.GAME_OVER:

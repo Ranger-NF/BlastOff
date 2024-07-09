@@ -3,6 +3,9 @@ extends Control
 signal back_button_pressed
 signal credits_button_pressed
 
+@onready var control_type_selector: OptionButton = $MarginContainer/WholeScreen/HBoxContainer/Sliders/ControlSelector
+@onready var difficulty_level_selector: OptionButton = $MarginContainer/WholeScreen/HBoxContainer/Sliders/DifficultySelector
+
 @onready var master_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide
 @onready var music_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider
 @onready var sfx_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider
@@ -20,6 +23,11 @@ func _ready() -> void:
     music_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.MUSIC)) + volume_offset
     sfx_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.SFX)) + volume_offset
     ui_slider.value = db_to_linear(SoundManager.get_bus_volume(SoundManager.UI)) + volume_offset
+
+    control_type_selector.selected = DataManager.settings.control_type
+    difficulty_level_selector.selected = DataManager.gameplay.current_difficulty
+
+
 
 func _on_back_button_pressed() -> void:
     DataManager.emit_signal("save_triggered")
@@ -48,3 +56,8 @@ func _on_ui_slider_drag_ended(_value_changed: bool) -> void:
 func _on_button_pressed() -> void:
     button_pressed_sound.play()
 
+func _on_control_selector_item_selected(index: int) -> void:
+    DataManager.settings.control_type = index
+
+func _on_difficulty_selector_item_selected(index: int) -> void:
+    DataManager.gameplay.current_difficulty = index

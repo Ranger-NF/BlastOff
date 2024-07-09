@@ -37,6 +37,22 @@ var difficulty_level_values = {
             "spawning_propabilty" = 0.3
         },
     },
+    GameManager.DIFFICULTY_LEVELS.NORMAL: {
+        BIRD: {
+            "flock_probability" = 0.6,
+            "horizontal_speed" = {
+                "min": 7,
+                "max": 9,
+            },
+            "flock_size" = {
+                "min": 4,
+                "max": 7,
+            },
+        },
+        SATELLITE: {
+            "spawning_propabilty" = 0.6
+        },
+    },
     GameManager.DIFFICULTY_LEVELS.HARD: {
         BIRD: {
             "flock_probability" = 0.8,
