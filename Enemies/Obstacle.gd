@@ -47,13 +47,12 @@ func _setup_node() -> void:
 func _determine_horizontal_movement() -> void:
     var initial_pos: Vector2 = self.position
 
-    match current_role:
-        ROLES.LEADER:
-            horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
-            flock_speed = horizontal_speed
-        ROLES.COLEADER or ROLES.MEMBER:
-            horizontal_speed = flock_speed
-            initial_pos = initial_leader_pos # To prevent members of flock from flying to opposite side
+    if current_role == ROLES.LEADER:
+        horizontal_speed = randf_range(horizontal_min_speed, horizontal_max_speed) # Randomize
+        flock_speed = horizontal_speed
+    elif current_role == ROLES.COLEADER or current_role == ROLES.MEMBER:
+        horizontal_speed = flock_speed
+        initial_pos = initial_leader_pos # To prevent members of flock from flying to opposite side
 
     var horizontal_screen_size = get_viewport_rect().size.x
 

@@ -22,17 +22,29 @@ func _further_setup() -> void: ## Extension of _ready() to implement extra logic
         initial_leader_pos = self.position
 
         total_flock_size = randi_range(ObstacleManager.min_bird_flock_size, ObstacleManager.max_bird_flock_size)
+        print(total_flock_size)
         members_remaining_to_spawn = total_flock_size
         _spawn_flock(members_remaining_to_spawn)
     if current_role == ROLES.COLEADER and members_remaining_to_spawn > 0:
         _spawn_flock(members_remaining_to_spawn)
 
 func _spawn_flock(members_to_spawn: int):
-    var members_spawned: int = 1
+    var members_spawned: int
 
-    if members_to_spawn > 4: # Limiting number of members under a single leader/co-leader
-        members_to_spawn = 4
-        members_remaining_to_spawn -= members_to_spawn
+    if current_role == ROLES.COLEADER:
+        members_spawned = 0
+
+        if members_to_spawn > 3: # Limiting number of members under a single leader/co-leader
+            members_to_spawn = 3
+
+    elif current_role == ROLES.LEADER:
+        members_spawned = 1
+
+        if members_to_spawn > 4: # Limiting number of members under a single leader/co-leader
+            members_to_spawn = 4
+
+
+    members_remaining_to_spawn -= members_to_spawn
 
     while members_spawned < members_to_spawn:
         var new_individual: Area2D = self.duplicate()
@@ -44,7 +56,7 @@ func _spawn_flock(members_to_spawn: int):
         if new_spawn_location == BACK:
             new_individual.position.x += (-1 * clipping_area.shape.radius)
 
-            if members_to_spawn > 4:
+            if members_remaining_to_spawn > 0:
                 new_individual = _transfer_flock_properties(new_individual, ROLES.COLEADER)
             else:
                 new_individual = _transfer_flock_properties(new_individual, ROLES.MEMBER)
