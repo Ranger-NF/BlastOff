@@ -14,8 +14,6 @@ const SCORING_INTERVAL: float = 0.5
 
 var time_since_last_scoring: float
 
-var time_spent: float
-
 # Variables for score calculation
 var score_gained: float
 var current_level: int = 1

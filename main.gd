@@ -40,10 +40,6 @@ func _setup_spawn_line() -> void:
     obstacle_spawn_node.curve.add_point(Vector2(0 + OBSTACLE_SPAWN_MARGIN, 0))
     obstacle_spawn_node.curve.add_point(Vector2(horizontal_screen_size - OBSTACLE_SPAWN_MARGIN, 0))
 
-func _physics_process(delta: float) -> void:
-    if is_game_running:
-        StatManager.time_spent += delta
-
 func spawn_obstacle(obstacle_type: int):
     var obstacle_node: Node2D = ObstacleManager.get_free_obstacle(obstacle_type)
 
@@ -76,7 +72,6 @@ func _on_game_over() -> void:
 
 func restart_game() -> void:
     is_game_running = true
-    StatManager.time_spent = 0
     obstacle_timer.start()
 
 func _on_asteroid_timer_timeout() -> void:
