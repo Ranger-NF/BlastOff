@@ -25,6 +25,7 @@ var satellite_number: int = 0 # Resets to zero whenver game restarts [Incremente
 
 func _ready() -> void:
     GameManager.game_over.connect(_check_high_score)
+    GameManager.game_started.connect(_init_score)
     self.star_count_changed.connect(_on_star_count_changed)
 
 func _on_star_count_changed(change_in_stars: int) -> void:
@@ -54,3 +55,6 @@ func _check_high_score() -> void:
         DataManager.gameplay.high_score = score_gained
         self.emit_signal("new_high_score_gained", score_gained)
         DataManager.emit_signal("save_triggered")
+
+func _init_score() -> void:
+    score_gained = 0
