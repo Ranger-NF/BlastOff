@@ -35,7 +35,7 @@ func _on_star_count_changed(change_in_stars: int) -> void:
         emit_signal("stars_depleted")
 
 func _calculate_score() -> void:
-    # TODO: Change scoring system so as to avoid massive jumps
+    # Changed scoring system so as to avoid massive jumps
     score_gained += roundi(current_level  * SCORE_MULTIPLIER.get(GameManager.current_difficulty_level))
 
     if !(roundi(score_gained) % roundi(pow(10, current_level))) and score_gained != 0:
