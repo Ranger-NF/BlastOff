@@ -10,6 +10,10 @@ const SCORE_MULTIPLIER: Dictionary = {
     GameManager.DIFFICULTY_LEVELS.HARD: 2,
 }
 
+const SCORING_INTERVAL: float = 0.5
+
+var time_since_last_scoring: float
+
 var time_spent: float
 
 # Variables for score calculation
@@ -32,14 +36,18 @@ func _on_star_count_changed(change_in_stars: int) -> void:
 
 func _calculate_score() -> void:
     # TODO: Change scoring system so as to avoid massive jumps
-    score_gained = roundi(current_level * time_spent * SCORE_MULTIPLIER.get(GameManager.current_difficulty_level))
+    score_gained += roundi(current_level  * SCORE_MULTIPLIER.get(GameManager.current_difficulty_level))
 
     if !(roundi(score_gained) % roundi(pow(10, current_level))) and score_gained != 0:
         current_level += 1
         GameManager.emit_signal("level_up")
 
-func _physics_process(_delta: float) -> void:
-    _calculate_score()
+func _physics_process(delta: float) -> void:
+    time_since_last_scoring += delta
+
+    if time_since_last_scoring > SCORING_INTERVAL:
+        _calculate_score()
+        time_since_last_scoring = 0
 
 func _check_high_score() -> void:
     if score_gained > DataManager.gameplay.high_score:
