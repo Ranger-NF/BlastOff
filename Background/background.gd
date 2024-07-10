@@ -12,6 +12,7 @@ var star_textures = [
 @onready var star_ray: Line2D = $Line2D
 
 @onready var light_emitter_node: TextureRect = $LightEmitter
+@onready var star_clusters_group: Node2D = $StarClusters
 
 const DAY_PROPABILITY: float = 0.5
 
@@ -28,40 +29,72 @@ const CHILD_STAR_MIN_DEVIATION: float = 250
 const CHILD_STAR_MAX_DEVIATION: float = 350
 
 var current_mother_stars: Array[TextureRect] = []
-var is_day_time: bool = true
 
 var is_in_initial_setup: bool = true
+var has_star_generated: bool = false
 
 func _ready() -> void:
-    GameManager.time_phase_changed.connect(_on_time_phase_change)
     GameManager.screen_size_updated.connect(_on_screen_size_updated)
 
-    _select_day_or_night()
+    UiManager.time_phase_changed.connect(_on_time_phase_change)
+    UiManager.background_reload_requested.connect(_update_background)
 
-func _select_day_or_night() -> void:
-    var rand_num: float = randf()
+    _update_background()
 
-    if rand_num > DAY_PROPABILITY:
-        is_day_time = true
-        GameManager.emit_signal("time_phase_changed", GameManager.TIME_PHASES.DAY)
-    else:
-        is_day_time = false
-        GameManager.emit_signal("time_phase_changed", GameManager.TIME_PHASES.NIGHT)
+func _update_background() -> void:
+    var current_background_type: int = DataManager.settings.background_selection
+
+    match current_background_type:
+        UiManager.BACKGROUND_TYPES.RANDOM:
+
+            var rand_num: float = randf()
+
+            if rand_num > DAY_PROPABILITY:
+
+                UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.DAY)
+            else:
+                UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.NIGHT)
+
+        UiManager.BACKGROUND_TYPES.DAY:
+
+            UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.DAY)
+
+        UiManager.BACKGROUND_TYPES.NIGHT:
+            UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.NIGHT)
+
+        UiManager.BACKGROUND_TYPES.TIME_BASED:
+            # Get time from os
+            var current_system_time: Dictionary = Time.get_time_dict_from_system()
+
+            # If 6AM - 6PM then, consider it as a day
+            if current_system_time.hour > 6 and current_system_time.hour < 18:
+
+                UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.DAY)
+            else:
+                UiManager.emit_signal("time_phase_changed", UiManager.TIME_PHASES.NIGHT)
+
+
 
 func _on_time_phase_change(time_phase: int):
-    if time_phase == GameManager.TIME_PHASES.DAY:
+    if time_phase == UiManager.TIME_PHASES.DAY:
         day_sky.show()
         night_sky.hide()
         light_emitter_node.self_modulate.b = 0.6
 
-    elif time_phase == GameManager.TIME_PHASES.NIGHT:
+        star_clusters_group.hide()
+
+    elif time_phase == UiManager.TIME_PHASES.NIGHT:
         night_sky.show()
         day_sky.hide()
         light_emitter_node.self_modulate.b = 1
 
-        if is_in_initial_setup:
-            await GameManager.screen_size_updated
+        star_clusters_group.show()
+
+        if not has_star_generated:
+            if is_in_initial_setup:
+                await GameManager.screen_size_updated
             _spawn_stars()
+            has_star_generated = true
 
 func _on_screen_size_updated(screen_size: Vector2):
     if is_in_initial_setup:
@@ -78,6 +111,9 @@ func _spawn_stars() -> void:
 
     while current_mother_stars.size() < num_of_clusters:
         current_mother_stars.append(_setup_clusters(current_mother_stars.size()))
+
+    for each_mother in current_mother_stars:
+        each_mother.reparent(star_clusters_group)
 
     star_ray.hide()
     light_emitter_node.move_to_front()

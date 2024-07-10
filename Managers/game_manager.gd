@@ -13,13 +13,6 @@ signal rocket_has_reached_target
 
 signal level_up
 
-signal time_phase_changed(current_time_phase: int)
-
-enum TIME_PHASES {
-    DAY,
-    NIGHT
-}
-
 enum DIFFICULTY_LEVELS {
     EASY,
     NORMAL,

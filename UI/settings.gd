@@ -5,6 +5,7 @@ signal credits_button_pressed
 
 @onready var control_type_selector: OptionButton = $MarginContainer/WholeScreen/HBoxContainer/Sliders/ControlSelector
 @onready var difficulty_level_selector: OptionButton = $MarginContainer/WholeScreen/HBoxContainer/Sliders/DifficultySelector
+@onready var background_type_selector: OptionButton = $MarginContainer/WholeScreen/HBoxContainer/Sliders/BackgroundSelector
 
 @onready var master_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide
 @onready var music_slider: HSlider = $MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider
@@ -26,8 +27,7 @@ func _ready() -> void:
 
     control_type_selector.selected = DataManager.settings.control_type
     difficulty_level_selector.selected = DataManager.gameplay.current_difficulty
-
-
+    background_type_selector.selected = DataManager.settings.background_selection
 
 func _on_back_button_pressed() -> void:
     DataManager.emit_signal("save_triggered")
@@ -56,8 +56,13 @@ func _on_ui_slider_drag_ended(_value_changed: bool) -> void:
 func _on_button_pressed() -> void:
     button_pressed_sound.play()
 
-func _on_control_selector_item_selected(index: int) -> void:
+func _on_control_selector_item_selected(index: int) -> void: # Changing order in items of optionbutton will break this
     DataManager.settings.control_type = index
 
-func _on_difficulty_selector_item_selected(index: int) -> void:
+func _on_difficulty_selector_item_selected(index: int) -> void: # Changing order in items of optionbutton will break this
     DataManager.gameplay.current_difficulty = index
+
+func _on_background_selector_item_selected(index: int) -> void: # Hardcoded to map to UiManager.BACKGROUND_TYPES in the inspector (Changing order in items of optionbutton will break this)
+    DataManager.settings.background_selection = index
+    UiManager.emit_signal("background_reload_requested")
+    DataManager.emit_signal("save_triggered")

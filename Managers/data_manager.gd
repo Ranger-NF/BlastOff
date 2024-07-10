@@ -21,7 +21,8 @@ var gameplay: Dictionary = {
 var settings: Dictionary = {
     display_name = "",
     bus_volumes = {}, # Bus volume mapped to their id value is decibels
-    control_type = UiManager.CONTROL_TYPES.GUIDE
+    control_type = UiManager.CONTROL_TYPES.GUIDE,
+    background_selection = UiManager.BACKGROUND_TYPES.RANDOM
 }
 
 

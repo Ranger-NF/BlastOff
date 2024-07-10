@@ -75,11 +75,14 @@ stretch_mode = 2
 visible = false
 
 [node name="MotherStar" type="TextureRect" parent="Control"]
-visible = false
 layout_mode = 0
-offset_right = 60.0
-offset_bottom = 60.0
+offset_left = -155.0
+offset_top = -93.0
+offset_right = -95.0
+offset_bottom = -33.0
 texture = SubResource("AnimatedTexture_ce8ja")
 expand_mode = 1
+
+[node name="StarClusters" type="Node2D" parent="Control"]
 
 [node name="Background" parent="." instance=ExtResource("3_627mq")]

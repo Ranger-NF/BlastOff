@@ -21,6 +21,22 @@ signal remove_transition
 signal triggered_gamearea_setup
 signal triggered_menu_ui_setup ## Called when game is over --> This chains to GameManager.game_over
 
+# Related to background.tscn
+signal background_reload_requested
+signal time_phase_changed(current_time_phase: int)
+
+enum TIME_PHASES {
+    DAY,
+    NIGHT
+}
+
+enum BACKGROUND_TYPES {
+    RANDOM,
+    TIME_BASED,
+    DAY,
+    NIGHT
+}
+
 enum CONTROL_TYPES {
     GUIDE,
     FOLLOW
@@ -82,6 +98,7 @@ func _ready() -> void:
 
 func _reload_data() -> void:
     current_control_type = DataManager.settings.control_type
+
 
 func spawn_menu(menu_id: int):
     if menu_id == MENU_IDS.GAME_OVER:

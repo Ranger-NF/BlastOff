@@ -16,12 +16,12 @@ func _ready() -> void:
     GameManager.game_started.connect(_on_game_start)
     GameManager.game_over.connect(_on_game_over)
 
-    GameManager.time_phase_changed.connect(_on_time_phase_change)
+    UiManager.time_phase_changed.connect(_on_time_phase_change)
 
 func _on_time_phase_change(time_phase: int):
-    if time_phase == GameManager.TIME_PHASES.DAY:
+    if time_phase == UiManager.TIME_PHASES.DAY:
         night_cloud_changer.hide()
-    elif time_phase == GameManager.TIME_PHASES.NIGHT:
+    elif time_phase == UiManager.TIME_PHASES.NIGHT:
         night_cloud_changer.show()
 
 func _on_screen_size_updated(screen_size: Vector2):

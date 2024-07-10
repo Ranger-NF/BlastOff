@@ -1,13 +1,35 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqagkxdakpnt"]
+[gd_scene load_steps=14 format=3 uid="uid://cqagkxdakpnt"]
 
 [ext_resource type="Script" path="res://UI/settings.gd" id="1_elegj"]
 [ext_resource type="AudioStream" uid="uid://dgmjealr3lwp0" path="res://UI/Buttons/button_press.wav" id="2_ke0fy"]
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="3_md4i7"]
+[ext_resource type="Texture2D" uid="uid://rrmdr4vm3cdm" path="res://UI/drop_down_arrow.svg" id="4_6dt0t"]
 [ext_resource type="Texture2D" uid="uid://c2d0dvy11hh33" path="res://UI/ui_grabber.svg" id="4_bslej"]
+[ext_resource type="Texture2D" uid="uid://ck2dc757bi1vf" path="res://UI/radio_button_selected.svg" id="4_ntu5b"]
+[ext_resource type="Texture2D" uid="uid://fk3mrmwhbeeo" path="res://UI/radio_button_unselected.svg" id="5_2t41c"]
 
 [sub_resource type="Theme" id="Theme_y3vnj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gig7d"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jn385"]
+bg_color = Color(1, 1, 1, 0.337255)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_7ce5l"]
+PopupMenu/colors/font_outline_color = Color(0, 0, 0, 1)
+PopupMenu/constants/outline_size = 15
+PopupMenu/font_sizes/font_size = 42
+PopupMenu/icons/radio_checked = ExtResource("4_ntu5b")
+PopupMenu/icons/radio_unchecked = ExtResource("5_2t41c")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_jn385")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60ltb"]
 bg_color = Color(1, 1, 1, 0.337255)
 border_width_left = 5
 border_width_top = 5
@@ -18,22 +40,6 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-expand_margin_left = 15.0
-expand_margin_right = 15.0
-
-[sub_resource type="Theme" id="Theme_7ce5l"]
-PopupMenu/colors/font_outline_color = Color(0, 0, 0, 1)
-PopupMenu/constants/outline_size = 15
-PopupMenu/font_sizes/font_size = 42
-PopupMenu/styles/panel = SubResource("StyleBoxFlat_gig7d")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60ltb"]
-bg_color = Color(1, 1, 1, 0.337255)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
 expand_margin_left = 15.0
 expand_margin_right = 15.0
 
@@ -114,6 +120,7 @@ font_size = 32
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 35
 
 [node name="Labels" type="VBoxContainer" parent="MarginContainer/WholeScreen/HBoxContainer"]
 layout_mode = 2
@@ -146,6 +153,19 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 42
 text = "Difficulty
 Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="Label" parent="MarginContainer/WholeScreen/HBoxContainer/Labels"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 42
+text = "Background"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -220,6 +240,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 50
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 42
+theme_override_icons/arrow = ExtResource("4_6dt0t")
 theme_override_styles/focus = SubResource("StyleBoxFlat_60ltb")
 theme_override_styles/normal = SubResource("StyleBoxFlat_60ltb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_60ltb")
@@ -244,6 +265,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/h_separation = 50
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 42
+theme_override_icons/arrow = ExtResource("4_6dt0t")
 theme_override_styles/focus = SubResource("StyleBoxFlat_60ltb")
 theme_override_styles/normal = SubResource("StyleBoxFlat_60ltb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_60ltb")
@@ -260,6 +282,35 @@ popup/item_1/text = "Normal"
 popup/item_1/id = 1
 popup/item_2/text = "Hard"
 popup/item_2/id = 2
+
+[node name="BackgroundSelector" type="OptionButton" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme = SubResource("Theme_7ce5l")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/h_separation = 50
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 42
+theme_override_icons/arrow = ExtResource("4_6dt0t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_60ltb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_60ltb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_60ltb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_60ltb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_60ltb")
+alignment = 1
+icon_alignment = 2
+expand_icon = true
+item_count = 4
+selected = 0
+popup/item_0/text = "Random"
+popup/item_0/id = 0
+popup/item_1/text = "Time Based"
+popup/item_1/id = 1
+popup/item_2/text = "Day"
+popup/item_2/id = 2
+popup/item_3/text = "Night"
+popup/item_3/id = 3
 
 [node name="MasterSlide" type="HSlider" parent="MarginContainer/WholeScreen/HBoxContainer/Sliders"]
 layout_mode = 2
@@ -316,6 +367,7 @@ step = 0.05
 
 [connection signal="item_selected" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/ControlSelector" to="." method="_on_control_selector_item_selected"]
 [connection signal="item_selected" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/DifficultySelector" to="." method="_on_difficulty_selector_item_selected"]
+[connection signal="item_selected" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/BackgroundSelector" to="." method="_on_background_selector_item_selected"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MasterSlide" to="." method="_on_master_slide_drag_ended"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/MusicSlider" to="." method="_on_music_slider_drag_ended"]
 [connection signal="drag_ended" from="MarginContainer/WholeScreen/HBoxContainer/Sliders/SfxSlider" to="." method="_on_sfx_slider_drag_ended"]
