@@ -236,9 +236,37 @@ text = "Blinking Shdader
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Leaderboard" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
+
+[node name="Leaderboard" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Leaderboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Leaderboard
+Backend"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SilentWolf" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/Leaderboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Silentwolf"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -259,7 +287,7 @@ text = "[center]Source Code:
 scroll_active = false
 context_menu_enabled = true
 
-[node name="BlinkingShader" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="SelfCredit" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

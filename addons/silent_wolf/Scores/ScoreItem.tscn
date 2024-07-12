@@ -16,11 +16,11 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("1_txcf3")
-theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/normal_font_size = 32
 text = "1. Godzilla"
-fit_content = true
 scroll_active = false
 scroll_following = true
+autowrap_mode = 0
 
 [node name="Score" type="Label" parent="."]
 layout_mode = 2
@@ -28,7 +28,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_txcf3")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 32
 text = "13"
 horizontal_alignment = 1
 vertical_alignment = 1

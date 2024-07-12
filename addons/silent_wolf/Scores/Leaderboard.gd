@@ -39,6 +39,7 @@ func _reload_data(_node = null) -> void:
         $Panel/MarginContainer/Board/DisplayNameContainer.show()
         score_list_node.show()
 
+    name_changer_node.max_length = LeaderboardManager.MAX_NAME_LENGTH
     name_changer_node.text = LeaderboardManager.current_display_name
 
     print("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))

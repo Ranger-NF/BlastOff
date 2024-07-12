@@ -31,6 +31,10 @@ func _on_change_skin_button_pressed() -> void:
 
 func _on_refresh(_node: Node = null) -> void:
     $MarginContainer/VBoxContainer/Name.text = LeaderboardManager.current_display_name
+    if not LeaderboardManager.is_leaderboard_allowed:
+        $MarginContainer/VBoxContainer/Name.hide()
+    else:
+        $MarginContainer/VBoxContainer/Name.show()
     _update_current_skin()
 
 func _update_current_skin(_node: Node = null) -> void:

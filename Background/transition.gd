@@ -12,8 +12,10 @@ func _ready() -> void:
 
     UiManager.show_transition.connect(begin_transition)
     UiManager.remove_transition.connect(end_transition)
+    cloud_cluster_node.hide()
 
 func begin_transition() -> void:
+    cloud_cluster_node.show()
     cloud_cluster_node.scale.x = GameManager.game_screen_size.x / default_viewport_size.x
     cloud_cluster_node.scale.y = GameManager.game_screen_size.y / default_viewport_size.y
 
@@ -31,3 +33,6 @@ func end_transition() -> void:
             await anim_player.animation_finished
         is_in_transition = false
         anim_player.play("move_out")
+
+        await anim_player.animation_finished
+        cloud_cluster_node.hide()

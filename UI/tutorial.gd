@@ -26,7 +26,6 @@ func _ready() -> void:
     objective_label.hide()
 
 func show_tutorial() -> void:
-
     self.show()
     initial_rocket_speed = GameManager.rocket_speed
     GameManager.emit_signal("rocket_speed_changed", 100)
@@ -52,8 +51,13 @@ func _check_tutorial_status() -> void:
                 right_tutorial.hide()
                 left_tutorial.hide()
 
-                is_tutorial_finished = true
                 await get_tree().create_timer(3).timeout
+
+                is_tutorial_finished = true
+
+                $VBoxContainer/ControlTip.show()
+                get_tree().create_timer(1.5).timeout.connect(func (): $VBoxContainer/ControlTip.hide())
+
 
                 _on_tutorial_finished()
 

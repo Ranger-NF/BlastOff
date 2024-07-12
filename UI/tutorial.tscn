@@ -28,6 +28,7 @@ grow_vertical = 2
 alignment = 2
 
 [node name="Objective" type="Label" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -40,6 +41,23 @@ text = "Survive
 as long as you can!
 
 Good Luck."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlTip" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 45
+text = "TIP:
+There is an additional
+control type: Follow
+
+ You can change
+to it in settings!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -77,8 +95,10 @@ vertical_alignment = 1
 
 [node name="LeftCircle" type="ColorRect" parent="VBoxContainer/HBoxContainer/MarginContainer/LeftTutorial"]
 material = SubResource("ShaderMaterial_ivt3e")
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 color = Color(1, 1, 1, 0.584314)
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
@@ -111,6 +131,8 @@ vertical_alignment = 1
 
 [node name="RightCircle" type="ColorRect" parent="VBoxContainer/HBoxContainer/MarginContainer2/RightTutorial"]
 material = SubResource("ShaderMaterial_ivt3e")
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 color = Color(1, 1, 1, 0.584314)
