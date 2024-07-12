@@ -32,10 +32,24 @@ var difficulty_level_values = {
                 "min": 3,
                 "max": 5,
             },
+            "spawning_interval" = {
+                "min": 0.5,
+                "max": 2.5,
+            },
         },
         SATELLITE: {
-            "spawning_propabilty" = 0.3
+            "spawning_propabilty" = 0.3,
+            "spawning_interval" = {
+                "min": 2,
+                "max": 6,
+            },
         },
+        STAR: {
+            "spawning_interval" = {
+                "min": 2,
+                "max": 5,
+            },
+        }
     },
     GameManager.DIFFICULTY_LEVELS.NORMAL: {
         BIRD: {
@@ -48,25 +62,53 @@ var difficulty_level_values = {
                 "min": 4,
                 "max": 7,
             },
+            "spawning_interval" = {
+                "min": 0.35,
+                "max": 2,
+            },
         },
         SATELLITE: {
-            "spawning_propabilty" = 0.6
+            "spawning_propabilty" = 0.6,
+            "spawning_interval" = {
+                "min": 1,
+                "max": 4,
+            },
         },
+        STAR: {
+            "spawning_interval" = {
+                "min": 1,
+                "max": 4,
+            },
+        }
     },
     GameManager.DIFFICULTY_LEVELS.HARD: {
         BIRD: {
-            "flock_probability" = 0.8,
+            "flock_probability" = 0.9,
             "horizontal_speed" = {
-                "min": 7,
+                "min": 3,
                 "max": 10,
             },
             "flock_size" = {
-                "min": 5,
-                "max": 8,
+                "min": 6,
+                "max": 10,
+            },
+            "spawning_interval" = {
+                "min": 0.2,
+                "max": 1.5,
             },
         },
         SATELLITE: {
-            "spawning_propabilty" = 1
+            "spawning_propabilty" = 1,
+            "spawning_interval" = {
+                "min": 0,
+                "max": 3
+            },
+        },
+        STAR: {
+            "spawning_interval" = {
+                "min": 0.5,
+                "max": 2.5,
+            },
         },
     },
 }
@@ -74,6 +116,10 @@ var difficulty_level_values = {
 # Related to spawning
 var current_bird_flock_probability: float
 var current_satellite_spawning_propability: float
+
+var current_bird_spawning_interval: Vector2
+var current_satellite_spawning_interval: Vector2
+var current_star_spawning_interval: Vector2
 
 # Related to grouping
 var current_bird_flock_size: Vector2i = Vector2i(6, 8)
@@ -95,10 +141,17 @@ func _reload_difficulty_data(difficulty_level: int = GameManager.current_difficu
     current_bird_flock_probability = bird_data.flock_probability
     current_bird_flock_size = Vector2i(bird_data.get("flock_size").min, bird_data.get("flock_size").max)
     bird_horizontal_speed = Vector2(bird_data.get("horizontal_speed").min, bird_data.get("horizontal_speed").max)
+    current_bird_spawning_interval = Vector2(bird_data.get("spawning_interval").min, bird_data.get("spawning_interval").max)
 
     var satellite_data: Dictionary = current_difficulty_data.get(SATELLITE)
 
     current_satellite_spawning_propability = satellite_data.get("spawning_propabilty")
+    current_star_spawning_interval = Vector2(satellite_data.get("spawning_interval").min, satellite_data.get("spawning_interval").max)
+
+    var star_data: Dictionary = current_difficulty_data.get(STAR)
+
+    current_star_spawning_interval = Vector2(star_data.get("spawning_interval").min, star_data.get("spawning_interval").max)
+
 
 func _on_level_up() -> void:
     return

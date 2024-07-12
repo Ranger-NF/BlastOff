@@ -22,7 +22,7 @@ star_scene = ExtResource("4_3h5cl")
 [node name="Rocket" parent="." instance=ExtResource("1_nmvdq")]
 position = Vector2(359, 129)
 
-[node name="ObstacleTimer" type="Timer" parent="."]
+[node name="BirdTimer" type="Timer" parent="."]
 wait_time = 3.0
 
 [node name="StarTimer" type="Timer" parent="."]
@@ -44,7 +44,7 @@ visible = false
 
 [node name="Transition" parent="." instance=ExtResource("10_ngmpp")]
 
-[connection signal="timeout" from="ObstacleTimer" to="." method="_on_asteroid_timer_timeout"]
+[connection signal="timeout" from="BirdTimer" to="." method="_on_bird_timer_timeout"]
 [connection signal="timeout" from="StarTimer" to="." method="_on_star_timer_timeout"]
 [connection signal="timeout" from="SatelliteTimer" to="." method="_on_satellite_timer_timeout"]
 [connection signal="finished" from="Music" to="." method="_on_music_finished"]

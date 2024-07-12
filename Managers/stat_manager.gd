@@ -7,7 +7,7 @@ signal new_high_score_gained
 const SCORE_MULTIPLIER: Dictionary = {
     GameManager.DIFFICULTY_LEVELS.EASY: 1,
     GameManager.DIFFICULTY_LEVELS.NORMAL: 1.5,
-    GameManager.DIFFICULTY_LEVELS.HARD: 2,
+    GameManager.DIFFICULTY_LEVELS.HARD: 2.5,
 }
 
 const SCORING_INTERVAL: float = 0.5
