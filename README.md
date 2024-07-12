@@ -49,7 +49,7 @@
 - Collectables: Star 🌟
 - Customization: Paints & Sticker 🎨
 
-## ?? Ingame Screenshots
+## 📸 Ingame Screenshots
 
 <p align="center">
     <img src="Docs/Screenshots/v1.2.0/main-menu.png" width="auto" height="400">  
