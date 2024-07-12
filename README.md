@@ -3,7 +3,7 @@
 </p>
 
 <div align="center">
-    <strong>? Casual infinite runner ?</strong></br>
+    <strong>🌤 Casual infinite runner 🌃</strong></br>
     <syb>Available for Android, Linux and Web.</sub>
 </div>
 <br>
@@ -32,7 +32,7 @@
 
 ---
 
-?? **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
+🚀 **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
 
 ## How to Play?
 
@@ -42,12 +42,12 @@
 - Survive and get high scores
 - Customize your skin to you liking!!
 
-## ?? Overview
+## 🔎 Overview
 
-- Infinitely scrolling ?
-- Two types of obstacle: Bird & Satellite  ?
-- Collectables: Star ?
-- Customization: Paints & Sticker ?
+- Infinitely scrolling ♾
+- Two types of obstacle: Bird & Satellite 🚏
+- Collectables: Star 🌟
+- Customization: Paints & Sticker 🎨
 
 ## ?? Ingame Screenshots
 
