@@ -29,8 +29,8 @@ var difficulty_level_values = {
                 "max": 8,
             },
             "flock_size" = {
-                "min": 3,
-                "max": 5,
+                "min": 2,
+                "max": 4,
             },
             "spawning_interval" = {
                 "min": 0.5,
@@ -38,10 +38,10 @@ var difficulty_level_values = {
             },
         },
         SATELLITE: {
-            "spawning_propabilty" = 0.3,
+            "spawning_propabilty" = 0.2,
             "spawning_interval" = {
-                "min": 2,
-                "max": 6,
+                "min": 3,
+                "max": 7,
             },
         },
         STAR: {

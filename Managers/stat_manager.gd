@@ -33,6 +33,11 @@ func _on_star_count_changed(change_in_stars: int) -> void:
         DataManager.gameplay.total_stars = 0
         emit_signal("stars_depleted")
 
+    # For statistics
+    if change_in_stars != 0:
+        DataManager.statistics.total_stars_earned += change_in_stars
+
+
 func _calculate_score() -> void:
     # Changed scoring system so as to avoid massive jumps
     score_gained += roundi(current_level  * SCORE_MULTIPLIER.get(GameManager.current_difficulty_level))
@@ -42,6 +47,8 @@ func _calculate_score() -> void:
         GameManager.emit_signal("level_up")
 
 func _physics_process(delta: float) -> void:
+    DataManager.statistics.total_play_time += delta
+
     time_since_last_scoring += delta
 
     if time_since_last_scoring > SCORING_INTERVAL:
@@ -53,6 +60,8 @@ func _check_high_score() -> void:
         DataManager.gameplay.high_score = score_gained
         self.emit_signal("new_high_score_gained", score_gained)
         DataManager.emit_signal("save_triggered")
+    else:
+        DataManager.emit_signal("save_triggered") # To save star count to disk
 
 func _init_score() -> void:
     score_gained = 0

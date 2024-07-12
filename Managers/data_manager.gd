@@ -25,6 +25,13 @@ var settings: Dictionary = {
     background_selection = UiManager.BACKGROUND_TYPES.RANDOM
 }
 
+## Statistics
+var statistics: Dictionary = {
+    total_play_time = 0,
+    total_stars_earned = 0,
+    total_stars_spent = 0
+}
+
 
 var is_initialisation_complete: bool = false
 
