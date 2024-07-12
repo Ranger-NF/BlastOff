@@ -10,7 +10,7 @@ extends Node
 
 @onready var obstacle_spawn_node: Path2D = $ObstaclePath
 
-@onready var obstacle_timer: Timer = $ObstacleTimer
+@onready var bird_timer: Timer = $BirdTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
 @onready var star_timer: Timer = $StarTimer
 
@@ -52,37 +52,35 @@ func spawn_obstacle(obstacle_type: int):
 
     add_child(obstacle_node)
 
-func determine_next_obstacle():
-
-    var random_num = randf()
-    if (random_num < ObstacleManager.current_satellite_spawning_propability):
-        if satellite_timer.is_stopped():
-            satellite_timer.start(randi_range(2, 6))
-    else:
-        if star_timer.is_stopped():
-            star_timer.start(randi_range(1, 5))
-
-    spawn_obstacle(ObstacleManager.BIRD)
-
 func _on_game_over() -> void:
     is_game_running = false
-    obstacle_timer.stop()
+    bird_timer.stop()
     satellite_timer.stop()
     star_timer.stop()
 
 func restart_game() -> void:
     is_game_running = true
-    obstacle_timer.start()
+    bird_timer.start(0.5)
+    star_timer.start(1)
+    satellite_timer.start(0.75)
 
-func _on_asteroid_timer_timeout() -> void:
-    obstacle_timer.wait_time = randf_range(0.5, 2.5)
-    determine_next_obstacle()
+func _on_bird_timer_timeout() -> void:
+    spawn_obstacle(ObstacleManager.BIRD)
+    bird_timer.start(randf_range(ObstacleManager.current_bird_spawning_interval.x, ObstacleManager.current_bird_spawning_interval.y))
 
 func _on_satellite_timer_timeout() -> void:
-    spawn_obstacle(ObstacleManager.SATELLITE)
+    var random_num = randf()
+    if (random_num < ObstacleManager.current_satellite_spawning_propability):
+        spawn_obstacle(ObstacleManager.SATELLITE)
+
+    if satellite_timer.is_stopped():
+        satellite_timer.start(randf_range(ObstacleManager.current_satellite_spawning_interval.x, ObstacleManager.current_satellite_spawning_interval.y))
 
 func _on_star_timer_timeout() -> void:
     spawn_obstacle(ObstacleManager.STAR)
+
+    if star_timer.is_stopped():
+        star_timer.start(randf_range(ObstacleManager.current_star_spawning_interval.x, ObstacleManager.current_star_spawning_interval.y))
 
 func _on_music_finished() -> void:
     _start_rand_music()
