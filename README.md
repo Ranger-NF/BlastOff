@@ -1,14 +1,12 @@
-
 <p align="center">
     <img src="UI/title.svg" width="375" title="BlastOff Logo" />
 </p>
 
-
-
 <div align="center">
-    <strong>ðŸŒ¤ Casual infinite runner ðŸŒƒ</strong></br>
+    <strong>?Œ¤ Casual infinite runner ?Œƒ</strong></br>
     <syb>Available for Android, Linux and Web.</sub>
 </div>
+<br>
 
 <div align="center">
   <a href="LICENSE">
@@ -21,6 +19,7 @@
     <img src="https://img.shields.io/f-droid/v/com.ranger.blastoff" alt="F-Droid Version">
   </a>
 </div>
+<br>
 
 <div align="center">
   <a href="https://f-droid.org/packages/com.presley.flexify">
@@ -33,7 +32,7 @@
 
 ---
 
-ðŸš€ **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
+?š€ **BlastOff** is a casual endless runner with an emphasize on vector graphics. Available for web and android.
 
 ## How to Play?
 
@@ -43,14 +42,14 @@
 - Survive and get high scores
 - Customize your skin to you liking!!
 
-## ðŸ”Ž Overview
+## ?”Ž Overview
 
 - Infinitely scrolling â™¾
-- Two types of obstacle: Bird & Satellite ðŸ›‘
-- Collectables: Star ðŸŒŸ
-- Customization: Paints & Sticker ðŸŽ¨
+- Two types of obstacle: Bird & Satellite ?›‘
+- Collectables: Star ?ŒŸ
+- Customization: Paints & Sticker ?Ž¨
 
-## ðŸ“¸ Ingame Screenshots
+## ?“¸ Ingame Screenshots
 
 <p align="center">
     <img src="Docs/Screenshots/v1.2.0/main-menu.png" width="auto" height="400">  
