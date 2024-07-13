@@ -22,7 +22,7 @@
 <br>
 
 <div align="center">
-  <a href="https://f-droid.org/packages/com.presley.flexify">
+  <a href="https://f-droid.org/en/packages/com.ranger.blastoff/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Get_it_on_F-Droid_%28material_design%29.svg" alt="Get it on F-Droid" height="60">
   </a>
   <a href="https://ranger-nf.itch.io/blastoff">
