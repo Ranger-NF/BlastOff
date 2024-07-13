@@ -84,6 +84,7 @@ func _ready() -> void:
     self.first_startup.connect(func () -> void: need_tutorial = true)
     GameManager.game_started.connect(_check_tutorial_need)
     DataManager.data_reloaded.connect(_reload_data)
+    DataManager.data_got_changed.connect(_reload_data)
 
     self.skipped_to_main_menu.connect(spawn_menu.bind(MENU_IDS.MAIN_MENU))
     self.opened_start_menu.connect(spawn_menu.bind(MENU_IDS.START_MENU))

@@ -3,6 +3,8 @@ extends Node
 signal save_triggered # Triggered from settings and when game is over (Here)
 signal reload_triggered
 
+signal data_got_changed
+
 signal data_reloaded
 # All items here are synced across sessions
 

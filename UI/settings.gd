@@ -58,9 +58,11 @@ func _on_button_pressed() -> void:
 
 func _on_control_selector_item_selected(index: int) -> void: # Changing order in items of optionbutton will break this
     DataManager.settings.control_type = index
+    DataManager.emit_signal("data_got_changed")
 
 func _on_difficulty_selector_item_selected(index: int) -> void: # Changing order in items of optionbutton will break this
     DataManager.gameplay.current_difficulty = index
+    GameManager.emit_signal("difficulty_level_changed", index)
 
 func _on_background_selector_item_selected(index: int) -> void: # Hardcoded to map to UiManager.BACKGROUND_TYPES in the inspector (Changing order in items of optionbutton will break this)
     DataManager.settings.background_selection = index
