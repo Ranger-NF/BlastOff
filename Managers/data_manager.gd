@@ -57,6 +57,10 @@ func save_to_files() -> void:
     for each_key in settings:
         new_file.set_value("settings", each_key, settings[each_key])
 
+    for each_key in statistics:
+        new_file.set_value("statistics", each_key, statistics[each_key])
+
+
     new_file.save(SAVE_FILE_NAME)
 
 func load_from_files() -> void:
@@ -77,6 +81,9 @@ func load_from_files() -> void:
             "settings":
                 var loaded_settings_data = _load_data_to_dictionary(saved_file, each_section)
                 settings = _check_for_data_updation(settings, loaded_settings_data)
+            "statistics":
+                var loaded_statistics_data = _load_data_to_dictionary(saved_file, each_section)
+                statistics = _check_for_data_updation(statistics, loaded_statistics_data)
     emit_signal("data_reloaded")
 
 

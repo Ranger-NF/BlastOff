@@ -130,7 +130,7 @@ var bird_horizontal_speed: Vector2 = Vector2(3, 6) # Represents minimum and maxm
 func _ready() -> void:
     GameManager.level_up.connect(_on_level_up)
 
-    GameManager.game_started.connect(_reload_difficulty_data)
+    DataManager.save_triggered.connect(_reload_difficulty_data)
     _reload_difficulty_data()
 
 func _reload_difficulty_data(difficulty_level: int = GameManager.current_difficulty_level):

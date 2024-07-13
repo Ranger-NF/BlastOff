@@ -26,6 +26,13 @@ func _ready() -> void:
     GameManager.game_started.connect(_init_score)
     self.star_count_changed.connect(_on_star_count_changed)
 
+    DataManager.data_reloaded.connect(_check_star_stat)
+
+func _check_star_stat() -> void:
+    if DataManager.statistics.total_stars_earned < DataManager.gameplay.total_stars:
+        DataManager.statistics.total_stars_earned = DataManager.gameplay.total_stars
+        DataManager.emit_signal("save_triggered")
+
 func _on_star_count_changed(change_in_stars: int) -> void:
     DataManager.gameplay.total_stars += change_in_stars
 

@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _refresh(_node: Node = null) -> void:
     high_score_label.text = str(DataManager.gameplay.high_score)
-    play_time_label.text = str(roundi(DataManager.statistics.total_play_time)) + " Seconds"
+    play_time_label.text = str(roundi(DataManager.statistics.total_play_time)) + " sec"
     stars_earned_label.text = str(DataManager.statistics.total_stars_earned)
     stars_spent_label.text = str(DataManager.statistics.total_stars_spent)
 
