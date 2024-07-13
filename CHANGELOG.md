@@ -1,3 +1,12 @@
+## v1.4.1
+
+Hotfix for v1.4.0
+
+Fixes:
+- Hot reload of difficulty level and control type
+
+**Full Changelog**: https://github.com/Ranger-NF/BlastOff/compare/1.4.0...1.4.1
+
 ## v1.4.0
 
 Changes:
