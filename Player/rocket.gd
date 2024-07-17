@@ -108,6 +108,7 @@ func _set_target_pos(new_target_x_pos: float, taget_side: int):
 func move(delta: float):
     if is_free_falling:
         return
+
     # Increment velocity with ACCELERATION if given the input
     if GameManager.is_left_button_pressed or GameManager.is_right_button_pressed: # Checking whether either button is pressed
         if (GameManager.is_left_button_pressed and GameManager.is_right_button_pressed): # If both buttons are pressed, cancel it
@@ -158,7 +159,7 @@ func _physics_process(delta: float) -> void:
         _free_fall(delta) # When the rocket hits something
 
 func _on_hurt():
-    if is_free_falling:
+    if is_free_falling: # The rocket has already has got the signal that its hurt
         return
 
     UiManager.emit_signal("triggered_menu_ui_setup")
@@ -174,7 +175,7 @@ func _on_hurt():
     $CollisionShape2D.set_deferred("disabled", true)
 
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
-    if area.has_method("_on_hit"):
+    if area.has_method("_on_hit"): # Calls the function present on the obstacle / collectable
         area.call("_on_hit")
 
     if area.is_in_group("obstacles"):
