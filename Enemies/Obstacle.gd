@@ -94,6 +94,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
+    $CPUParticles2D.emitting = true
     hit_sound.play()
     if self.has_method("_after_hit"): self.call("_after_hit")
 

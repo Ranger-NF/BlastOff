@@ -1,9 +1,21 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1quod1k2hh1j"]
+[gd_scene load_steps=19 format=3 uid="uid://c1quod1k2hh1j"]
 
 [ext_resource type="PackedScene" uid="uid://c7xy671srn8rt" path="res://Enemies/Obstacle.tscn" id="1_cgdr0"]
 [ext_resource type="Texture2D" uid="uid://kr8ni565sxwv" path="res://Enemies/Birds/birds.png" id="2_1s2n1"]
 [ext_resource type="Script" path="res://Enemies/Birds/Bird.gd" id="2_5ajeh"]
 [ext_resource type="AudioStream" uid="uid://dnxh2056kd87m" path="res://Enemies/Birds/bird_hit.wav" id="4_r6nau"]
+[ext_resource type="Texture2D" uid="uid://d3hu2tbqsaey0" path="res://Enemies/Birds/feather.svg" id="5_6eqo1"]
+
+[sub_resource type="Curve" id="Curve_4fiub"]
+min_value = -25.0
+max_value = 25.0
+_data = [Vector2(0, -25), 0.0, 0.0, 0, 0, Vector2(0.447644, -9.71698), 0.0, 0.0, 0, 0, Vector2(1, 0.0943375), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_oae8b"]
+max_value = 50.0
+_data = [Vector2(0, 48.6792), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -108,11 +120,23 @@ radius = 79.4292
 monitoring = false
 script = ExtResource("2_5ajeh")
 
-[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+[node name="CPUParticles2D" parent="." index="0"]
+position = Vector2(0, -22)
+amount = 20
+texture = ExtResource("5_6eqo1")
+initial_velocity_min = 450.0
+initial_velocity_max = 450.0
+angular_velocity_min = -25.0
+angular_velocity_max = 25.0
+angular_velocity_curve = SubResource("Curve_4fiub")
+damping_max = 50.0
+damping_curve = SubResource("Curve_oae8b")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="1"]
 position = Vector2(1.90735e-06, -14)
 scale = Vector2(6, 3.9)
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="2"]
 material = SubResource("ShaderMaterial_dm2ne")
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_dy0ov")
@@ -121,13 +145,9 @@ autoplay = "flying"
 frame = 3
 frame_progress = 0.00976447
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(6, -11)
 rotation = 1.2977
-
-[node name="HitSound" parent="." index="3"]
-stream = ExtResource("4_r6nau")
-volume_db = 15.0
 
 [node name="DetectionArea" type="Node2D" parent="." index="4"]
 
@@ -135,3 +155,7 @@ volume_db = 15.0
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_63gsg")
 disabled = true
+
+[node name="HitSound" parent="." index="5"]
+stream = ExtResource("4_r6nau")
+volume_db = 15.0

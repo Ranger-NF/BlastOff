@@ -1,6 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7xy671srn8rt"]
+[gd_scene load_steps=5 format=3 uid="uid://c7xy671srn8rt"]
 
 [ext_resource type="Script" path="res://Enemies/Obstacle.gd" id="1_ufpf4"]
+
+[sub_resource type="Curve" id="Curve_uxjpy"]
+_data = [Vector2(0, 0.124528), 0.0, 0.0, 0, 0, Vector2(1, 0.0641509), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_t5usx"]
+offsets = PackedFloat32Array(0, 0.546512, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.697674, 1, 1, 1, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ft1ud"]
 radius = 15.442
@@ -9,6 +17,20 @@ height = 92.9163
 [node name="Obstacle" type="Area2D" groups=["obstacles"]]
 collision_mask = 2
 script = ExtResource("1_ufpf4")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.8
+spread = 180.0
+initial_velocity_min = 900.0
+initial_velocity_max = 900.0
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+scale_amount_curve = SubResource("Curve_uxjpy")
+color_ramp = SubResource("Gradient_t5usx")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

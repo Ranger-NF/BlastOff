@@ -18,6 +18,8 @@ const SHIELD_TEXTURE: Texture2D = preload("res://Player/Powerups/rocket_shield.s
 
 signal player_hurt
 
+var recently_collided_obstacles: Array[Node2D] = []
+
 var is_game_running: bool = false
 var is_free_falling: bool = false
 
@@ -197,14 +199,21 @@ func _on_hurt():
     $CollisionShape2D.set_deferred("disabled", true)
 
 func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
-    if area.has_method("_on_hit"): # Calls the function present on the obstacle / collectable
-        area.call("_on_hit")
 
-    if area.is_in_group("obstacles"):
-        if not is_shield_active:
-            emit_signal("player_hurt")
-        else:
-            _expand_shield() # Make the shield shine
+    if not recently_collided_obstacles.has(area):
+        recently_collided_obstacles.append(area)
+
+        var removal_timer = get_tree().create_timer(0.5)
+        removal_timer.timeout.connect(func (): recently_collided_obstacles.erase(area))
+
+        if area.has_method("_on_hit"): # Calls the function present on the obstacle / collectable
+            area.call("_on_hit")
+
+        if area.is_in_group("obstacles"):
+            if not is_shield_active:
+                emit_signal("player_hurt")
+            else:
+                _expand_shield() # Make the shield shine
 
 
 func _on_game_start() -> void:
