@@ -42,6 +42,10 @@ var is_shield_active: bool:
         self.emit_signal("rocket_shield_toggled", value)
         is_shield_active = value
 
+var shield_lifetime: float = 15
+var original_shield_scale: float = 0.3
+
+var shield_scale_tween: Tween
 
 func _reset_properties() -> void:
     _update_current_skin()
@@ -77,6 +81,7 @@ func _ready() -> void:
     self.rocket_shield_toggled.connect(_on_shield_toggled)
 
     $ShieldTimer.timeout.connect(func (): is_shield_active = false)
+    $ShieldEndingTimer.timeout.connect(_blink_shield)
 
     initial_flame_speed = GameManager.rocket_speed
 
@@ -199,7 +204,7 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
         if not is_shield_active:
             emit_signal("player_hurt")
         else:
-            _shine_shield() # Make the shield shine
+            _expand_shield() # Make the shield shine
 
 
 func _on_game_start() -> void:
@@ -241,16 +246,39 @@ func _on_shield_toggled(is_activated: bool = false) -> void:
         powerup_overlay_node.texture = SHIELD_TEXTURE
 
         powerup_overlay_node.show()
-        $ShieldTimer.start(5)
+        $ShieldTimer.start(shield_lifetime)
+        $ShieldEndingTimer.start(shield_lifetime * .6)
     else:
         powerup_overlay_node.hide()
 
-func _shine_shield() -> void:
-    const SHINE_TIME_PERIOD: float = 2
+func _expand_shield() -> void:
+    powerup_overlay_node.scale = Vector2(original_shield_scale, original_shield_scale)
+    const SCALE_TIME_PERIOD: float = .2
 
-    powerup_overlay_node.material.set_shader_parameter("shine_progress", 1)
+    var single_scale_lifetime: float = SCALE_TIME_PERIOD / 2
+    var shrinking_scale = Vector2(original_shield_scale * 0.7, original_shield_scale * 0.7)
 
+    if shield_scale_tween and shield_scale_tween.is_running():
+        shield_scale_tween.stop()
+        shield_scale_tween.kill()
+
+    shield_scale_tween = create_tween().set_parallel(true)
+    shield_scale_tween.tween_property(powerup_overlay_node, "scale", shrinking_scale, single_scale_lifetime)
+    shield_scale_tween.tween_property(powerup_overlay_node, "scale", Vector2(original_shield_scale, original_shield_scale), single_scale_lifetime).set_delay(single_scale_lifetime)
+
+func _blink_shield() -> void:
+    const TIMES_TO_BLINK: float = 3
+
+    var fade_lifetime: float = (0.4 * shield_lifetime) / (TIMES_TO_BLINK / 2)
     var tween = create_tween().set_parallel(true)
-    tween.tween_property(powerup_overlay_node.material, "shader_parameter/shine_progress", 0, SHINE_TIME_PERIOD)
-    await tween.finished
 
+    var times_blinked: int = 0
+    var tween_turn_num: int = 0 # To calculate delay
+
+    while times_blinked < TIMES_TO_BLINK:
+        tween.tween_property(powerup_overlay_node, "modulate:a", 0,fade_lifetime).set_delay(tween_turn_num * fade_lifetime)
+        tween_turn_num += 1
+        tween.tween_property(powerup_overlay_node, "modulate:a", 1, fade_lifetime).set_delay(tween_turn_num * fade_lifetime)
+        tween_turn_num += 1
+
+        times_blinked += 1
