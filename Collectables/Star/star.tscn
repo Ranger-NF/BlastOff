@@ -1,9 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxflcxmly5ecl"]
+[gd_scene load_steps=7 format=3 uid="uid://bxflcxmly5ecl"]
 
 [ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/Star/star.svg" id="1_gpep0"]
 [ext_resource type="Texture2D" uid="uid://bq0mcldbwkdkm" path="res://Collectables/Star/star_back_shine.svg" id="1_jd53q"]
 [ext_resource type="PackedScene" uid="uid://b5l7prnxix5uf" path="res://Collectables/collectable.tscn" id="1_kyfj3"]
 [ext_resource type="Script" path="res://Collectables/Star/star.gd" id="2_5b23b"]
+
+[sub_resource type="Shader" id="Shader_hmw3a"]
+code = "shader_type canvas_item;
+
+uniform vec4 shine_color : source_color = vec4(1.0);
+uniform float shine_speed : hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float shine_size : hint_range(0.01, 1.0, 0.01) = 0.01;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	float shine = step(1.0 - shine_size * 0.5, 0.5 + 0.5 * sin(UV.x - UV.y + TIME * shine_speed));
+	COLOR.rgb = mix(COLOR.rgb, shine_color.rgb, shine * shine_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3827"]
+shader = SubResource("Shader_hmw3a")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 2.5
+shader_parameter/shine_size = 0.01
 
 [node name="Star" instance=ExtResource("1_kyfj3")]
 script = ExtResource("2_5b23b")
@@ -15,4 +34,5 @@ texture = ExtResource("1_gpep0")
 texture = ExtResource("1_jd53q")
 
 [node name="Sprite" parent="." index="2"]
+material = SubResource("ShaderMaterial_y3827")
 texture = ExtResource("1_gpep0")

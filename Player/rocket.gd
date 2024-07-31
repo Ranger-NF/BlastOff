@@ -1,14 +1,20 @@
 extends Area2D
 
+signal rocket_shield_toggled(is_active: bool)
+
 const MAX_SPEED: float = 100
 const ACCELERATION: float = 70
 const FRICTION = 90
 const ROTATION_PER_FRAME = 50 # in degrees
 
+const SHIELD_TEXTURE: Texture2D = preload("res://Player/Powerups/rocket_shield.svg")
+
 @onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
 @onready var rocket_collision_shape: CollisionShape2D = $CollisionShape2D
+
 @onready var color_overlay_node: Sprite2D = $Sprite/Color
 @onready var texture_overlay_node: Sprite2D = $Sprite/Texture
+@onready var powerup_overlay_node: Sprite2D = $Sprite/Powerup
 
 signal player_hurt
 
@@ -30,6 +36,12 @@ var has_target_pos: bool
 var target_x_pos: float
 var targetted_side: int
 
+# Variables related to powerups
+var is_shield_active: bool:
+    set(value):
+        self.emit_signal("rocket_shield_toggled", value)
+        is_shield_active = value
+
 
 func _reset_properties() -> void:
     _update_current_skin()
@@ -50,6 +62,8 @@ func _reset_properties() -> void:
     self.position.x = screen_size.x / 2
     self.position.y = 0.8 * screen_size.y
 
+    is_shield_active = true
+
 func _ready() -> void:
     self.hide()
     GameManager.game_started.connect(_on_game_start)
@@ -60,6 +74,9 @@ func _ready() -> void:
     GameManager.rocket_has_reached_target.connect(_on_target_reached)
 
     self.connect("player_hurt", _on_hurt)
+    self.rocket_shield_toggled.connect(_on_shield_toggled)
+
+    $ShieldTimer.timeout.connect(func (): is_shield_active = false)
 
     initial_flame_speed = GameManager.rocket_speed
 
@@ -179,7 +196,10 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
         area.call("_on_hit")
 
     if area.is_in_group("obstacles"):
-        emit_signal("player_hurt")
+        if not is_shield_active:
+            emit_signal("player_hurt")
+        else:
+            _shine_shield() # Make the shield shine
 
 
 func _on_game_start() -> void:
@@ -214,3 +234,23 @@ func _check_if_passed_point(current_x_pos: float, target_pos: float, target_side
 
 func _on_target_reached():
     has_target_pos = false
+
+func _on_shield_toggled(is_activated: bool = false) -> void:
+    if is_activated:
+
+        powerup_overlay_node.texture = SHIELD_TEXTURE
+
+        powerup_overlay_node.show()
+        $ShieldTimer.start(5)
+    else:
+        powerup_overlay_node.hide()
+
+func _shine_shield() -> void:
+    const SHINE_TIME_PERIOD: float = 2
+
+    powerup_overlay_node.material.set_shader_parameter("shine_progress", 1)
+
+    var tween = create_tween().set_parallel(true)
+    tween.tween_property(powerup_overlay_node.material, "shader_parameter/shine_progress", 0, SHINE_TIME_PERIOD)
+    await tween.finished
+

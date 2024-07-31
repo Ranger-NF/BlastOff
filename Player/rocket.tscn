@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=14 format=3 uid="uid://c1tug87fw4xs"]
 
 [ext_resource type="Script" path="res://Player/rocket.gd" id="1_7uc35"]
 [ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
 [ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="3_ud6bj"]
 [ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="4_0xgas"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_b3771"]
+[ext_resource type="Shader" path="res://Shader/controlled_shine.gdshader" id="6_0v71u"]
+[ext_resource type="Texture2D" uid="uid://b1r3eknq4n87b" path="res://Player/Powerups/rocket_shield.svg" id="6_uqfis"]
 
 [sub_resource type="Curve" id="Curve_7spor"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -57,6 +59,13 @@ shader_parameter/deform = Vector2(0, 0)
 shader_parameter/offset = Vector2(-20, -20)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxhxy"]
+shader = ExtResource("6_0v71u")
+shader_parameter/shine_color = Color(0, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.25
+shader_parameter/shine_angle = 0.0
+
 [node name="Rocket" type="Area2D"]
 collision_layer = 2
 collision_mask = 5
@@ -104,6 +113,15 @@ offset = Vector2(-1, 0)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_b3771")
 offset = Vector2(-1, 0)
+
+[node name="Powerup" type="Sprite2D" parent="Sprite"]
+material = SubResource("ShaderMaterial_uxhxy")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_uqfis")
+offset = Vector2(-1, 0)
+
+[node name="ShieldTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
