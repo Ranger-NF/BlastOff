@@ -28,7 +28,7 @@ const SCALE_ANIM_TIME: float = 0.4
 
 var last_star_count: float
 
-@onready var star_image: Texture = preload("res://Collectables/star.svg")
+@onready var star_image: Texture = preload("res://Collectables/Star/star.svg")
 
 func _ready() -> void:
     last_star_count = DataManager.gameplay.total_stars

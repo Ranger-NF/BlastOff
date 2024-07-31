@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq0mcldbwkdkm"
-path="res://.godot/imported/star_back_shine.svg-0f9509b332574d04a02caf355abf29af.ctex"
+uid="uid://cpdsqo5eugj6w"
+path="res://.godot/imported/star.svg-98b1ebd2d0dd1d4eac1f51a198b0af48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Collectables/star_back_shine.svg"
-dest_files=["res://.godot/imported/star_back_shine.svg-0f9509b332574d04a02caf355abf29af.ctex"]
+source_file="res://Collectables/Star/star.svg"
+dest_files=["res://.godot/imported/star.svg-98b1ebd2d0dd1d4eac1f51a198b0af48.ctex"]
 
 [params]
 

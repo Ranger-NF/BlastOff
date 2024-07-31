@@ -1,7 +1,5 @@
 extends Node
 
-@export var star_scene: PackedScene
-
 @onready var bg_music_list: Array = [
     preload("res://Music/bravery_demon.ogg"),
     preload("res://Music/bravery_run.ogg"),

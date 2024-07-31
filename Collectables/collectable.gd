@@ -1,10 +1,10 @@
 extends Area2D
 
-@onready var back_shine_node = $BackShine
-@onready var star_sptite: Sprite2D = $Star
+@onready var back_shine_node = $SpriteBack
+@onready var star_sptite: Sprite2D = $Sprite
 
 @onready var collision_shape = $CollisionShape2D
-@onready var star_collected_sound: AudioStreamPlayer = $StarCollectedSound
+@onready var collection_sound_node: AudioStreamPlayer = $CollectedSound
 
 const SHINE_TIME_PERIOD: float = 3
 
@@ -45,14 +45,15 @@ func make_disappear() -> void:
 
 func _on_hit() -> void:
     collision_shape.set_deferred("disabled", true)
-    StatManager.emit_signal("star_count_changed", 1)
 
-    star_collected_sound.pitch_scale = randf_range(1, 1.5)
-    star_collected_sound.play()
+    collection_sound_node.pitch_scale = randf_range(1, 1.5)
+    collection_sound_node.play()
 
     $CPUParticles2D.emitting = true
-    $Star.hide()
-    $BackShine.hide()
+    star_sptite.hide()
+    back_shine_node.hide()
+
+    _on_collection()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     free_obstacle()
@@ -66,3 +67,6 @@ func _on_star_collected_sound_finished() -> void:
 func free_obstacle() -> void:
     can_glow = false
     ObstacleManager.make_obstacle_free(self, ObstacleManager.STAR)
+
+func _on_collection() -> void: # To be overriden in each collectable's script
+    return

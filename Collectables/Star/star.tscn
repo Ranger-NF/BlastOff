@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxflcxmly5ecl"]
+
+[ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/Star/star.svg" id="1_gpep0"]
+[ext_resource type="Texture2D" uid="uid://bq0mcldbwkdkm" path="res://Collectables/Star/star_back_shine.svg" id="1_jd53q"]
+[ext_resource type="PackedScene" uid="uid://b5l7prnxix5uf" path="res://Collectables/collectable.tscn" id="1_kyfj3"]
+[ext_resource type="Script" path="res://Collectables/Star/star.gd" id="2_5b23b"]
+
+[node name="Star" instance=ExtResource("1_kyfj3")]
+script = ExtResource("2_5b23b")
+
+[node name="CPUParticles2D" parent="." index="0"]
+texture = ExtResource("1_gpep0")
+
+[node name="SpriteBack" parent="." index="1"]
+texture = ExtResource("1_jd53q")
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource("1_gpep0")

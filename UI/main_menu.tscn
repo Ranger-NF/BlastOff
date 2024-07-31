@@ -86,5 +86,5 @@ layout_mode = 2
 [node name="Version" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "v1.4.1"
+text = "vX.X.X"
 horizontal_alignment = 1

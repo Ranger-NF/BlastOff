@@ -11,7 +11,7 @@ enum {
 @onready var OBSTACLE_SCENES: Dictionary = {
     BIRD: preload("res://Enemies/Birds/Bird.tscn"),
     SATELLITE: preload("res://Enemies/Satellite/satellite.tscn"),
-    STAR: preload("res://Collectables/star.tscn")
+    STAR: preload("res://Collectables/Star/star.tscn")
 }
 
 var active_obstacles: Dictionary = {

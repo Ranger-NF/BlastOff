@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpdsqo5eugj6w"
-path="res://.godot/imported/star.svg-a2021409b0d9c3a37b0bc8754489770c.ctex"
+uid="uid://dm48bfkyvl8j8"
+path="res://.godot/imported/rocket_shielf.svg-bd248a37731d2b5b22da9e207f0a79d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Collectables/star.svg"
-dest_files=["res://.godot/imported/star.svg-a2021409b0d9c3a37b0bc8754489770c.ctex"]
+source_file="res://Collectables/Shield/rocket_shielf.svg"
+dest_files=["res://.godot/imported/rocket_shielf.svg-bd248a37731d2b5b22da9e207f0a79d4.ctex"]
 
 [params]
 
