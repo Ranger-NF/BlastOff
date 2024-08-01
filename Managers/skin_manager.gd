@@ -27,11 +27,6 @@ enum SKIN_TYPES {
     STICKER,
 }
 
-enum POWERUPS {
-    SHIELD,
-    BOOST
-}
-
 func _ready() -> void:
     _reload_skin_data()
 

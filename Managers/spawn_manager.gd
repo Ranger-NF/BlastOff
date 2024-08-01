@@ -9,14 +9,14 @@ enum {
     SHIELD
 }
 
-@onready var OBSTACLE_SCENES: Dictionary = {
+@onready var SPAWNABLE_SCENES: Dictionary = {
     BIRD: preload("res://Enemies/Birds/Bird.tscn"),
     SATELLITE: preload("res://Enemies/Satellite/satellite.tscn"),
     STAR: preload("res://Collectables/Star/star.tscn"),
     SHIELD: preload("res://Collectables/Shield/shield.tscn")
 }
 
-var active_obstacles: Dictionary = {
+var active_spawns: Dictionary = {
     BIRD: [],
     SATELLITE: [],
     STAR: [],
@@ -163,16 +163,16 @@ func _on_level_up() -> void:
     #current_satellite_spawning_propability += 0.05
 
 func get_free_obstacle(obstacle_type: int) -> Node2D:
-    var instantiable_res: PackedScene = OBSTACLE_SCENES.get(obstacle_type)
+    var instantiable_res: PackedScene = SPAWNABLE_SCENES.get(obstacle_type)
 
     if not instantiable_res:
         push_error("No such obstacle type")
         return null
     else:
         var new_obstacle: Node2D = instantiable_res.instantiate()
-        (active_obstacles.get(obstacle_type) as Array).append(new_obstacle)
+        (active_spawns.get(obstacle_type) as Array).append(new_obstacle)
         return new_obstacle
 
 func make_obstacle_free(obstacle_node: Node2D, obstacle_type: int) -> void:
-    (active_obstacles.get(obstacle_type) as Array).erase(obstacle_node)
+    (active_spawns.get(obstacle_type) as Array).erase(obstacle_node)
     obstacle_node.queue_free()

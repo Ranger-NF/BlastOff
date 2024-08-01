@@ -6,7 +6,7 @@
 
 [node name="Shield" instance=ExtResource("1_ewbhv")]
 script = ExtResource("2_ktubx")
-collectable_type = 1
+collectable_type = 3
 
 [node name="CPUParticles2D" parent="." index="0"]
 texture = ExtResource("2_4r6cp")

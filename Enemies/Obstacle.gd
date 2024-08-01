@@ -46,7 +46,7 @@ func _determine_horizontal_movement() -> void:
     var initial_pos: Vector2 = self.position
 
     if current_role == ROLES.LEADER:
-        horizontal_speed = randf_range(ObstacleManager.bird_horizontal_speed.x, ObstacleManager.bird_horizontal_speed.y) # Randomize
+        horizontal_speed = randf_range(SpawnManager.bird_horizontal_speed.x, SpawnManager.bird_horizontal_speed.y) # Randomize
         flock_speed = horizontal_speed
     elif current_role == ROLES.COLEADER or current_role == ROLES.MEMBER:
         horizontal_speed = flock_speed
@@ -60,7 +60,7 @@ func _determine_horizontal_movement() -> void:
 
 
 func _change_anim_speed():
-    var new_speed_scale =  horizontal_speed / ((ObstacleManager.bird_horizontal_speed.x + ObstacleManager.bird_horizontal_speed.y)/2)
+    var new_speed_scale =  horizontal_speed / ((SpawnManager.bird_horizontal_speed.x + SpawnManager.bird_horizontal_speed.y)/2)
     animated_sprite.speed_scale = new_speed_scale
 
 func free_fall(delta) -> void:
@@ -102,4 +102,4 @@ func _on_game_over() -> void:
     free_obstacle()
 
 func free_obstacle() -> void:
-    ObstacleManager.make_obstacle_free(self, obstacle_type)
+    SpawnManager.make_obstacle_free(self, obstacle_type)

@@ -34,7 +34,7 @@ func _setup_spawn_line() -> void:
     self.curve.add_point(Vector2(horizontal_screen_size - OBSTACLE_SPAWN_MARGIN, 0))
 
 func spawn_obstacle(obstacle_type: int):
-    var obstacle_node: Node2D = ObstacleManager.get_free_obstacle(obstacle_type)
+    var obstacle_node: Node2D = SpawnManager.get_free_obstacle(obstacle_type)
 
     obstacle_path.progress_ratio = randf()
 
@@ -58,25 +58,25 @@ func restart_game() -> void:
     powerup_timer.start(2)
 
 func _on_bird_timer_timeout() -> void:
-    spawn_obstacle(ObstacleManager.BIRD)
-    bird_timer.start(randf_range(ObstacleManager.current_bird_spawning_interval.x, ObstacleManager.current_bird_spawning_interval.y))
+    spawn_obstacle(SpawnManager.BIRD)
+    bird_timer.start(randf_range(SpawnManager.current_bird_spawning_interval.x, SpawnManager.current_bird_spawning_interval.y))
 
 func _on_satellite_timer_timeout() -> void:
     var random_num = randf()
-    if (random_num < ObstacleManager.current_satellite_spawning_propability):
-        spawn_obstacle(ObstacleManager.SATELLITE)
+    if (random_num < SpawnManager.current_satellite_spawning_propability):
+        spawn_obstacle(SpawnManager.SATELLITE)
 
     if satellite_timer.is_stopped():
-        satellite_timer.start(randf_range(ObstacleManager.current_satellite_spawning_interval.x, ObstacleManager.current_satellite_spawning_interval.y))
+        satellite_timer.start(randf_range(SpawnManager.current_satellite_spawning_interval.x, SpawnManager.current_satellite_spawning_interval.y))
 
 func _on_star_timer_timeout() -> void:
-    spawn_obstacle(ObstacleManager.STAR)
+    spawn_obstacle(SpawnManager.STAR)
 
     if star_timer.is_stopped():
-        star_timer.start(randf_range(ObstacleManager.current_star_spawning_interval.x, ObstacleManager.current_star_spawning_interval.y))
+        star_timer.start(randf_range(SpawnManager.current_star_spawning_interval.x, SpawnManager.current_star_spawning_interval.y))
 
 func _on_powerup_timer_timeout() -> void:
-    spawn_obstacle(ObstacleManager.SHIELD)
+    spawn_obstacle(SpawnManager.SHIELD)
 
     if powerup_timer.is_stopped():
         powerup_timer.start(randf_range(2, 4))

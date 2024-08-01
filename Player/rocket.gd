@@ -254,7 +254,7 @@ func _on_target_reached():
 # Powerups Section
 
 func _on_powerup_activated(powerup_type: int):
-    if powerup_type == SkinManager.POWERUPS.SHIELD:
+    if powerup_type == SpawnManager.SHIELD:
         is_shield_active = true
 
 func _on_shield_toggled(is_activated: bool = false) -> void:
