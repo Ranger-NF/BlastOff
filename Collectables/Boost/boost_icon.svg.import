@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3uvx3rcoa67b"
-path="res://.godot/imported/shield_icon.svg-f2aafded170fd3066a603e1bf2fe0e4b.ctex"
+uid="uid://bu53vm4yb4w6k"
+path="res://.godot/imported/boost_icon.svg-56318ed3abefd1f03a4330c88c50e1e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Collectables/Shield/shield_icon.svg"
-dest_files=["res://.godot/imported/shield_icon.svg-f2aafded170fd3066a603e1bf2fe0e4b.ctex"]
+source_file="res://Collectables/Boost/boost_icon.svg"
+dest_files=["res://.godot/imported/boost_icon.svg-56318ed3abefd1f03a4330c88c50e1e6.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=2.0
+svg/scale=1.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

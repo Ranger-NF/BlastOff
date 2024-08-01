@@ -1,10 +1,11 @@
 extends Path2D
 
-@onready var obstacle_path = $PathFollow2D
+@onready var obstacle_path = $PathFollow2D2
 
 @onready var bird_timer: Timer = $BirdTimer
 @onready var satellite_timer: Timer = $SatelliteTimer
 @onready var star_timer: Timer = $StarTimer
+@onready var powerup_timer: Timer = $PowerupTImer
 
 const OBSTACLE_SPAWN_MARGIN: float = 20
 
@@ -17,6 +18,9 @@ func _ready() -> void:
     bird_timer.timeout.connect(_on_bird_timer_timeout)
     star_timer.timeout.connect(_on_star_timer_timeout)
     satellite_timer.timeout.connect(_on_satellite_timer_timeout)
+    powerup_timer.timeout.connect(_on_powerup_timer_timeout)
+
+    _setup_spawn_line()
 
 func _on_screen_size_updated(_screen_size: Vector2) -> void:
     _setup_spawn_line()
@@ -45,11 +49,13 @@ func _on_game_over() -> void:
     bird_timer.stop()
     satellite_timer.stop()
     star_timer.stop()
+    powerup_timer.stop()
 
 func restart_game() -> void:
     bird_timer.start(0.5)
     star_timer.start(1)
     satellite_timer.start(0.75)
+    powerup_timer.start(2)
 
 func _on_bird_timer_timeout() -> void:
     spawn_obstacle(ObstacleManager.BIRD)
@@ -68,3 +74,9 @@ func _on_star_timer_timeout() -> void:
 
     if star_timer.is_stopped():
         star_timer.start(randf_range(ObstacleManager.current_star_spawning_interval.x, ObstacleManager.current_star_spawning_interval.y))
+
+func _on_powerup_timer_timeout() -> void:
+    spawn_obstacle(ObstacleManager.SHIELD)
+
+    if powerup_timer.is_stopped():
+        powerup_timer.start(randf_range(2, 4))

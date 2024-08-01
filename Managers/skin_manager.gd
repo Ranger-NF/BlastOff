@@ -6,7 +6,9 @@ signal preview_sticker(sticker_texture: Texture)
 signal requested_skin_updation
 signal ordered_skin_reload(color: Texture, texture: Texture)
 
-signal bought_new_skin(sking_type: int)
+signal bought_new_skin(skin_type: int)
+
+signal powerup_activated(powerup_type: int)
 
 const ROCKET_COLOR_DIR: String = "res://Player/Custom/Colors/"
 const ROCKET_TEXTURE_DIR: String = "res://Player/Custom/Textures/"
@@ -23,6 +25,11 @@ enum SKIN_TYPES {
     NONE,
     PAINT,
     STICKER,
+}
+
+enum POWERUPS {
+    SHIELD,
+    BOOST
 }
 
 func _ready() -> void:

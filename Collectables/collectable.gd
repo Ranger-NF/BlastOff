@@ -1,10 +1,17 @@
 extends Area2D
 
+enum Collectables {
+    STAR,
+    SHIELD
+}
+
 @onready var back_shine_node = $SpriteBack
 @onready var star_sptite: Sprite2D = $Sprite
 
 @onready var collision_shape = $CollisionShape2D
 @onready var collection_sound_node: AudioStreamPlayer = $CollectedSound
+
+@export var collectable_type: Collectables
 
 const SHINE_TIME_PERIOD: float = 3
 
@@ -66,7 +73,7 @@ func _on_star_collected_sound_finished() -> void:
 
 func free_obstacle() -> void:
     can_glow = false
-    ObstacleManager.make_obstacle_free(self, ObstacleManager.STAR)
+    ObstacleManager.make_obstacle_free(self, collectable_type)
 
 func _on_collection() -> void: # To be overriden in each collectable's script
     return

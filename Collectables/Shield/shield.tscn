@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://qv60sp3xvc68"]
+
+[ext_resource type="PackedScene" uid="uid://b5l7prnxix5uf" path="res://Collectables/collectable.tscn" id="1_ewbhv"]
+[ext_resource type="Texture2D" uid="uid://c3uvx3rcoa67b" path="res://Collectables/Shield/shield_icon.svg" id="2_4r6cp"]
+[ext_resource type="Script" path="res://Collectables/Shield/shield.gd" id="2_ktubx"]
+
+[node name="Shield" instance=ExtResource("1_ewbhv")]
+script = ExtResource("2_ktubx")
+collectable_type = 1
+
+[node name="CPUParticles2D" parent="." index="0"]
+texture = ExtResource("2_4r6cp")
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource("2_4r6cp")

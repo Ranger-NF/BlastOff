@@ -68,7 +68,7 @@ func _reset_properties() -> void:
     self.position.x = screen_size.x / 2
     self.position.y = 0.8 * screen_size.y
 
-    is_shield_active = true
+    is_shield_active = false
 
 func _ready() -> void:
     self.hide()
@@ -78,6 +78,8 @@ func _ready() -> void:
     GameManager.rocket_speed_changed.connect(_on_rocket_speed_changed)
     GameManager.ordered_rocket_to_target.connect(_set_target_pos)
     GameManager.rocket_has_reached_target.connect(_on_target_reached)
+
+    SkinManager.powerup_activated.connect(_on_powerup_activated)
 
     self.connect("player_hurt", _on_hurt)
     self.rocket_shield_toggled.connect(_on_shield_toggled)
@@ -248,6 +250,12 @@ func _check_if_passed_point(current_x_pos: float, target_pos: float, target_side
 
 func _on_target_reached():
     has_target_pos = false
+
+# Powerups Section
+
+func _on_powerup_activated(powerup_type: int):
+    if powerup_type == SkinManager.POWERUPS.SHIELD:
+        is_shield_active = true
 
 func _on_shield_toggled(is_activated: bool = false) -> void:
     if is_activated:
