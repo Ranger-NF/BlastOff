@@ -87,3 +87,6 @@ func _after_hit():
     self.horizontal_speed = 0
     animated_sprite.flip_v = true
     animated_sprite.stop()
+
+    if not self.is_inside_tree():
+        $CPUParticles2D.emitting = false

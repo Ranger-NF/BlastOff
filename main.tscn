@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dikpya2pi0i66"]
+[gd_scene load_steps=9 format=3 uid="uid://dikpya2pi0i66"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lyfac"]
 [ext_resource type="PackedScene" uid="uid://c1tug87fw4xs" path="res://Player/rocket.tscn" id="1_nmvdq"]
 [ext_resource type="PackedScene" uid="uid://cihqkayqkp35l" path="res://Background/background.tscn" id="5_rc5yt"]
+[ext_resource type="Shader" path="res://Shader/screenshake.gdshader" id="6_a3vbv"]
 [ext_resource type="PackedScene" uid="uid://c7khim02dfxsw" path="res://Background/transition.tscn" id="10_ngmpp"]
 [ext_resource type="PackedScene" uid="uid://cd02qtpq2ias" path="res://UI/tutorial.tscn" id="11_ldlc6"]
 
@@ -11,6 +12,13 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 700, 0)
 }
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ke17k"]
+shader = ExtResource("6_a3vbv")
+shader_parameter/ShakeStrength = 0.0
+shader_parameter/FactorA = Vector2(100, 100)
+shader_parameter/FactorB = Vector2(1, 1)
+shader_parameter/magnitude = Vector2(0.01, 0.01)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lyfac")
@@ -41,6 +49,17 @@ position = Vector2(20, 0)
 visible = false
 
 [node name="Transition" parent="." instance=ExtResource("10_ngmpp")]
+
+[node name="ScreenShake" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="ScreenShake"]
+material = SubResource("ShaderMaterial_ke17k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="timeout" from="BirdTimer" to="." method="_on_bird_timer_timeout"]
 [connection signal="timeout" from="StarTimer" to="." method="_on_star_timer_timeout"]

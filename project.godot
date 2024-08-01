@@ -36,7 +36,7 @@ ObstacleManager="*res://Managers/obstacle_manager.gd"
 window/size/viewport_width=720
 window/size/viewport_height=1280
 window/size/mode=2
-window/size/initial_position_type=2
+window/size/initial_position_type=3
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
@@ -48,6 +48,13 @@ enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg")
 [gui]
 
 theme/custom_font="res://Fonts/Rubik-Bold.ttf"
+
+[input]
+
+SpaceBar={
+"deadzone": 0.5,
+"events": [null]
+}
 
 [input_devices]
 

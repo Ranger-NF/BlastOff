@@ -19,6 +19,10 @@ const OBSTACLE_SPAWN_MARGIN: float = 20
 
 var is_game_running: bool = false
 
+# Related to screen shake
+const MAX_SHAKE_STRENGTH = 0.5;
+var current_shake_strength = 0;
+
 func _ready() -> void:
     GameManager.screen_size_updated.connect(_on_screen_size_updated)
 
@@ -27,6 +31,7 @@ func _ready() -> void:
 
     UiManager.main_scene = self
     UiManager.emit_signal("skipped_to_main_menu")
+    UiManager.triggered_screen_shake.connect(_activate_screen_shake)
 
     _start_rand_music()
 
@@ -89,3 +94,13 @@ func _start_rand_music() -> void:
 
 func _on_screen_size_updated(_screen_size: Vector2) -> void:
     _setup_spawn_line()
+
+func _process(delta):
+    # To calculate screenshake
+    if current_shake_strength != 0:
+        current_shake_strength = max(current_shake_strength - delta, 0);
+
+        $ScreenShake/ColorRect.material.set_shader_parameter("ShakeStrength", max(current_shake_strength,0))
+
+func _activate_screen_shake() -> void:
+    current_shake_strength = MAX_SHAKE_STRENGTH

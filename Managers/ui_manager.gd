@@ -25,6 +25,9 @@ signal triggered_menu_ui_setup ## Called when game is over --> This chains to Ga
 signal background_reload_requested
 signal time_phase_changed(current_time_phase: int)
 
+# For screen shake
+signal triggered_screen_shake
+
 enum TIME_PHASES {
     DAY,
     NIGHT

@@ -122,7 +122,7 @@ script = ExtResource("2_5ajeh")
 
 [node name="CPUParticles2D" parent="." index="0"]
 position = Vector2(0, -22)
-amount = 20
+amount = 10
 texture = ExtResource("5_6eqo1")
 initial_velocity_min = 450.0
 initial_velocity_max = 450.0
