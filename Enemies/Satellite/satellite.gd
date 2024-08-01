@@ -1,10 +1,12 @@
 extends "res://Enemies/Obstacle.gd"
 
 @onready var parts_group: Node2D = $Parts
-@onready var smoke_partcile_node: CPUParticles2D = $Parts/CPUParticles2D
+@onready var smoke_partcile_node: CPUParticles2D = $Parts/SmokeParticles
 
 var instance_id: int
 var initial_smoke_speed: float
+
+var spin_tween: Tween
 
 func _further_setup() -> void:
     smoke_partcile_node.emitting = false
@@ -70,3 +72,20 @@ func update_smoke_speed(new_rocket_speed: float):
     var calculated_smoke_speed = absf((new_rocket_speed - (new_rocket_speed * free_fall_multiplier)))
     smoke_partcile_node.initial_velocity_min = calculated_smoke_speed * 0.5
     smoke_partcile_node.initial_velocity_max = calculated_smoke_speed
+
+func _after_hit() -> void:
+    smoke_partcile_node.amount = roundi(smoke_partcile_node.amount * 1.5)
+    smoke_partcile_node.lifetime = smoke_partcile_node.lifetime * 1.5
+
+    _spin_slightly()
+
+func _spin_slightly() -> void:
+    if spin_tween and spin_tween.is_running():
+        spin_tween.stop()
+        spin_tween.kill()
+
+    spin_tween = create_tween()
+
+    while true:
+        spin_tween.tween_property(self, "rotation", deg_to_rad(360), 5).set_ease(Tween.EASE_IN)
+        await spin_tween.finished

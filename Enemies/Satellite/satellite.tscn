@@ -127,7 +127,7 @@ disabled = true
 [node name="Parts" type="Node2D" parent="." index="5"]
 rotation = 0.523599
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Parts" index="0"]
+[node name="SmokeParticles" type="CPUParticles2D" parent="Parts" index="0"]
 emitting = false
 amount = 35
 lifetime = 0.5

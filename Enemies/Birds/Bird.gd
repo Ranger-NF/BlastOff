@@ -22,7 +22,7 @@ func _further_setup() -> void: ## Extension of _ready() to implement extra logic
         initial_leader_pos = self.position
 
         total_flock_size = randi_range(ObstacleManager.current_bird_flock_size.x, ObstacleManager.current_bird_flock_size.y)
-        print(total_flock_size)
+
         members_remaining_to_spawn = total_flock_size
         _spawn_flock(members_remaining_to_spawn)
     if current_role == ROLES.COLEADER and members_remaining_to_spawn > 0:

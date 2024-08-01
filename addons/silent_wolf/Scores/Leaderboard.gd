@@ -45,14 +45,11 @@ func _reload_data(_node = null) -> void:
     print("SilentWolf.Scores.leaderboards: " + str(SilentWolf.Scores.leaderboards))
     print("SilentWolf.Scores.ldboard_config: " + str(SilentWolf.Scores.ldboard_config))
     var scores = SilentWolf.Scores.scores
-    #var scores = []
+
     if ld_name in SilentWolf.Scores.leaderboards:
         scores = SilentWolf.Scores.leaderboards[ld_name]
     var local_scores = SilentWolf.Scores.local_scores
-#
-    #if len(scores) > 0:
-        #render_board(scores, local_scores)
-    #else:
+
     ## use a signal to notify when the high scores have been returned, and show a "loading" animation until it's the case...
     add_loading_scores_message()
     var sw_result = await SilentWolf.Scores.get_scores().sw_get_scores_complete

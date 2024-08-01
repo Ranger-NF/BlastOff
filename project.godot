@@ -36,6 +36,7 @@ ObstacleManager="*res://Managers/obstacle_manager.gd"
 window/size/viewport_width=720
 window/size/viewport_height=1280
 window/size/mode=2
+window/size/initial_position_type=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
@@ -57,6 +58,10 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_1="Obstacles"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Collectables"
+
+[navigation]
+
+3d/size/initial_position_type=1
 
 [rendering]
 
