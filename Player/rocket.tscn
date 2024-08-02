@@ -6,7 +6,7 @@
 [ext_resource type="Gradient" uid="uid://dm0fhd02w7cwj" path="res://Player/Gradients/normal_rocket_flame.tres" id="3_w8oe5"]
 [ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="4_0xgas"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_b3771"]
-[ext_resource type="Texture2D" uid="uid://b1r3eknq4n87b" path="res://Player/Powerups/rocket_shield.svg" id="6_uqfis"]
+[ext_resource type="Texture2D" uid="uid://b3xobq703abg2" path="res://Player/Powerups/rocket_shield.png" id="7_nkkoi"]
 
 [sub_resource type="Curve" id="Curve_7spor"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -104,16 +104,12 @@ texture = ExtResource("5_b3771")
 offset = Vector2(-1, 0)
 
 [node name="Powerup" type="Sprite2D" parent="Sprite"]
+visible = false
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_uqfis")
+texture = ExtResource("7_nkkoi")
 offset = Vector2(-1, 0)
 
 [node name="ShieldTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 3.0
-one_shot = true
-
-[node name="ShieldEndingTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 3.0
 one_shot = true

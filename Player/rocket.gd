@@ -1,6 +1,7 @@
 extends Area2D
 
 signal rocket_shield_toggled(is_active: bool)
+signal shield_warning_ended
 signal rocket_boost_active(is_active: bool)
 
 const MAX_SPEED: float = 100
@@ -13,7 +14,7 @@ enum FLAME_TYPES {
     BOOSTED
 }
 
-const SHIELD_TEXTURE: Texture2D = preload("res://Player/Powerups/rocket_shield.svg")
+const SHIELD_TEXTURE: Texture2D = preload("res://Player/Powerups/rocket_shield.png")
 const FLAME_GRADIENTS: Dictionary = {
     FLAME_TYPES.NORMAL: preload("res://Player/Gradients/normal_rocket_flame.tres"),
     FLAME_TYPES.BOOSTED: preload("res://Player/Gradients/boosted_rocket_flame.tres"),
@@ -49,21 +50,20 @@ var target_x_pos: float
 var targetted_side: int
 
 # Variables related to powerups
-var is_shield_active: bool:
-    set(value):
-        self.emit_signal("rocket_shield_toggled", value)
-        is_shield_active = value
-
+var is_rocket_invincible: bool = false
 var is_boost_active: bool:
     set(value):
         self.emit_signal("rocket_boost_active", value)
         is_boost_active = value
 
-var shield_lifetime: float = 15
+var shield_lifetime: float = 4
 var original_shield_scale: float = 0.3 # Should be changed everytime the shield is going to be expanded
 var shield_scale_tween: Tween
+var shield_ending_fade: Tween
 
 var boost_tifetime: float = 3
+var boost_timer: SceneTreeTimer
+var rocket_speed_before_boost: float
 
 func _reset_properties() -> void:
     _update_current_skin()
@@ -84,7 +84,7 @@ func _reset_properties() -> void:
     self.position.x = screen_size.x / 2
     self.position.y = 0.8 * screen_size.y
 
-    is_shield_active = false
+    is_rocket_invincible = false
     $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
 
 func _ready() -> void:
@@ -98,11 +98,10 @@ func _ready() -> void:
 
     SkinManager.powerup_activated.connect(_on_powerup_activated)
 
-    self.connect("player_hurt", _on_hurt)
-    self.rocket_shield_toggled.connect(_on_shield_toggled)
+    self.player_hurt.connect(_on_hurt)
+    self.shield_warning_ended.connect(_deactivate_shield)
 
-    $ShieldTimer.timeout.connect(func (): is_shield_active = false)
-    $ShieldEndingTimer.timeout.connect(_blink_shield)
+    $ShieldTimer.timeout.connect(_indicate_shield_end)
 
     initial_flame_speed = GameManager.rocket_speed
 
@@ -229,7 +228,7 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
             area.call("_on_hit")
 
         if area.is_in_group("obstacles"):
-            if not is_shield_active:
+            if not is_rocket_invincible:
                 emit_signal("player_hurt")
             else:
                 _expand_shield() # Make the shield shine
@@ -272,22 +271,20 @@ func _on_target_reached():
 
 func _on_powerup_activated(powerup_type: int, is_activated: bool = true):
     if powerup_type == SpawnManager.SHIELD:
-        is_shield_active = true
+        _activate_shield()
     if powerup_type == SpawnManager.BOOST:
         if is_activated:
             is_boost_active = true
             _apply_boost()
 
-func _on_shield_toggled(is_activated: bool = false) -> void:
-    if is_activated:
+func _activate_shield() -> void:
+    powerup_overlay_node.modulate = Color.WHITE
 
-        powerup_overlay_node.texture = SHIELD_TEXTURE
+    is_rocket_invincible = true
+    powerup_overlay_node.texture = SHIELD_TEXTURE
 
-        powerup_overlay_node.show()
-        $ShieldTimer.start(shield_lifetime)
-        $ShieldEndingTimer.start(shield_lifetime * .6)
-    else:
-        powerup_overlay_node.hide()
+    powerup_overlay_node.show()
+    $ShieldTimer.start(shield_lifetime)
 
 func _expand_shield() -> void:
     powerup_overlay_node.scale = Vector2(original_shield_scale, original_shield_scale)
@@ -304,27 +301,49 @@ func _expand_shield() -> void:
     shield_scale_tween.tween_property(powerup_overlay_node, "scale", shrinking_scale, single_scale_lifetime)
     shield_scale_tween.tween_property(powerup_overlay_node, "scale", Vector2(original_shield_scale, original_shield_scale), single_scale_lifetime).set_delay(single_scale_lifetime)
 
-func _blink_shield() -> void:
+func _indicate_shield_end() -> void:
     const TIMES_TO_BLINK: float = 3
 
-    var fade_lifetime: float = (0.4 * shield_lifetime) / (TIMES_TO_BLINK / 2)
-    var tween = create_tween().set_parallel(true)
+    const FADE_LIFETIME: float = 0.3
+
+    if shield_ending_fade and shield_ending_fade.is_running():
+        shield_ending_fade.stop()
+        shield_ending_fade.kill()
+
+    shield_ending_fade = create_tween().set_parallel(true)
 
     var times_blinked: int = 0
     var tween_turn_num: int = 0 # To calculate delay
 
     while times_blinked < TIMES_TO_BLINK:
-        tween.tween_property(powerup_overlay_node, "modulate:a", 0,fade_lifetime).set_delay(tween_turn_num * fade_lifetime)
+        shield_ending_fade.tween_property(powerup_overlay_node, "modulate", Color.RED,FADE_LIFETIME).set_delay(tween_turn_num * FADE_LIFETIME)
         tween_turn_num += 1
-        tween.tween_property(powerup_overlay_node, "modulate:a", 1, fade_lifetime).set_delay(tween_turn_num * fade_lifetime)
+        shield_ending_fade.tween_property(powerup_overlay_node, "modulate", Color.WHITE, FADE_LIFETIME).set_delay(tween_turn_num * FADE_LIFETIME)
         tween_turn_num += 1
 
         times_blinked += 1
 
+    await shield_ending_fade.finished
+
+    if $ShieldTimer.is_stopped(): # Another shield powerup has not been taken
+        emit_signal("shield_warning_ended")
+
+func _deactivate_shield() -> void:
+    powerup_overlay_node.hide()
+    is_rocket_invincible = false
+
 func _apply_boost() -> void:
-    var og_rocket_speed: float = GameManager.rocket_speed
-    GameManager.emit_signal("rocket_speed_changed", og_rocket_speed * 1.5)
+
+    if not boost_timer or not boost_timer.time_left > 0: # Another boost id going on
+        rocket_speed_before_boost= GameManager.rocket_speed
+
+    boost_timer = get_tree().create_timer(boost_tifetime)
+
+    GameManager.emit_signal("rocket_speed_changed", rocket_speed_before_boost * 1.5)
     $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.BOOSTED)
-    await get_tree().create_timer(boost_tifetime).timeout
-    $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
-    GameManager.emit_signal("rocket_speed_changed", og_rocket_speed)
+
+    await boost_timer.timeout
+
+    if boost_timer.time_left > 0: # This means no new timer has been created
+        $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
+        GameManager.emit_signal("rocket_speed_changed", rocket_speed_before_boost)
