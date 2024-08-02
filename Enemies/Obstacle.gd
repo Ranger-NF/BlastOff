@@ -90,6 +90,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     if hit_sound.playing:
         await hit_sound.finished
 
+    $CPUParticles2D.emitting = false
     free_obstacle()
 
 func _on_hit() -> void:

@@ -7,7 +7,7 @@ extends Area2D
 @onready var collision_shape = $CollisionShape2D
 @onready var collection_sound_node: AudioStreamPlayer = $CollectedSound
 
-@export_enum("Star:2", "Shield:3") var collectable_type: int # Change enums when adding new items
+@export_enum("Star:2", "Shield:3", "Boost:4") var collectable_type: int # Change enums when adding new items
 
 const SHINE_TIME_PERIOD: float = 3
 

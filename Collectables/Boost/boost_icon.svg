@@ -25,9 +25,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showguides="true"
-     inkscape:zoom="1.1817453"
-     inkscape:cx="-167.1257"
-     inkscape:cy="132.43125"
+     inkscape:zoom="3.3424805"
+     inkscape:cx="42.33383"
+     inkscape:cy="64.173898"
      inkscape:window-width="1366"
      inkscape:window-height="699"
      inkscape:window-x="0"
@@ -73,7 +73,8 @@
        y1="2.3695633"
        x2="13.081618"
        y2="17.057236"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0029326,0,0,0.90056632,-0.03872301,1.3531365)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient8"
@@ -100,10 +101,10 @@
      id="layer1">
     <path
        id="path2"
-       style="fill:url(#linearGradient9);fill-opacity:1;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
-       inkscape:transform-center-x="-0.021603795"
-       inkscape:transform-center-y="-0.95289542"
-       d="m 13.056213,2.4792484 c 2.142283,0.155317 9.680066,8.8033986 8.520845,10.5125576 -1.047102,1.543849 -6.960754,-5.7993928 -8.826099,-5.7799648 -1.632277,0.017 -7.2227999,7.4234168 -7.9346219,5.9544298 C 3.7504882,10.966678 10.986036,2.3291593 13.056213,2.4792484 Z"
+       style="fill:url(#linearGradient9);fill-opacity:1;stroke:#ffffff;stroke-width:0.950372;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
+       inkscape:transform-center-x="-0.021667207"
+       inkscape:transform-center-y="-0.8581454"
+       d="m 13.055779,3.5858642 c 2.148566,0.1398732 9.708455,7.9280438 8.545834,9.4672548 C 20.55144,14.443458 14.620445,7.8303816 12.74963,7.8478778 11.112566,7.8631875 5.5056482,14.533157 4.7917387,13.210237 3.7227641,11.229357 10.979531,3.450699 13.055779,3.5858642 Z"
        sodipodi:nodetypes="sssss" />
     <circle
        style="display:none;fill:#000000;fill-opacity:0.308245;stroke-width:5.18583;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"

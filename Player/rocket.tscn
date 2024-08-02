@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Player/rocket.gd" id="1_7uc35"]
 [ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
 [ext_resource type="Texture2D" uid="uid://6jimbg33yd70" path="res://Player/rocket-base.svg" id="3_ud6bj"]
+[ext_resource type="Gradient" uid="uid://dm0fhd02w7cwj" path="res://Player/Gradients/normal_rocket_flame.tres" id="3_w8oe5"]
 [ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="4_0xgas"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_b3771"]
 [ext_resource type="Texture2D" uid="uid://b1r3eknq4n87b" path="res://Player/Powerups/rocket_shield.svg" id="6_uqfis"]
@@ -10,10 +11,6 @@
 [sub_resource type="Curve" id="Curve_7spor"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_vflus"]
-offsets = PackedFloat32Array(0, 0.383929, 0.767857)
-colors = PackedColorArray(1, 1, 0.0313726, 1, 0.972549, 0.0431373, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_782wp"]
 radius = 40.0
@@ -78,7 +75,7 @@ initial_velocity_max = 600.0
 scale_amount_min = 15.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_7spor")
-color_ramp = SubResource("Gradient_vflus")
+color_ramp = ExtResource("3_w8oe5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)

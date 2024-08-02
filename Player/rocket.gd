@@ -1,13 +1,23 @@
 extends Area2D
 
 signal rocket_shield_toggled(is_active: bool)
+signal rocket_boost_active(is_active: bool)
 
 const MAX_SPEED: float = 100
 const ACCELERATION: float = 70
 const FRICTION = 90
 const ROTATION_PER_FRAME = 50 # in degrees
 
+enum FLAME_TYPES {
+    NORMAL,
+    BOOSTED
+}
+
 const SHIELD_TEXTURE: Texture2D = preload("res://Player/Powerups/rocket_shield.svg")
+const FLAME_GRADIENTS: Dictionary = {
+    FLAME_TYPES.NORMAL: preload("res://Player/Gradients/normal_rocket_flame.tres"),
+    FLAME_TYPES.BOOSTED: preload("res://Player/Gradients/boosted_rocket_flame.tres"),
+}
 
 @onready var flame_particle_node: CPUParticles2D = $CPUParticles2D
 @onready var rocket_collision_shape: CollisionShape2D = $CollisionShape2D
@@ -44,10 +54,16 @@ var is_shield_active: bool:
         self.emit_signal("rocket_shield_toggled", value)
         is_shield_active = value
 
-var shield_lifetime: float = 15
-var original_shield_scale: float = 0.3
+var is_boost_active: bool:
+    set(value):
+        self.emit_signal("rocket_boost_active", value)
+        is_boost_active = value
 
+var shield_lifetime: float = 15
+var original_shield_scale: float = 0.3 # Should be changed everytime the shield is going to be expanded
 var shield_scale_tween: Tween
+
+var boost_tifetime: float = 3
 
 func _reset_properties() -> void:
     _update_current_skin()
@@ -69,6 +85,7 @@ func _reset_properties() -> void:
     self.position.y = 0.8 * screen_size.y
 
     is_shield_active = false
+    $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
 
 func _ready() -> void:
     self.hide()
@@ -253,9 +270,13 @@ func _on_target_reached():
 
 # Powerups Section
 
-func _on_powerup_activated(powerup_type: int):
+func _on_powerup_activated(powerup_type: int, is_activated: bool = true):
     if powerup_type == SpawnManager.SHIELD:
         is_shield_active = true
+    if powerup_type == SpawnManager.BOOST:
+        if is_activated:
+            is_boost_active = true
+            _apply_boost()
 
 func _on_shield_toggled(is_activated: bool = false) -> void:
     if is_activated:
@@ -299,3 +320,11 @@ func _blink_shield() -> void:
         tween_turn_num += 1
 
         times_blinked += 1
+
+func _apply_boost() -> void:
+    var og_rocket_speed: float = GameManager.rocket_speed
+    GameManager.emit_signal("rocket_speed_changed", og_rocket_speed * 1.5)
+    $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.BOOSTED)
+    await get_tree().create_timer(boost_tifetime).timeout
+    $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
+    GameManager.emit_signal("rocket_speed_changed", og_rocket_speed)

@@ -1,8 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=15 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_pcjc4"]
+[ext_resource type="Texture2D" uid="uid://bu53vm4yb4w6k" path="res://Collectables/Boost/boost_icon.svg" id="4_pa3hx"]
+[ext_resource type="Texture2D" uid="uid://bgr81875a4doc" path="res://Collectables/powerup_progress_bar_back.svg" id="5_iyl0c"]
+[ext_resource type="Texture2D" uid="uid://c85804f3jwved" path="res://Collectables/powerup_progress_bar.svg" id="6_gvfcl"]
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -67,6 +70,15 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojd2d"]
+bg_color = Color(0, 0, 0, 0.45098)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Shortcut" id="Shortcut_tncji"]
 
 [node name="ingame_ui" type="Control"]
 layout_mode = 3
@@ -139,3 +151,37 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="WholeScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="WholeScreen"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="WholeScreen/CenterContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ojd2d")
+shortcut = SubResource("Shortcut_tncji")
+
+[node name="TextureRect" type="TextureRect" parent="WholeScreen/CenterContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("4_pa3hx")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="WholeScreen/CenterContainer"]
+layout_mode = 2
+value = 50.0
+rounded = true
+fill_mode = 4
+texture_under = ExtResource("5_iyl0c")
+texture_progress = ExtResource("6_gvfcl")
+
+[node name="Spacer" type="Control" parent="WholeScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1

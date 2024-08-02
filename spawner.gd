@@ -76,7 +76,12 @@ func _on_star_timer_timeout() -> void:
         star_timer.start(randf_range(SpawnManager.current_star_spawning_interval.x, SpawnManager.current_star_spawning_interval.y))
 
 func _on_powerup_timer_timeout() -> void:
-    spawn_obstacle(SpawnManager.SHIELD)
+    var rand_float: float = randf()
+
+    if rand_float > 0.5:
+        spawn_obstacle(SpawnManager.SHIELD)
+    else:
+        spawn_obstacle(SpawnManager.BOOST)
 
     if powerup_timer.is_stopped():
         powerup_timer.start(randf_range(2, 4))

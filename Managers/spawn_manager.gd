@@ -6,21 +6,24 @@ enum {
     BIRD,
     SATELLITE,
     STAR,
-    SHIELD
+    SHIELD,
+    BOOST
 }
 
 @onready var SPAWNABLE_SCENES: Dictionary = {
     BIRD: preload("res://Enemies/Birds/Bird.tscn"),
     SATELLITE: preload("res://Enemies/Satellite/satellite.tscn"),
     STAR: preload("res://Collectables/Star/star.tscn"),
-    SHIELD: preload("res://Collectables/Shield/shield.tscn")
+    SHIELD: preload("res://Collectables/Shield/shield.tscn"),
+    BOOST: preload("res://Collectables/Boost/boost.tscn")
 }
 
 var active_spawns: Dictionary = {
     BIRD: [],
     SATELLITE: [],
     STAR: [],
-    SHIELD: []
+    SHIELD: [],
+    BOOST: []
 }
 
 var difficulty_level_values = {
