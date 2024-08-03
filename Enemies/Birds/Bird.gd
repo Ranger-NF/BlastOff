@@ -84,6 +84,7 @@ func _transfer_flock_properties(new_member: Node, role_of_individual: int = ROLE
     return new_member
 
 func _after_hit():
+    UiManager.emit_signal("triggered_screen_shake", UiManager.STRENGTH_TYPES.LOW)
     self.horizontal_speed = 0
     animated_sprite.flip_v = true
     animated_sprite.stop()

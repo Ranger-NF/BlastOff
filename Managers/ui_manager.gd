@@ -26,7 +26,7 @@ signal background_reload_requested
 signal time_phase_changed(current_time_phase: int)
 
 # For screen shake
-signal triggered_screen_shake
+signal triggered_screen_shake(shake_type: int)
 
 enum TIME_PHASES {
     DAY,
@@ -49,6 +49,19 @@ enum DIRECTIONS {
     LEFT = -1,
     RESET,
     RIGHT
+}
+
+# Related to screen shake
+enum STRENGTH_TYPES {
+    HIGH,
+    MED,
+    LOW
+}
+
+const SHAKE_STRENGTHS = {
+    STRENGTH_TYPES.HIGH: 0.5,
+    STRENGTH_TYPES.MED: 0.25,
+    STRENGTH_TYPES.LOW: 0.2
 }
 
 #MENU_LEVEL.MAIN is index 1 not zero so keep that in mind if you change to an array

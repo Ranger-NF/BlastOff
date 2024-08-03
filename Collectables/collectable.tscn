@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Collectables/collectable.gd" id="1_rv0oe"]
 [ext_resource type="Texture2D" uid="uid://b6ggif8sjuyby" path="res://Collectables/drop_box.svg" id="2_7tenn"]
-[ext_resource type="AudioStream" uid="uid://w4vgojt0y6i8" path="res://Collectables/Star/star_collected.wav" id="2_53su3"]
 [ext_resource type="Texture2D" uid="uid://dbb8i03tiad0y" path="res://Collectables/plank.svg" id="2_bonfp"]
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="2_uvodg"]
+[ext_resource type="AudioStream" uid="uid://tnfobeqewywf" path="res://Collectables/drop_box_breaking.wav" id="5_aexl7"]
 
 [sub_resource type="Curve" id="Curve_0o8fn"]
 max_value = 10.0
@@ -78,7 +78,8 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 scale = Vector2(8.59626, -8.43897)
 
 [node name="CollectedSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_53su3")
+stream = ExtResource("5_aexl7")
+volume_db = 0.8
 bus = &"Sfx"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

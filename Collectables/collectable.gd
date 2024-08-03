@@ -73,6 +73,9 @@ func _on_hit() -> void:
     star_sptite.hide()
     back_shine_node.hide()
 
+    if collectable_type != SpawnManager.STAR:
+        UiManager.emit_signal("triggered_screen_shake", UiManager.STRENGTH_TYPES.MED)
+
     _on_collection()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

@@ -11,7 +11,6 @@ extends Node
 var is_game_running: bool = false
 
 # Related to screen shake
-const MAX_SHAKE_STRENGTH = 0.5;
 var current_shake_strength = 0;
 
 func _ready() -> void:
@@ -44,5 +43,6 @@ func _process(delta):
 
         $ScreenShake/ColorRect.material.set_shader_parameter("ShakeStrength", max(current_shake_strength,0))
 
-func _activate_screen_shake() -> void:
-    current_shake_strength = MAX_SHAKE_STRENGTH
+func _activate_screen_shake(shake_type: int = UiManager.STRENGTH_TYPES.MED) -> void:
+    var triggered_shake_strength = UiManager.SHAKE_STRENGTHS.get(shake_type)
+    current_shake_strength = triggered_shake_strength

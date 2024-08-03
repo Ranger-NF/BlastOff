@@ -74,7 +74,7 @@ func update_smoke_speed(new_rocket_speed: float):
     smoke_partcile_node.initial_velocity_max = calculated_smoke_speed
 
 func _after_hit() -> void:
-    UiManager.emit_signal("triggered_screen_shake")
+    UiManager.emit_signal("triggered_screen_shake", UiManager.STRENGTH_TYPES.HIGH)
     smoke_partcile_node.amount = roundi(smoke_partcile_node.amount * 1.5)
     smoke_partcile_node.lifetime = smoke_partcile_node.lifetime * 1.5
 
