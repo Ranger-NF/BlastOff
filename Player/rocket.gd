@@ -343,7 +343,7 @@ func _apply_boost() -> void:
     $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.BOOSTED)
 
     await boost_timer.timeout
-
-    if boost_timer.time_left > 0: # This means no new timer has been created
-        $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
-        GameManager.emit_signal("rocket_speed_changed", rocket_speed_before_boost)
+#
+    #if boost_timer.time_left > 0: # This means no new timer has been created
+    $CPUParticles2D.color_ramp = FLAME_GRADIENTS.get(FLAME_TYPES.NORMAL)
+    GameManager.emit_signal("rocket_speed_changed", rocket_speed_before_boost)

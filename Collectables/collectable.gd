@@ -9,25 +9,43 @@ extends Area2D
 
 @export_enum("Star:2", "Shield:3", "Boost:4") var collectable_type: int # Change enums when adding new items
 
-const SHINE_TIME_PERIOD: float = 3
+const BG_ANIM_TIME: float = 3
 
 var initial_shine_scale: Vector2
 var can_glow: bool
+var can_sway: bool
 
 func _ready() -> void:
     GameManager.game_over.connect(_on_game_over)
-    _setup_star()
+
+    if collectable_type == SpawnManager.STAR:
+        _setup_star()
+    else:
+        _setup_drop_box()
 
 func _setup_star() -> void:
     can_glow = true
     _glow()
 
+func _setup_drop_box() -> void:
+    can_sway = true
+    _sway()
+
 func _glow():
     initial_shine_scale = back_shine_node.scale
     while can_glow:
         var tween = create_tween().set_parallel(true)
-        tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, SHINE_TIME_PERIOD / 2)
-        tween.tween_property(back_shine_node, "scale", initial_shine_scale, SHINE_TIME_PERIOD / 2).set_delay(SHINE_TIME_PERIOD / 2)
+        tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, BG_ANIM_TIME / 2)
+        tween.tween_property(back_shine_node, "scale", initial_shine_scale, BG_ANIM_TIME / 2).set_delay(BG_ANIM_TIME / 2)
+        await tween.finished
+
+
+func _sway():
+    var initial_box_rotation: float = self.rotation_degrees
+    while can_sway:
+        var tween = create_tween().set_parallel(true)
+        tween.tween_property(self, "rotation_degrees", initial_box_rotation + 5, BG_ANIM_TIME / 2)
+        tween.tween_property(self, "rotation_degrees", initial_box_rotation - 5, BG_ANIM_TIME / 2).set_delay(BG_ANIM_TIME / 2)
         await tween.finished
 
 func free_fall(delta) -> void:
@@ -40,8 +58,8 @@ func _physics_process(delta: float) -> void:
 
 func make_disappear() -> void:
     var tween = create_tween().set_parallel(true)
-    tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, SHINE_TIME_PERIOD / 2)
-    tween.tween_property(back_shine_node, "modulate:a", 0, SHINE_TIME_PERIOD / 2)
+    tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, BG_ANIM_TIME / 2)
+    tween.tween_property(back_shine_node, "modulate:a", 0, BG_ANIM_TIME / 2)
     await tween.finished
 
     free_obstacle()

@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5l7prnxix5uf"]
+[gd_scene load_steps=10 format=3 uid="uid://b5l7prnxix5uf"]
 
 [ext_resource type="Script" path="res://Collectables/collectable.gd" id="1_rv0oe"]
+[ext_resource type="Texture2D" uid="uid://b6ggif8sjuyby" path="res://Collectables/drop_box.svg" id="2_7tenn"]
 [ext_resource type="AudioStream" uid="uid://w4vgojt0y6i8" path="res://Collectables/Star/star_collected.wav" id="2_53su3"]
+[ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="2_uvodg"]
 
 [sub_resource type="Curve" id="Curve_011u0"]
-_data = [Vector2(0, 0.124528), 0.0, 0.0, 0, 0, Vector2(0.767176, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.0078534, 0.290566), 0.0, 0.0, 0, 0, Vector2(0.767176, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_sk0uw"]
@@ -33,7 +35,7 @@ shader_parameter/shine_size = 0.01
 radius = 150.083
 
 [node name="Collectable" type="Area2D" groups=["Collectables"]]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_rv0oe")
@@ -53,6 +55,8 @@ scale_amount_curve = SubResource("Curve_011u0")
 color_ramp = SubResource("Gradient_sk0uw")
 
 [node name="SpriteBack" type="Sprite2D" parent="."]
+material = ExtResource("2_uvodg")
+texture = ExtResource("2_7tenn")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_x242d")
