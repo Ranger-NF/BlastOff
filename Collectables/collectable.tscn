@@ -1,15 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5l7prnxix5uf"]
+[gd_scene load_steps=12 format=3 uid="uid://b5l7prnxix5uf"]
 
 [ext_resource type="Script" path="res://Collectables/collectable.gd" id="1_rv0oe"]
 [ext_resource type="Texture2D" uid="uid://b6ggif8sjuyby" path="res://Collectables/drop_box.svg" id="2_7tenn"]
 [ext_resource type="AudioStream" uid="uid://w4vgojt0y6i8" path="res://Collectables/Star/star_collected.wav" id="2_53su3"]
+[ext_resource type="Texture2D" uid="uid://dbb8i03tiad0y" path="res://Collectables/plank.svg" id="2_bonfp"]
 [ext_resource type="Material" uid="uid://ckh2l5ahtylxl" path="res://Shader/drop_shadow.tres" id="2_uvodg"]
 
-[sub_resource type="Curve" id="Curve_011u0"]
-_data = [Vector2(0.0078534, 0.290566), 0.0, 0.0, 0, 0, Vector2(0.767176, 0), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_0o8fn"]
+max_value = 10.0
+_data = [Vector2(0, 8.79245), 0.0, 0.0, 0, 0, Vector2(0.379581, 4.86792), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_sk0uw"]
+[sub_resource type="Curve" id="Curve_x2ggm"]
+_data = [Vector2(0, 0.637736), 0.0, 0.0, 0, 0, Vector2(0.536649, 0.426415), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_13g7r"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Shader" id="Shader_hmw3a"]
@@ -42,17 +48,20 @@ script = ExtResource("1_rv0oe")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 12
-lifetime = 0.8
+amount = 10
+lifetime = 0.75
 one_shot = true
-explosiveness = 0.8
+explosiveness = 0.7
+texture = ExtResource("2_bonfp")
 spread = 180.0
 initial_velocity_min = 900.0
 initial_velocity_max = 900.0
+angular_velocity_max = 250.0
+angular_velocity_curve = SubResource("Curve_0o8fn")
 radial_accel_min = 100.0
 radial_accel_max = 100.0
-scale_amount_curve = SubResource("Curve_011u0")
-color_ramp = SubResource("Gradient_sk0uw")
+scale_amount_curve = SubResource("Curve_x2ggm")
+color_ramp = SubResource("Gradient_13g7r")
 
 [node name="SpriteBack" type="Sprite2D" parent="."]
 material = ExtResource("2_uvodg")

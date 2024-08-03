@@ -7,13 +7,13 @@ extends Area2D
 @onready var collision_shape = $CollisionShape2D
 @onready var collection_sound_node: AudioStreamPlayer = $CollectedSound
 
-@export_enum("Star:2", "Shield:3", "Boost:4") var collectable_type: int # Change enums when adding new items
+@export_enum("Star:2", "Shield:3", "Boost:4") var collectable_type: int = 2 # Change enums when adding new items
 
 const BG_ANIM_TIME: float = 3
 
 var initial_shine_scale: Vector2
-var can_glow: bool
-var can_sway: bool
+var can_glow: bool = false
+var can_sway: bool = false
 
 func _ready() -> void:
     GameManager.game_over.connect(_on_game_over)
@@ -38,7 +38,6 @@ func _glow():
         tween.tween_property(back_shine_node, "scale", initial_shine_scale * 2, BG_ANIM_TIME / 2)
         tween.tween_property(back_shine_node, "scale", initial_shine_scale, BG_ANIM_TIME / 2).set_delay(BG_ANIM_TIME / 2)
         await tween.finished
-
 
 func _sway():
     var initial_box_rotation: float = self.rotation_degrees
