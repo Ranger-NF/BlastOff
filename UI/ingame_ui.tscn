@@ -87,6 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_1hsrn")
 metadata/_edit_use_anchors_ = true
 
@@ -160,23 +161,22 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="WholeScreen/CenterContainer"]
+[node name="PowerupButton" type="Button" parent="WholeScreen/CenterContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ojd2d")
+toggle_mode = true
 shortcut = SubResource("Shortcut_tncji")
+icon = ExtResource("4_pa3hx")
+flat = true
+expand_icon = true
 
-[node name="TextureRect" type="TextureRect" parent="WholeScreen/CenterContainer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="PowerupProgress" type="TextureProgressBar" parent="WholeScreen/CenterContainer"]
 layout_mode = 2
-texture = ExtResource("4_pa3hx")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="WholeScreen/CenterContainer"]
-layout_mode = 2
+mouse_filter = 2
+step = 0.0
 value = 50.0
-rounded = true
 fill_mode = 4
 texture_under = ExtResource("5_iyl0c")
 texture_progress = ExtResource("6_gvfcl")

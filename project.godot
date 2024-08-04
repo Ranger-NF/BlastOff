@@ -30,6 +30,7 @@ SkinManager="*res://Managers/skin_manager.gd"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 LeaderboardManager="*res://Managers/leaderboard_manager.gd"
 SpawnManager="*res://Managers/spawn_manager.gd"
+PowerupManager="*res://Managers/powerup_manager.gd"
 
 [display]
 

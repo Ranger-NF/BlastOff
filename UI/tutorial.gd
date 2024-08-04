@@ -19,6 +19,7 @@ enum {
 }
 
 func _ready() -> void:
+    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
     UiManager.show_tutorial.connect(show_tutorial)
     self.hide()
     left_tutorial.hide()
@@ -26,6 +27,7 @@ func _ready() -> void:
     objective_label.hide()
 
 func show_tutorial() -> void:
+    self.mouse_filter = Control.MOUSE_FILTER_PASS
     self.show()
     initial_rocket_speed = GameManager.rocket_speed
     GameManager.emit_signal("rocket_speed_changed", 100)
@@ -74,6 +76,7 @@ func _physics_process(_delta: float) -> void:
             _check_tutorial_status()
 
 func _on_tutorial_finished() -> void:
+    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
     GameManager.emit_signal("rocket_speed_changed", initial_rocket_speed)
     objective_label.hide()
 

@@ -8,8 +8,6 @@ signal ordered_skin_reload(color: Texture, texture: Texture)
 
 signal bought_new_skin(skin_type: int)
 
-signal powerup_activated(powerup_type: int)
-
 const ROCKET_COLOR_DIR: String = "res://Player/Custom/Colors/"
 const ROCKET_TEXTURE_DIR: String = "res://Player/Custom/Textures/"
 
