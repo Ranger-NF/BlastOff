@@ -88,7 +88,6 @@ func setup_powerup_button(powerup_type: int) -> void:
 
 func deplete_powerup(delta: float) -> void:
     current_powerup_usage -= PowerupManager.POWERUP_USAGE_RATE.get(PowerupManager.current_powerup_stage) * delta
-    print(PowerupManager.POWERUP_USAGE_RATE.get(PowerupManager.current_powerup_stage))
     powerup_progress.value = current_powerup_usage
 
     if powerup_progress.value <= 0:
