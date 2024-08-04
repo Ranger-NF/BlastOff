@@ -41,6 +41,10 @@ func _input(event: InputEvent) -> void:
                 else:
                     GameManager.is_left_button_pressed = false
 
+            else:
+                _check_keyboard_input(event)
+
+
         UiManager.CONTROL_TYPES.FOLLOW:
             # Type - Follow: Determines with respect to the rocket, if pressed on the right side of the rocket, right button is pressed
             if is_pressed_on_screen:
@@ -64,3 +68,16 @@ func _input(event: InputEvent) -> void:
                     GameManager.is_right_button_pressed = false
                 else:
                     GameManager.is_left_button_pressed = false
+
+            else:
+                _check_keyboard_input(event)
+
+func _check_keyboard_input(input: InputEvent) -> void:
+    if input.is_action_pressed("move_left"):
+        switch_pressed_button(LEFT)
+    elif input.is_action_pressed("move_right"):
+        switch_pressed_button(RIGHT)
+    elif input.is_action_released("move_left"):
+        GameManager.is_left_button_pressed = false
+    elif input.is_action_released("move_right"):
+        GameManager.is_right_button_pressed = false
