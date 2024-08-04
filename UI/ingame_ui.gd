@@ -94,7 +94,7 @@ func deplete_powerup(delta: float) -> void:
         PowerupManager.emit_signal("powerup_depleted")
 
 # To display powerup uage on button, when the powerup is used in any other methods (like shortcut keys)
-func _on_use_powerup() -> void:
+func _on_use_powerup(_type: int) -> void:
     if not powerup_button.button_pressed:
         powerup_button.button_pressed = true
 

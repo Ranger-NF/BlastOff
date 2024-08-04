@@ -27,6 +27,8 @@ var current_active_powerup: int
 var current_powerup_stage: int = POWERUP_STAGES.UNUSED
 
 func _ready() -> void:
+    GameManager.game_over.connect(func (): self.emit_signal("powerup_depleted"))
+
     self.collected_powerup.connect(_on_collected_powerup)
     self.use_powerup.connect(_on_use_powerup)
     self.stop_powerup.connect(_on_stop_powerup)
