@@ -90,17 +90,19 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
     if hit_sound.playing:
         await hit_sound.finished
 
-    $CPUParticles2D.emitting = false
     free_obstacle()
 
 func _on_hit() -> void:
-    collision_shape.set_deferred("disabled", true)
     $CPUParticles2D.emitting = true
     hit_sound.play()
-    if self.has_method("_after_hit"): self.call("_after_hit")
+    collision_shape.set_deferred("disabled", true)
+
+    if not self.is_queued_for_deletion() and self.has_method("_after_hit"):
+        self.call("_after_hit")
 
 func _on_game_over() -> void:
-    free_obstacle()
+    free_obstacle(true)
 
-func free_obstacle() -> void:
-    SpawnManager.make_obstacle_free(self, obstacle_type)
+func free_obstacle(_is_game_over: bool = false) -> void:
+    if not self.is_queued_for_deletion():
+        SpawnManager.make_obstacle_free(self, obstacle_type)

@@ -87,7 +87,7 @@ func _spin_slightly() -> void:
 
     spin_tween = create_tween()
 
-    while true:
+    while not self.is_queued_for_deletion():
         spin_tween.tween_property(self, "rotation", deg_to_rad(360), 5).set_ease(Tween.EASE_IN)
         if not self.is_inside_tree():
             spin_tween.kill()

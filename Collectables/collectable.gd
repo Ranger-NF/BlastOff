@@ -89,7 +89,10 @@ func _on_star_collected_sound_finished() -> void:
 
 func free_obstacle() -> void:
     can_glow = false
-    SpawnManager.make_obstacle_free(self, collectable_type)
+    can_sway = false
+
+    if not self.is_queued_for_deletion():
+        SpawnManager.make_obstacle_free(self, collectable_type)
 
 func _on_collection() -> void: # To be overriden in each collectable's script
     return
