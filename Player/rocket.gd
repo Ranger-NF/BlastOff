@@ -232,10 +232,14 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
         if area.has_method("_on_hit"): # Calls the function present on the obstacle / collectable
             area.call("_on_hit")
 
-        if area.is_in_group("obstacles"):
+        if area is Obstacle:
             if not is_rocket_invincible:
                 emit_signal("player_hurt")
             else:
+                if area.obstacle_type == SpawnManager.BIRD:
+                    PowerupManager.emit_signal("reduce_powerup_lifetime", 10)
+                elif  area.obstacle_type == SpawnManager.SATELLITE:
+                    PowerupManager.emit_signal("reduce_powerup_lifetime", 50)
                 _expand_shield() # Make the shield shine
 
 

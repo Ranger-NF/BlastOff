@@ -14,6 +14,8 @@ const STAR_VISIBLE_TIME: float = 5
 @onready var powerup_button: Button = $WholeScreen/CenterContainer/PowerupButton
 @onready var powerup_progress: TextureProgressBar = $WholeScreen/CenterContainer/PowerupProgress
 
+var powerup_reduction_tween: Tween
+
 var is_warning_on: bool = false
 
 var is_powerup_depleting: bool = true
@@ -28,6 +30,8 @@ func _ready() -> void:
 
     PowerupManager.use_powerup.connect(_on_use_powerup)
     PowerupManager.stop_powerup.connect(_on_stop_powerup)
+
+    PowerupManager.reduce_powerup_lifetime.connect(_on_reduce_powerup_lifetime)
 
     powerup_button.toggled.connect(_on_powerup_button_toggled)
 
@@ -88,10 +92,27 @@ func setup_powerup_button(powerup_type: int) -> void:
 
 func deplete_powerup(delta: float) -> void:
     current_powerup_usage -= PowerupManager.POWERUP_USAGE_RATE.get(PowerupManager.current_powerup_stage) * delta
-    powerup_progress.value = current_powerup_usage
+    clamp(current_powerup_usage, 0, 100)
 
-    if powerup_progress.value <= 0:
+    powerup_progress.value = current_powerup_usage
+    if powerup_progress.value == 0:
         PowerupManager.emit_signal("powerup_depleted")
+
+
+func _on_reduce_powerup_lifetime(percent_reduction: int = 0):
+
+    const FADE_LIFETIME: float = 0.2
+
+    if powerup_reduction_tween and powerup_reduction_tween.is_running():
+        powerup_reduction_tween.stop()
+        powerup_reduction_tween.kill()
+
+    powerup_reduction_tween = create_tween().set_parallel(true)
+
+    powerup_reduction_tween.tween_property(powerup_progress, "modulate", Color.RED,FADE_LIFETIME)
+    powerup_reduction_tween.tween_property(powerup_progress, "modulate", Color.WHITE, FADE_LIFETIME).set_delay(FADE_LIFETIME)
+
+    current_powerup_usage -= percent_reduction
 
 # To display powerup uage on button, when the powerup is used in any other methods (like shortcut keys)
 func _on_use_powerup(_type: int) -> void:
