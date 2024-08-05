@@ -26,6 +26,15 @@ func _input(event: InputEvent) -> void:
     var is_pressed_on_screen: bool = (event is InputEventScreenTouch and event.is_pressed()) or (event is InputEventScreenDrag)
     var is_released_from_screen: bool = event is InputEventScreenTouch and event.is_released()
 
+    if event is InputEventMouseButton and event.is_double_click():
+        match PowerupManager.current_powerup_stage:
+            PowerupManager.POWERUP_STAGES.INACTIVE:
+                return
+            PowerupManager.POWERUP_STAGES.IN_USE:
+                PowerupManager.emit_signal("stop_powerup")
+            PowerupManager.POWERUP_STAGES.UNUSED:
+                PowerupManager.emit_signal("use_powerup", PowerupManager.current_active_powerup)
+
     match UiManager.current_control_type:
         UiManager.CONTROL_TYPES.GUIDE:
             # Type - Guide: Set the button to the half of the screen where the player has pressed. ie, if pressed on the right side, right button is pressed

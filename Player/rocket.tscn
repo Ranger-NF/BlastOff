@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1tug87fw4xs"]
+[gd_scene load_steps=13 format=3 uid="uid://c1tug87fw4xs"]
 
 [ext_resource type="Script" path="res://Player/rocket.gd" id="1_7uc35"]
 [ext_resource type="Texture2D" uid="uid://dsjy7ft70oyse" path="res://Player/flame_particle.svg" id="1_dksgl"]
@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c26mbporxv5pf" path="res://Player/Custom/Colors/yellow.svg" id="4_0xgas"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="5_b3771"]
 [ext_resource type="Texture2D" uid="uid://b3xobq703abg2" path="res://Player/Powerups/rocket_shield.png" id="7_nkkoi"]
-[ext_resource type="AudioStream" uid="uid://b53ei6b451t0r" path="res://Player/Powerups/shield_toggled.mp3" id="8_cprar"]
-[ext_resource type="AudioStream" uid="uid://b56a6k5sl47u1" path="res://Player/Powerups/boost_toggled.mp3" id="9_v1et2"]
+[ext_resource type="AudioStream" uid="uid://bj6nx8lygatlq" path="res://Player/Powerups/boost_toggled.wav" id="8_bnygg"]
 
 [sub_resource type="Curve" id="Curve_7spor"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -117,10 +116,9 @@ wait_time = 3.0
 one_shot = true
 
 [node name="ShieldToggleAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_cprar")
 
 [node name="BoostToggleAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_v1et2")
+stream = ExtResource("8_bnygg")
 bus = &"Sfx"
 
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
