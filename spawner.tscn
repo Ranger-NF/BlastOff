@@ -17,9 +17,13 @@ position = Vector2(20, 0)
 
 [node name="BirdTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [node name="StarTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="SatelliteTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PowerupTImer" type="Timer" parent="."]
+one_shot = true

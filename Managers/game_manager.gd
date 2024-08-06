@@ -13,6 +13,10 @@ signal rocket_has_reached_target
 
 signal level_up
 
+# To control spawning
+signal stop_spawning # Called from UiManager
+signal start_spawning
+
 enum DIFFICULTY_LEVELS {
     EASY,
     NORMAL,
@@ -42,6 +46,7 @@ func _ready() -> void:
     self.level_up.connect(_increase_difficulty)
     self.rocket_speed_changed.connect(_on_rocket_speed_changed)
     self.game_started.connect(_reset_values)
+    self.game_over.connect(_on_game_over)
 
     DataManager.data_reloaded.connect(_reload_data)
 
@@ -58,3 +63,5 @@ func _reset_values() -> void:
 func _reload_data() -> void:
     current_difficulty_level = DataManager.gameplay.current_difficulty
 
+func _on_game_over() -> void:
+    self.emit_signal("stop_spawning")

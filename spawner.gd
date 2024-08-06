@@ -7,13 +7,16 @@ extends Path2D
 @onready var star_timer: Timer = $StarTimer
 @onready var powerup_timer: Timer = $PowerupTImer
 
+# Timer range
+const POWERUP_COOLDOWN: Vector2 = Vector2(10,17) # (min, max)
+
 const OBSTACLE_SPAWN_MARGIN: float = 20
 
 func _ready() -> void:
     GameManager.screen_size_updated.connect(_on_screen_size_updated)
 
-    GameManager.game_started.connect(restart_game)
-    GameManager.game_over.connect(_on_game_over)
+    GameManager.start_spawning.connect(_on_start_spawning)
+    GameManager.stop_spawning.connect(_on_stop_spawning)
 
     bird_timer.timeout.connect(_on_bird_timer_timeout)
     star_timer.timeout.connect(_on_star_timer_timeout)
@@ -45,13 +48,13 @@ func spawn_obstacle(obstacle_type: int):
 
     add_child(obstacle_node)
 
-func _on_game_over() -> void:
+func _on_stop_spawning() -> void:
     bird_timer.stop()
     satellite_timer.stop()
     star_timer.stop()
     powerup_timer.stop()
 
-func restart_game() -> void:
+func _on_start_spawning() -> void:
     bird_timer.start(0.5)
     star_timer.start(1)
     satellite_timer.start(0.75)
@@ -84,4 +87,4 @@ func _on_powerup_timer_timeout() -> void:
         spawn_obstacle(SpawnManager.BOOST)
 
     if powerup_timer.is_stopped():
-        powerup_timer.start(randf_range(2, 4))
+        powerup_timer.start(randf_range(POWERUP_COOLDOWN.x, POWERUP_COOLDOWN.y))

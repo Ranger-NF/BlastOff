@@ -160,6 +160,8 @@ func _check_tutorial_need() -> void:
     if need_tutorial:
         emit_signal("show_tutorial")
         need_tutorial = false
+    else:
+        GameManager.emit_signal("start_spawning")
 
 func _wait_till_transition() -> void:
     emit_signal("show_transition")

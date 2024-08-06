@@ -7,7 +7,7 @@ extends Control
 
 var initial_rocket_speed: float # For accessing after tutorial is done
 
-var is_tutorial_finished: bool = true
+var is_basic_tutorial_finished: bool = true
 var next_needed_input: int # Either left or right
 var current_stage: int
 var previous_stage: int = -1
@@ -15,7 +15,8 @@ var previous_stage: int = -1
 enum {
     RIGHT,
     LEFT,
-    END,
+    GAME_START,
+    POWERUP
 }
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
     left_tutorial.hide()
     right_tutorial.hide()
     objective_label.hide()
+    $VBoxContainer/PowerupTip.hide()
 
 func show_tutorial() -> void:
     self.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -32,7 +34,7 @@ func show_tutorial() -> void:
     initial_rocket_speed = GameManager.rocket_speed
     GameManager.emit_signal("rocket_speed_changed", 100)
     current_stage = RIGHT # Initializing
-    is_tutorial_finished = false
+    is_basic_tutorial_finished = false
     _check_tutorial_status()
 
 func _check_tutorial_status() -> void:
@@ -48,35 +50,40 @@ func _check_tutorial_status() -> void:
                 left_tutorial.show()
                 right_tutorial.hide()
                 objective_label.hide()
-            END: # Shows objective label and in the nxt step, make it fade
+            GAME_START: # Shows objective label and in the nxt step, make it fade
                 objective_label.show()
                 right_tutorial.hide()
                 left_tutorial.hide()
 
                 await get_tree().create_timer(3).timeout
 
-                is_tutorial_finished = true
-
                 $VBoxContainer/ControlTip.show()
                 get_tree().create_timer(1.5).timeout.connect(func (): $VBoxContainer/ControlTip.hide())
 
-
-                _on_tutorial_finished()
-
+                is_basic_tutorial_finished = true
+                _on_basic_tutorial_finished()
+            POWERUP:
+                await PowerupManager.collected_powerup
+                $VBoxContainer/PowerupTip.show()
+                await PowerupManager.use_powerup
+                $VBoxContainer/PowerupTip.hide()
             _:
                 previous_stage = current_stage
 
 func _physics_process(_delta: float) -> void:
-    if not is_tutorial_finished:
+    if not is_basic_tutorial_finished:
         if GameManager.is_right_button_pressed and current_stage == RIGHT:
             current_stage = LEFT
             _check_tutorial_status()
         elif GameManager.is_left_button_pressed and current_stage == LEFT:
-            current_stage = END
+            current_stage = GAME_START
             _check_tutorial_status()
 
-func _on_tutorial_finished() -> void:
+func _on_basic_tutorial_finished() -> void:
     self.mouse_filter = Control.MOUSE_FILTER_IGNORE
     GameManager.emit_signal("rocket_speed_changed", initial_rocket_speed)
+    GameManager.emit_signal("start_spawning")
     objective_label.hide()
 
+    current_stage = POWERUP
+    _check_tutorial_status()

@@ -38,9 +38,21 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "Survive
-as long as you can!
+as long as you can!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-Good Luck."
+[node name="PowerupTip" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "Double tap
+to activate powerup"
 horizontal_alignment = 1
 vertical_alignment = 1
 
