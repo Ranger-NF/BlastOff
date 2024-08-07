@@ -4,10 +4,12 @@ How to Play?
 
 - Touch/Press on the right side to move to right
 - Touch/Press on the left side to move to left
+- Double tap to activate collected powerups
 - Avoid all obstacles
+- Collect powerups
 - Survive and get high scores
 - Customize your skin to you liking!!
-    
+
 Features:
 - Open source
 - Fully free with no ads

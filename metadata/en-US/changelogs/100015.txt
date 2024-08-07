@@ -1,0 +1,10 @@
+New:
+- ⚡ Powerups - Shield and Boost  
+- 🌨 Particles when obstacles (Bird and Satellite) are hit  
+- 📳 Screenshake on specific events  
+- ⌨ Keyboard controls (`a`, `s` and `space`)
+
+Changes:
+- 💁 Changes in tutorial
+  
+**Full Changelog**: https://github.com/Ranger-NF/BlastOff/compare/1.4.1...1.5.0
