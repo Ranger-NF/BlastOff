@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnm0pbmrsqbp"]
+[gd_scene load_steps=9 format=3 uid="uid://cnm0pbmrsqbp"]
 
 [ext_resource type="PackedScene" uid="uid://d0h7ptlod7ywd" path="res://UI/Buttons/game_button.tscn" id="1_524br"]
 [ext_resource type="Script" path="res://UI/start_menu.gd" id="1_p6swl"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://cei1qxr1sela7" path="res://Fonts/Rubik-Bold.ttf" id="2_so53u"]
 [ext_resource type="Texture2D" uid="uid://t4tipga3a8c7" path="res://Player/Custom/Colors/blue.svg" id="3_vmfyq"]
 [ext_resource type="Texture2D" uid="uid://xo3au7rockv7" path="res://Player/Custom/Textures/apollo.svg" id="4_exd06"]
+[ext_resource type="Texture2D" uid="uid://b187l17xsd3mq" path="res://UI/help_button.svg" id="8_oyxv5"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -122,7 +123,25 @@ button_text = "Change Skin"
 pressed_signal_name = "change_skin_button_pressed"
 font_size = 32
 
-[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
+alignment = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HelpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+texture_normal = ExtResource("8_oyxv5")
+stretch_mode = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HelpButton" to="." method="_on_help_button_pressed"]

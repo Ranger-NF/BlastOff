@@ -4,6 +4,7 @@ signal change_skin_button_pressed
 signal statistics_button_pressed
 signal play_button_pressed
 signal main_menu_button_pressed
+
 @onready var color_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin/Color
 @onready var texture_overlay_node: TextureRect = $MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RocketSkin/Texture
 
@@ -40,3 +41,6 @@ func _on_refresh(_node: Node = null) -> void:
 func _update_current_skin(_node: Node = null) -> void:
     color_overlay_node.texture = SkinManager.current_skin_textures.color
     texture_overlay_node.texture = SkinManager.current_skin_textures.texture
+
+func _on_help_button_pressed() -> void:
+    UiManager.emit_signal("opened_guide")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=15 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
@@ -76,21 +76,6 @@ action = &"TogglePowerup"
 
 [sub_resource type="Shortcut" id="Shortcut_tncji"]
 events = [SubResource("InputEventAction_3olf4")]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqqb6"]
-bg_color = Color(0.17881, 0.17881, 0.17881, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
 
 [node name="ingame_ui" type="Control"]
 layout_mode = 3
@@ -193,13 +178,6 @@ value = 50.0
 fill_mode = 4
 texture_under = ExtResource("5_iyl0c")
 texture_progress = ExtResource("6_gvfcl")
-
-[node name="Shortcut" type="Label" parent="WholeScreen"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_dqqb6")
-text = "SPACE"
-horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="WholeScreen"]
 layout_mode = 2

@@ -9,6 +9,7 @@ signal opened_settings
 signal opened_credits
 signal opened_skin_selector
 signal opened_statistics
+signal opened_guide
 
 signal first_startup
 signal show_tutorial
@@ -75,7 +76,8 @@ enum MENU_IDS {
         INGAME_UI,
         GAME_OVER,
         SKIN_SELECTOR,
-        STATISTICS
+        STATISTICS,
+        GUIDE
     }
 
 var menus = {
@@ -88,6 +90,7 @@ var menus = {
     MENU_IDS.CONTROLS: preload("res://UI/controls.tscn").instantiate(),
     MENU_IDS.SKIN_SELECTOR: preload("res://UI/skin_selector.tscn").instantiate(),
     MENU_IDS.STATISTICS: preload("res://UI/statistics.tscn").instantiate(),
+    MENU_IDS.GUIDE: preload("res://UI/guide.tscn").instantiate(),
 }
 var need_tutorial: bool = false
 
@@ -108,6 +111,7 @@ func _ready() -> void:
     self.opened_credits.connect(spawn_menu.bind(MENU_IDS.CREDITS))
     self.opened_skin_selector.connect(spawn_menu.bind(MENU_IDS.SKIN_SELECTOR))
     self.opened_statistics.connect(spawn_menu.bind(MENU_IDS.STATISTICS))
+    self.opened_guide.connect(spawn_menu.bind(MENU_IDS.GUIDE))
 
     self.triggered_gamearea_setup.connect(_spawn_ingame_uis)
     self.triggered_menu_ui_setup.connect(spawn_menu.bind(MENU_IDS.GAME_OVER))

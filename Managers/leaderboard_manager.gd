@@ -123,7 +123,6 @@ func _setup_filter_word_list() -> PackedStringArray:
     return file_content.split("\n")
 
 func _process_new_display_name(new_name: String):
-    # TODO: Add bad word filter
     var word_status = _filter_word(new_name)
 
     if word_status != DISPLAY_NAME_ERRORS.NONE:
