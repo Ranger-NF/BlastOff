@@ -38,6 +38,7 @@
 
 - **Touch/Press on the right side** to move to right
 - **Touch/Press on the left side** to move to left
+- **Double tap** to activate PowerUp
 - Avoid all obstacles
 - Survive and get high scores
 - Customize your skin to you liking!!
@@ -46,21 +47,20 @@
 
 - Infinitely scrolling ♾
 - Two types of obstacle: Bird & Satellite 🚏
+- PowerUps: Shield & Boost ⚡
 - Collectables: Star 🌟
 - Customization: Paints & Sticker 🎨
 
 ## 📸 Ingame Screenshots
 
 <p align="center">
-    <img src="Docs/Screenshots/v1.2.0/main-menu.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/ingame.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/death-screen.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/settings.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/credits.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/paint-selection.png" width="auto" height="400">  
-    <img src="Docs/Screenshots/v1.2.0/sticker-selection.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/main-menu.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/ingame-1.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/ingame-2.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/settings.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/paint-selection.png" width="auto" height="400">  
+    <img src="Docs/Screenshots/v1.5.0/sticker-selection.png" width="auto" height="400">  
 </p>
-
 ## ✨ Credits
 
 - Art style inspired from [Goodgis](https://goodgis.fun/)
