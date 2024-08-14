@@ -20,13 +20,21 @@ enum {
 }
 
 func _ready() -> void:
-    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    UiManager.show_tutorial.connect(show_tutorial)
+    UiManager.show_basic_tutorial.connect(show_tutorial)
+    UiManager.show_powerup_tutorial.connect(_on_show_powerup_tutorial)
+
     self.hide()
     left_tutorial.hide()
     right_tutorial.hide()
     objective_label.hide()
     $VBoxContainer/PowerupTip.hide()
+
+    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _on_show_powerup_tutorial() -> void:
+    self.show()
+    current_stage = POWERUP
+    _check_tutorial_status()
 
 func show_tutorial() -> void:
     self.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -65,8 +73,14 @@ func _check_tutorial_status() -> void:
             POWERUP:
                 await PowerupManager.collected_powerup
                 $VBoxContainer/PowerupTip.show()
+
+                GameManager.game_over.connect(func (): $VBoxContainer/PowerupTip.hide()) # Fallback - Not the ideal solution
+
                 await PowerupManager.use_powerup
                 $VBoxContainer/PowerupTip.hide()
+                UiManager.need_powerup_tutorial = false
+
+                self.hide()
             _:
                 previous_stage = current_stage
 
