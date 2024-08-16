@@ -130,8 +130,9 @@ func sway(sway_direction: int, delta: float) -> void:
         # if last rotation was opposite to current, set to zero then, sway to current side
         if last_sway_direction != sway_direction and self.rotation != 0:
             if not rotation_reset_tween or not rotation_reset_tween.is_running() :
-                rotation_reset_tween = create_tween()
+                rotation_reset_tween = create_tween().set_parallel(true)
                 rotation_reset_tween.tween_property(self, "rotation", 0, 0.1)
+                rotation_reset_tween.tween_property(self, "skew", 0, 0.1)
         else:
             if rotation_reset_tween:
                 rotation_reset_tween.stop()
@@ -139,10 +140,14 @@ func sway(sway_direction: int, delta: float) -> void:
 
             last_sway_direction = sway_direction
             self.rotate(sway_direction * deg_to_rad(ROTATION_PER_FRAME * delta))
+
+            var skew_amount: float = deg_to_rad(sway_direction * 8)
+            self.skew = skew_amount
     else:
         if not rotation_reset_tween or not rotation_reset_tween.is_running() :
-            rotation_reset_tween = create_tween()
+            rotation_reset_tween = create_tween().set_parallel(true)
             rotation_reset_tween.tween_property(self, "rotation", 0, 0.1)
+            rotation_reset_tween.tween_property(self, "skew", 0, 0.1)
 
 func _free_fall(delta) -> void:
     self.position.y += (GameManager.rocket_speed * delta)
