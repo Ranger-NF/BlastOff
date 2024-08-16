@@ -102,6 +102,8 @@ var current_menu: Node
 
 var current_control_type: int = CONTROL_TYPES.GUIDE
 
+var star_count_global_pos: Vector2 # To animate star collection
+
 func _ready() -> void:
     self.first_startup.connect(func () -> void: need_basic_tutorial = true)
     GameManager.game_started.connect(_check_tutorial_need)

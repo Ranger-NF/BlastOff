@@ -49,7 +49,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     score_label.text = "{score}".format({"score": StatManager.score_gained})
-
+    UiManager.star_count_global_pos = $WholeScreen/ScoreBox/Panel/VBoxContainer/StarCount.global_position
     if is_powerup_depleting:
         deplete_powerup(delta)
 
