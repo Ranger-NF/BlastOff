@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgr81875a4doc"
-path="res://.godot/imported/powerup_progress_bar_back.svg-6d07433b81274df4cb469e132523026e.ctex"
+uid="uid://dk1sjdi24g681"
+path="res://.godot/imported/powerup_progress_bar_in_use.svg-03c0a1866dd9bec8499db82cae226c44.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Collectables/powerup_progress_bar_back.svg"
-dest_files=["res://.godot/imported/powerup_progress_bar_back.svg-6d07433b81274df4cb469e132523026e.ctex"]
+source_file="res://Collectables/powerup_progress_bar_in_use.svg"
+dest_files=["res://.godot/imported/powerup_progress_bar_in_use.svg-03c0a1866dd9bec8499db82cae226c44.ctex"]
 
 [params]
 
