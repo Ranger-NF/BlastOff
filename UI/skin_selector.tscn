@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_fjdu4"]
 [ext_resource type="Texture2D" uid="uid://1e2q5kbsgp8i" path="res://UI/Buttons/nav_button.svg" id="4_ugj72"]
 [ext_resource type="Texture2D" uid="uid://bi25htbpjfklv" path="res://UI/Buttons/nav_button_pressed.svg" id="5_he8ef"]
-[ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/star.svg" id="5_x6cwi"]
+[ext_resource type="Texture2D" uid="uid://cpdsqo5eugj6w" path="res://Collectables/Star/star.svg" id="5_x6cwi"]
 [ext_resource type="Texture2D" uid="uid://blt4uox6082cn" path="res://UI/Buttons/nav_button_hover.svg" id="6_jy2i7"]
 [ext_resource type="AudioStream" uid="uid://cu8ikpra35rw0" path="res://UI/Skin Selector/repainting.wav" id="7_dhw6y"]
 [ext_resource type="PackedScene" uid="uid://bdjjpk7wmljd5" path="res://UI/rocket_skin.tscn" id="7_gv3ki"]
