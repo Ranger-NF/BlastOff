@@ -29,7 +29,7 @@ var current_powerup_stage: int = POWERUP_STAGES.UNUSED
 var is_newly_collected_powerup_used: bool: # For statistical calculation (Determine no. of unique powerups used)
     set(value):
         if value == true:
-            pass
+            StatManager.emit_signal("used_unique_powerup")
 
         is_newly_collected_powerup_used = value
 
