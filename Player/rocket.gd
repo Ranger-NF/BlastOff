@@ -1,8 +1,6 @@
 extends Area2D
 
-#signal rocket_shield_toggled(is_active: bool)
-#signal shield_warning_ended
-#signal rocket_boost_active(is_active: bool)
+signal player_hurt
 
 const MAX_SPEED: float = 100
 const ACCELERATION: float = 70
@@ -39,7 +37,6 @@ const SHIELD_SFX: Dictionary = {
 @onready var boost_audio_node: AudioStreamPlayer = $BoostToggleAudio
 @onready var shield_audio_node: AudioStreamPlayer = $ShieldToggleAudio
 
-signal player_hurt
 
 var recently_collided_obstacles: Array[Node2D] = []
 
@@ -299,11 +296,12 @@ func _on_stop_powerup():
 func activate_shield() -> void:
     powerup_overlay_node.modulate = Color.WHITE
 
+    if not is_rocket_invincible:
+        shield_audio_node.stream = SHIELD_SFX.get(SHIELD_STAGES.ON)
+        shield_audio_node.play()
+
     is_rocket_invincible = true
     powerup_overlay_node.texture = SHIELD_TEXTURE
-
-    shield_audio_node.stream = SHIELD_SFX.get(SHIELD_STAGES.ON)
-    shield_audio_node.play()
 
     powerup_overlay_node.show()
 
@@ -322,36 +320,11 @@ func _expand_shield() -> void:
     shield_scale_tween.tween_property(powerup_overlay_node, "scale", shrinking_scale, single_scale_lifetime)
     shield_scale_tween.tween_property(powerup_overlay_node, "scale", Vector2(original_shield_scale, original_shield_scale), single_scale_lifetime).set_delay(single_scale_lifetime)
 
-func _indicate_shield_end() -> void:
-    const TIMES_TO_BLINK: float = 3
-
-    const FADE_LIFETIME: float = 0.3
-
-    if shield_ending_fade and shield_ending_fade.is_running():
-        shield_ending_fade.stop()
-        shield_ending_fade.kill()
-
-    shield_ending_fade = create_tween().set_parallel(true)
-
-    var times_blinked: int = 0
-    var tween_turn_num: int = 0 # To calculate delay
-
-    while times_blinked < TIMES_TO_BLINK:
-        shield_ending_fade.tween_property(powerup_overlay_node, "modulate", Color.RED,FADE_LIFETIME).set_delay(tween_turn_num * FADE_LIFETIME)
-        tween_turn_num += 1
-        shield_ending_fade.tween_property(powerup_overlay_node, "modulate", Color.WHITE, FADE_LIFETIME).set_delay(tween_turn_num * FADE_LIFETIME)
-        tween_turn_num += 1
-
-        times_blinked += 1
-
-    await shield_ending_fade.finished
-
-    if $ShieldTimer.is_stopped(): # Another shield powerup has not been taken
-        emit_signal("shield_warning_ended")
-
 func deactivate_shield() -> void:
-    shield_audio_node.stream = SHIELD_SFX.get(SHIELD_STAGES.OFF)
-    shield_audio_node.play()
+    if is_rocket_invincible:
+        shield_audio_node.stream = SHIELD_SFX.get(SHIELD_STAGES.OFF)
+        shield_audio_node.play()
+
     powerup_overlay_node.hide()
     is_rocket_invincible = false
 
