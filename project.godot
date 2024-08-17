@@ -26,11 +26,11 @@ StatManager="*res://Managers/stat_manager.gd"
 SoundManager="*res://Managers/sound_manager.gd"
 UiManager="*res://Managers/ui_manager.gd"
 DataManager="*res://Managers/data_manager.gd"
+PowerupManager="*res://Managers/powerup_manager.gd"
 SkinManager="*res://Managers/skin_manager.gd"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 LeaderboardManager="*res://Managers/leaderboard_manager.gd"
 SpawnManager="*res://Managers/spawn_manager.gd"
-PowerupManager="*res://Managers/powerup_manager.gd"
 
 [display]
 
