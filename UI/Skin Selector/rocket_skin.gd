@@ -50,8 +50,6 @@ func _make_texture_shine():
     shine_tween.tween_property(sticker_overlay_node.material, "shader_parameter/shine_progress", 0.7, SHINE_TIME/2)
     shine_tween.tween_property(sticker_overlay_node.material, "shader_parameter/shine_progress", 0.1, SHINE_TIME/2).set_delay(SHINE_TIME/2)
 
-
-
 func _preview_color(color_texture:Texture):
     paint_overlay_node.texture = color_texture
 

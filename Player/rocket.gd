@@ -103,7 +103,6 @@ func _ready() -> void:
     PowerupManager.stop_powerup.connect(_on_stop_powerup)
 
     self.player_hurt.connect(_on_hurt)
-    #self.shield_warning_ended.connect(_deactivate_shield)
 
     initial_flame_speed = GameManager.rocket_speed
 
