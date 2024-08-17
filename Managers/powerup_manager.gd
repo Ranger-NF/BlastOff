@@ -13,7 +13,7 @@ enum POWERUP_STAGES {
     IN_USE
 }
 
-const POWERUP_USAGE_RATE: Dictionary = { # as in % /s
+const POWERUP_USAGE_RATE: Dictionary = { # as in percentage use per second
     POWERUP_STAGES.UNUSED: 2,
     POWERUP_STAGES.IN_USE: 15
 }
