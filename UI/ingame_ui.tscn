@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=16 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
 [ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
@@ -71,6 +71,8 @@ corner_radius_bottom_left = 50
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_324iy"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j3kap"]
+
 [sub_resource type="InputEventAction" id="InputEventAction_3olf4"]
 action = &"TogglePowerup"
 
@@ -98,6 +100,7 @@ autoplay = "default"
 frame_progress = 0.989522
 
 [node name="WholeScreen" type="VBoxContainer" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,15 +153,20 @@ theme_override_font_sizes/font_size = 64
 text = "Score"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="WholeScreen"]
+[node name="HBoxContainer" type="HBoxContainer" parent="WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="WholeScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="WholeScreen/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 3
 
-[node name="PowerupButton" type="Button" parent="WholeScreen/CenterContainer"]
+[node name="HSeparator2" type="HSeparator" parent="WholeScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_j3kap")
+
+[node name="PowerupButton" type="Button" parent="WholeScreen/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "SPACE"
@@ -168,18 +176,35 @@ toggle_mode = true
 shortcut = SubResource("Shortcut_tncji")
 icon = ExtResource("4_pa3hx")
 flat = true
+icon_alignment = 1
 expand_icon = true
 
-[node name="PowerupProgress" type="TextureProgressBar" parent="WholeScreen/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="WholeScreen/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-mouse_filter = 2
-step = 0.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="WholeScreen/HBoxContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 value = 50.0
-fill_mode = 4
+rounded = true
+fill_mode = 3
 texture_under = ExtResource("5_iyl0c")
 texture_progress = ExtResource("6_gvfcl")
 
-[node name="Spacer" type="Control" parent="WholeScreen"]
+[node name="VSeparator2" type="VSeparator" parent="WholeScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_j3kap")
+
+[node name="VSeparator3" type="VSeparator" parent="WholeScreen/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_j3kap")
+
+[node name="Control" type="Control" parent="WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.5

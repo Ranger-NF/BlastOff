@@ -70,10 +70,10 @@ func _on_hit() -> void:
     collection_sound_node.play()
 
     $CPUParticles2D.emitting = true
-    star_sptite.hide()
-    back_shine_node.hide()
 
     if collectable_type != SpawnManager.STAR:
+        star_sptite.hide()
+        back_shine_node.hide()
         UiManager.emit_signal("triggered_screen_shake", UiManager.STRENGTH_TYPES.MED)
 
     _on_collection()
@@ -85,7 +85,8 @@ func _on_game_over() -> void:
     free_obstacle()
 
 func _on_star_collected_sound_finished() -> void:
-    free_obstacle()
+    if not collectable_type == SpawnManager.STAR:
+        free_obstacle()
 
 func free_obstacle() -> void:
     can_glow = false

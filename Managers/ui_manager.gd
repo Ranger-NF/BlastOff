@@ -12,7 +12,8 @@ signal opened_statistics
 signal opened_guide
 
 signal first_startup
-signal show_tutorial
+signal show_basic_tutorial
+signal show_powerup_tutorial
 
 # For scene transition
 signal show_transition ## Called when actual gameplay starts
@@ -92,15 +93,19 @@ var menus = {
     MENU_IDS.STATISTICS: preload("res://UI/statistics.tscn").instantiate(),
     MENU_IDS.GUIDE: preload("res://UI/guide.tscn").instantiate(),
 }
-var need_tutorial: bool = false
+
+var need_basic_tutorial: bool = false
+var need_powerup_tutorial: bool = false
 
 var main_scene: Node
 var current_menu: Node
 
 var current_control_type: int = CONTROL_TYPES.GUIDE
 
+var star_count_global_pos: Vector2 # To animate star collection
+
 func _ready() -> void:
-    self.first_startup.connect(func () -> void: need_tutorial = true)
+    self.first_startup.connect(func () -> void: need_basic_tutorial = true)
     GameManager.game_started.connect(_check_tutorial_need)
     DataManager.data_reloaded.connect(_reload_data)
     DataManager.data_got_changed.connect(_reload_data)
@@ -119,6 +124,9 @@ func _ready() -> void:
 
 func _reload_data() -> void:
     current_control_type = DataManager.settings.control_type
+
+    if DataManager.statistics.powerups_used < 1 and not need_basic_tutorial:
+        need_powerup_tutorial = true
 
 
 func spawn_menu(menu_id: int):
@@ -161,11 +169,14 @@ func _deferred_load_menu(menu_id: int):
     emit_signal("remove_transition")
 
 func _check_tutorial_need() -> void:
-    if need_tutorial:
-        emit_signal("show_tutorial")
-        need_tutorial = false
+    if need_basic_tutorial:
+        emit_signal("show_basic_tutorial")
+        need_basic_tutorial = false
     else:
         GameManager.emit_signal("start_spawning")
+
+        if need_powerup_tutorial:
+            emit_signal("show_powerup_tutorial")
 
 func _wait_till_transition() -> void:
     emit_signal("show_transition")

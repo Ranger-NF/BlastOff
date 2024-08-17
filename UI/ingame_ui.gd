@@ -11,8 +11,18 @@ const STAR_VISIBLE_TIME: float = 5
 @onready var score_label = $WholeScreen/ScoreBox/Panel/VBoxContainer/Score
 @onready var warning_sign: AnimatedSprite2D = $WarningSign
 
-@onready var powerup_button: Button = $WholeScreen/CenterContainer/PowerupButton
-@onready var powerup_progress: TextureProgressBar = $WholeScreen/CenterContainer/PowerupProgress
+@onready var powerup_button: Button = $WholeScreen/HBoxContainer/VBoxContainer/PowerupButton
+@onready var powerup_progress: TextureProgressBar = $WholeScreen/HBoxContainer/VBoxContainer/CenterContainer/TextureProgressBar
+
+enum PROGRESS_BAR_TYPES {
+    NORMAL,
+    INUSE
+}
+
+const PROGRESS_BAR_TEXTURES = {
+    PROGRESS_BAR_TYPES.NORMAL: preload("res://Collectables/powerup_progress_bar.svg"),
+    PROGRESS_BAR_TYPES.INUSE: preload("res://Collectables/powerup_progress_bar_in_use.svg")
+}
 
 var powerup_reduction_tween: Tween
 
@@ -39,7 +49,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
     score_label.text = "{score}".format({"score": StatManager.score_gained})
-
+    UiManager.star_count_global_pos = $WholeScreen/ScoreBox/Panel/VBoxContainer/StarCount.global_position
     if is_powerup_depleting:
         deplete_powerup(delta)
 
@@ -73,12 +83,15 @@ func _on_powerup_button_toggled(toggle_state: bool) -> void:
         PowerupManager.emit_signal("stop_powerup")
 
 func disable_powerup() -> void:
+    powerup_progress.texture_progress = PROGRESS_BAR_TEXTURES.get(PROGRESS_BAR_TYPES.NORMAL)
     powerup_progress.value = 0
     current_powerup_usage = powerup_progress.value
 
     powerup_button.disabled = true
 
     is_powerup_depleting = false
+
+    powerup_progress.self_modulate.a = 0.5 # Make it translucent
 
 func setup_powerup_button(powerup_type: int) -> void:
     powerup_button.icon = PowerupManager.POWERUP_ICONS.get(powerup_type)
@@ -89,6 +102,7 @@ func setup_powerup_button(powerup_type: int) -> void:
     powerup_button.disabled = false
 
     is_powerup_depleting = true
+    powerup_progress.self_modulate.a = 1 # Make it opaque
 
 func deplete_powerup(delta: float) -> void:
     current_powerup_usage -= PowerupManager.POWERUP_USAGE_RATE.get(PowerupManager.current_powerup_stage) * delta
@@ -116,9 +130,13 @@ func _on_reduce_powerup_lifetime(percent_reduction: int = 0):
 
 # To display powerup uage on button, when the powerup is used in any other methods (like shortcut keys)
 func _on_use_powerup(_type: int) -> void:
+    powerup_progress.texture_progress = PROGRESS_BAR_TEXTURES.get(PROGRESS_BAR_TYPES.INUSE)
+
     if not powerup_button.button_pressed:
         powerup_button.button_pressed = true
 
 func _on_stop_powerup() -> void:
+    powerup_progress.texture_progress = PROGRESS_BAR_TEXTURES.get(PROGRESS_BAR_TYPES.NORMAL)
+
     if powerup_button.button_pressed:
         powerup_button.button_pressed = false
