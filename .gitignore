@@ -2,5 +2,5 @@
 .godot/
 android/
 
-Builds/
+build/
 *.env
