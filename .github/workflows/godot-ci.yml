@@ -39,7 +39,7 @@ jobs:
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
-          godot --headless --import --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
+          godot --headless --import --export-release 'Linux/X11' ./build/linux/$EXPORT_NAME.x86_64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
