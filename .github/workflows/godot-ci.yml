@@ -52,7 +52,7 @@ jobs:
           path: build/linux
 
   export-android:
-    name: Android release build
+    name: Android Export
 
     container:
       image: barichello/godot-ci:4.2.2
@@ -77,7 +77,7 @@ jobs:
       - name: Adding keystore
         run: |
           echo ${{ secrets.RELEASE_KEYSTORE_BASE64 }} | base64 --decode > /root/release.keystore
-          sed 's@keystore/release=".*"@keystore/release="'/root/release.keystore'"@g' -i export_presets.cfg
+          sed 's@keystore/release=".*"@keystore/release="/root/release.keystore"@g' -i export_presets.cfg
           sed 's@keystore/release_user=".*"@keystore/release_user="'${{ secrets.RELEASE_KEYSTORE_USER }}'"@g' -i export_presets.cfg
           sed 's@keystore/release_password=".*"@keystore/release_password="'${{ secrets.RELEASE_KEYSTORE_PASSWORD }}'"@g' -i export_presets.cfg
 
@@ -107,10 +107,10 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
-      - name: Web Build
+      - name: Web release build
         run: |
           mkdir -v -p build/web
-          godot --headless --verbose --export-release "HTML5" ../build/web/index.html
+          godot --headless --verbose --export-release "Web" ./build/web/index.html
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
