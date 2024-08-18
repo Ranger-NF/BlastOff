@@ -34,12 +34,12 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-          
+
       - name: Adding env file
         run: |
           touch secrets.env
           echo ${{ secrets.SW_API_KEY }} >> .env
-  
+
       - name: Linux release build
         run: |
           mkdir -v -p build/linux
@@ -68,13 +68,13 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-          
+
       - name: Adding env file
         run: |
           touch secrets.env
           echo ${{ secrets.SW_API_KEY }} >> .env
-      
-      - name: Adding keystore 
+
+      - name: Adding keystore
         run: |
           echo ${{ secrets.RELEASE_KEYSTORE_BASE64 }} | base64 --decode > /root/release.keystore
           sed 's@keystore/release=".*"@keystore/release="'/root/release.keystore'"@g' -i export_presets.cfg
@@ -91,8 +91,8 @@ jobs:
         with:
           name: android
           path: build/android
-          
-	  export-web:
+
+    export-web:
       name: Web Export
       runs-on: ubuntu-latest
       container:
@@ -106,21 +106,22 @@ jobs:
           run: |
             mkdir -v -p ~/.local/share/godot/export_templates/
             mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-            
+
         - name: Web Build
           run: |
             mkdir -v -p build/web
             godot --headless --verbose --export-release "HTML5" ../build/web/index.html
-            
+
         - name: Upload Artifact
-          uses: actions/upload-artifact@v1
+          uses: actions/upload-artifact@v4
           with:
             name: web
             path: build/web
+
         - name: Install rsync 📚
           run: |
             apt-get update && apt-get install -y rsync
-            
+
         - name: Deploy to GitHub Pages 🚀
           uses: JamesIves/github-pages-deploy-action@releases/v4
           with:
