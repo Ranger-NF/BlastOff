@@ -3,7 +3,7 @@ extends Node
 signal collected_powerup(powerup_type: int)
 signal use_powerup(powerup_type: int)
 signal stop_powerup
-signal powerup_depletedz
+signal powerup_depleted
 signal reduce_powerup_lifetime(reduction_percent: int) # Values from 0 to 100
 
 enum POWERUP_STAGES {
