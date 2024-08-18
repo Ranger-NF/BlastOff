@@ -39,7 +39,7 @@ jobs:
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
-          timeout 25s godot --headless -e
+          godot --editor --quit --verbose
           godot --headless --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
 
       - name: Upload Artifact
