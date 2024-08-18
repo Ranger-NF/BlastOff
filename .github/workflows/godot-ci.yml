@@ -10,17 +10,14 @@ env:
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main", "actions-test"]
-  pull_request:
-    branches: ["main"]
-
+    branches: actions-test
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  export-android:
+  export-linux:
     name: Linux export
 
     container:
@@ -30,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Setup
         run: |
@@ -41,13 +40,91 @@ jobs:
           touch secrets.env
           echo ${{ secrets.SW_API_KEY }} >> .env
   
-      - name: Linux Build
+      - name: Linux release build
         run: |
           mkdir -v -p build/linux
-          godot --headless --import --export-release 'Linux/X11' ./build/linux/$EXPORT_NAME.x86_64
+          godot --headless --import --export-release "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux
           path: build/linux
+
+  export-android:
+    name: Android release build
+
+    container:
+      image: barichello/godot-ci:4.2.2
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          
+      - name: Adding env file
+        run: |
+          touch secrets.env
+          echo ${{ secrets.SW_API_KEY }} >> .env
+      
+      - name: Adding keystore 
+        run: |
+          echo ${{ secrets.RELEASE_KEYSTORE_BASE64 }} | base64 --decode > /root/release.keystore
+          sed 's@keystore/release=".*"@keystore/release="'/root/release.keystore'"@g' -i export_presets.cfg
+          sed 's@keystore/release_user=".*"@keystore/release_user="'${{ secrets.RELEASE_KEYSTORE_USER }}'"@g' -i export_presets.cfg
+          sed 's@keystore/release_password=".*"@keystore/release_password="'${{ secrets.RELEASE_KEYSTORE_PASSWORD }}'"@g' -i export_presets.cfg
+
+      - name: Android relase build
+        run: |
+          mkdir -v -p build/android
+          godot --headless --verbose --export-release "Android" ./build/android/$EXPORT_NAME.apk
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: build/android
+          
+	  export-web:
+      name: Web Export
+      runs-on: ubuntu-latest
+      container:
+        image: barichello/godot-ci:4.2.2
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            lfs: true
+        - name: Setup
+          run: |
+            mkdir -v -p ~/.local/share/godot/export_templates/
+            mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+            
+        - name: Web Build
+          run: |
+            mkdir -v -p build/web
+            godot --headless --verbose --export-release "HTML5" ../build/web/index.html
+            
+        - name: Upload Artifact
+          uses: actions/upload-artifact@v1
+          with:
+            name: web
+            path: build/web
+        - name: Install rsync 📚
+          run: |
+            apt-get update && apt-get install -y rsync
+            
+        - name: Deploy to GitHub Pages 🚀
+          uses: JamesIves/github-pages-deploy-action@releases/v4
+          with:
+            branch: gh-pages # The branch the action should deploy to.
+            folder: build/web # The folder the action should deploy.
+
+
