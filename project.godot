@@ -46,6 +46,10 @@ window/handheld/orientation=1
 
 enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [gui]
 
 theme/custom_font="res://Fonts/Rubik-Bold.ttf"

@@ -24,6 +24,11 @@ const PROGRESS_BAR_TEXTURES = {
     PROGRESS_BAR_TYPES.INUSE: preload("res://Collectables/powerup_progress_bar_in_use.svg")
 }
 
+const POWERUP_ICONS: Dictionary = {
+    SpawnManager.SHIELD: preload("res://Collectables/Shield/shield_icon.svg"),
+    SpawnManager.BOOST: preload("res://Collectables/Boost/boost_icon.svg")
+}
+
 var powerup_reduction_tween: Tween
 
 var is_warning_on: bool = false
@@ -94,7 +99,7 @@ func disable_powerup() -> void:
     powerup_progress.self_modulate.a = 0.5 # Make it translucent
 
 func setup_powerup_button(powerup_type: int) -> void:
-    powerup_button.icon = PowerupManager.POWERUP_ICONS.get(powerup_type)
+    powerup_button.icon = POWERUP_ICONS.get(powerup_type)
 
     powerup_progress.value = 100
     current_powerup_usage = powerup_progress.value

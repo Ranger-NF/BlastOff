@@ -3,8 +3,7 @@ extends Node
 signal collected_powerup(powerup_type: int)
 signal use_powerup(powerup_type: int)
 signal stop_powerup
-signal powerup_depleted
-
+signal powerup_depletedz
 signal reduce_powerup_lifetime(reduction_percent: int) # Values from 0 to 100
 
 enum POWERUP_STAGES {
@@ -16,11 +15,6 @@ enum POWERUP_STAGES {
 const POWERUP_USAGE_RATE: Dictionary = { # as in percentage use per second
     POWERUP_STAGES.UNUSED: 2,
     POWERUP_STAGES.IN_USE: 15
-}
-
-const POWERUP_ICONS: Dictionary = {
-    SpawnManager.SHIELD: preload("res://Collectables/Shield/shield_icon.svg"),
-    SpawnManager.BOOST: preload("res://Collectables/Boost/boost_icon.svg")
 }
 
 var current_active_powerup: int

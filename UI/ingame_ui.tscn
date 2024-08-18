@@ -1,11 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://0ckqin0njvj4"]
+[gd_scene load_steps=14 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
-[ext_resource type="Texture2D" uid="uid://70ft04lcb4pc" path="res://UI/warning_sign.svg" id="1_y1a50"]
+[ext_resource type="Texture2D" uid="uid://bgr81875a4doc" path="res://Collectables/powerup_progress_bar_back.svg" id="3_52y11"]
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_pcjc4"]
-[ext_resource type="Texture2D" uid="uid://bu53vm4yb4w6k" path="res://Collectables/Boost/boost_icon.svg" id="4_pa3hx"]
-[ext_resource type="Texture2D" uid="uid://bgr81875a4doc" path="res://Collectables/powerup_progress_bar_back.svg" id="5_iyl0c"]
-[ext_resource type="Texture2D" uid="uid://c85804f3jwved" path="res://Collectables/powerup_progress_bar.svg" id="6_gvfcl"]
+[ext_resource type="Texture2D" uid="uid://c85804f3jwved" path="res://Collectables/powerup_progress_bar.svg" id="4_0qlyh"]
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -47,14 +45,13 @@ shader_parameter/offset = Vector2(-50, -40)
 shader_parameter/modulate = Color(0, 0, 0, 0.392157)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3xg0g"]
-atlas = ExtResource("1_y1a50")
 region = Rect2(0, 0, 198, 280)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l5kil"]
 animations = [{
 "frames": [{
 "duration": 1.4,
-"texture": ExtResource("1_y1a50")
+"texture": null
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3xg0g")
@@ -174,7 +171,6 @@ mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 toggle_mode = true
 shortcut = SubResource("Shortcut_tncji")
-icon = ExtResource("4_pa3hx")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -189,8 +185,8 @@ size_flags_vertical = 3
 value = 50.0
 rounded = true
 fill_mode = 3
-texture_under = ExtResource("5_iyl0c")
-texture_progress = ExtResource("6_gvfcl")
+texture_under = ExtResource("3_52y11")
+texture_progress = ExtResource("4_0qlyh")
 
 [node name="VSeparator2" type="VSeparator" parent="WholeScreen/HBoxContainer"]
 layout_mode = 2
