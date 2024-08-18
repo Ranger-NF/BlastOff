@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="48"
-   height="1020"
-   viewBox="0 0 12.7 269.875"
+   width="36"
+   height="760"
+   viewBox="0 0 9.525 201.08333"
    version="1.1"
    id="svg1"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.59468254"
-     inkscape:cx="-79.87455"
-     inkscape:cy="310.24957"
+     inkscape:zoom="0.84100811"
+     inkscape:cx="-174.79023"
+     inkscape:cy="372.76692"
      inkscape:window-width="1366"
      inkscape:window-height="732"
      inkscape:window-x="0"
@@ -56,13 +56,14 @@
        y1="263.67523"
        x2="6.6304646"
        y2="12.205559"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8044464,0,0,0.74523697,-0.34573468,-0.01874941)" />
     <pattern
        inkscape:collect="always"
        xlink:href="#Gingham"
        preserveAspectRatio="xMidYMid"
        id="pattern15"
-       patternTransform="scale(0.3)"
+       patternTransform="matrix(0.24133392,0,0,0.22357109,-0.34573468,-0.01874941)"
        x="0"
        y="0" />
     <pattern
@@ -75,50 +76,51 @@
        style="fill:#7a00ff"
        inkscape:collect="always"
        inkscape:isstock="true"
-       inkscape:label="Gingham">&#10;      <rect
-   style="fill-opacity:0.5;stroke:none"
-   id="rect3"
-   width="50"
-   height="50"
-   x="50"
-   y="0" />
-&#10;      <rect
-   style="stroke:none"
-   id="rect4"
-   width="50"
-   height="50"
-   x="50"
-   y="50" />
-&#10;      <rect
-   style="fill-opacity:0.5;stroke:none"
-   id="rect5"
-   width="50"
-   height="50"
-   x="0"
-   y="50" />
-&#10;    </pattern>
+       inkscape:label="Gingham">
+      <rect
+         style="fill-opacity:0.5;stroke:none"
+         id="rect3"
+         width="50"
+         height="50"
+         x="50"
+         y="0" />
+      <rect
+         style="stroke:none"
+         id="rect4"
+         width="50"
+         height="50"
+         x="50"
+         y="50" />
+      <rect
+         style="fill-opacity:0.5;stroke:none"
+         id="rect5"
+         width="50"
+         height="50"
+         x="0"
+         y="50" />
+    </pattern>
   </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:url(#linearGradient3);fill-opacity:1;stroke-width:0.31549;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill;stroke:none;stroke-opacity:0.40867308"
+       style="fill:url(#linearGradient3);fill-opacity:1;stroke:none;stroke-width:0.244276;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.408673;paint-order:stroke markers fill"
        id="rect2"
-       width="9.867034"
-       height="267.69449"
-       x="1.416483"
-       y="1.0902557"
-       ry="8.3501072"
+       width="7.9375"
+       height="199.49583"
+       x="0.79374999"
+       y="0.79374951"
+       ry="6.2228088"
        inkscape:label="Main" />
     <rect
-       style="fill:url(#pattern15);fill-opacity:1;stroke:none;stroke-width:0.31549;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.408673;paint-order:stroke markers fill"
+       style="fill:url(#pattern15);fill-opacity:1;stroke:none;stroke-width:0.244276;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.408673;paint-order:stroke markers fill"
        id="rect1-5"
-       width="9.867034"
-       height="267.69449"
-       x="1.416483"
-       y="1.0902557"
-       ry="8.3501072"
+       width="7.9375"
+       height="199.49583"
+       x="0.79374999"
+       y="0.79374951"
+       ry="6.2228088"
        inkscape:label="pattern" />
   </g>
 </svg>

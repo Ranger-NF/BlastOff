@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3 uid="uid://0ckqin0njvj4"]
 
 [ext_resource type="Script" path="res://UI/ingame_ui.gd" id="1_1hsrn"]
-[ext_resource type="Texture2D" uid="uid://bgr81875a4doc" path="res://Collectables/powerup_progress_bar_back.svg" id="3_52y11"]
+[ext_resource type="Texture2D" uid="uid://bgr81875a4doc" path="res://Collectables/powerup_progress_bar_back.svg" id="3_edk7p"]
 [ext_resource type="PackedScene" uid="uid://buxy1ejbko412" path="res://UI/star_count.tscn" id="3_pcjc4"]
-[ext_resource type="Texture2D" uid="uid://c85804f3jwved" path="res://Collectables/powerup_progress_bar.svg" id="4_0qlyh"]
+[ext_resource type="Texture2D" uid="uid://c85804f3jwved" path="res://Collectables/powerup_progress_bar.svg" id="4_xqn0h"]
 
 [sub_resource type="Shader" id="Shader_64uhu"]
 code = "/**
@@ -185,8 +185,8 @@ size_flags_vertical = 3
 value = 50.0
 rounded = true
 fill_mode = 3
-texture_under = ExtResource("3_52y11")
-texture_progress = ExtResource("4_0qlyh")
+texture_under = ExtResource("3_edk7p")
+texture_progress = ExtResource("4_xqn0h")
 
 [node name="VSeparator2" type="VSeparator" parent="WholeScreen/HBoxContainer"]
 layout_mode = 2
@@ -203,4 +203,3 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_j3kap")
 [node name="Control" type="Control" parent="WholeScreen"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
