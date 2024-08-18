@@ -78,8 +78,8 @@ jobs:
         run: |
           echo ${{ secrets.RELEASE_KEYSTORE_BASE64 }} | base64 --decode > /root/release.keystore
           sed 's@keystore/release=".*"@keystore/release="/root/release.keystore"@g' -i export_presets.cfg
-          sed 's@keystore/release_user=".*"@keystore/release_user="'${{ secrets.RELEASE_KEYSTORE_USER }}'"@g' -i export_presets.cfg
-          sed 's@keystore/release_password=".*"@keystore/release_password="'${{ secrets.RELEASE_KEYSTORE_PASSWORD }}'"@g' -i export_presets.cfg
+          sed 's@keystore/release_user=".*"@keystore/release_user=${{ secrets.RELEASE_KEYSTORE_USER }}@g' -i export_presets.cfg
+          sed 's@keystore/release_password=".*"@keystore/release_password=${{ secrets.RELEASE_KEYSTORE_PASSWORD }}@g' -i export_presets.cfg
 
       - name: Android relase build
         run: |
