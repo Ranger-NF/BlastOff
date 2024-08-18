@@ -1,0 +1,48 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Game Building & Publishing
+
+env:
+  GODOT_VERSION: 4.2.2
+  EXPORT_NAME: BlastOff
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main", "actions-test"]
+  pull_request:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  export-android:
+    name: Linux export
+
+    container:
+      image: barichello/godot-ci:4.2.2
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Linux Build
+        run: |
+          mkdir -v -p build/linux
+          godot --headless --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux
+          path: build/linux
