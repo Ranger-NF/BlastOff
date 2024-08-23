@@ -76,7 +76,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
         with:
           packages: platform-tools platforms;android-33 cmdline-tools;latest cmake;3.10.2.4988404 ndk;23.2.8568313 build-tools;33.0.2
 
