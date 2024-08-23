@@ -8,7 +8,9 @@ env:
 
 # Controls when the workflow will run
 on: 
-  push: action-test
+  push: 
+    branches:
+    - action-test
   workflow_dispatch:
     
 
