@@ -77,6 +77,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools build-tools ndk cmake platforms cmdline-tools
 
       - name: Adding env file
         run: |
