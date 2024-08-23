@@ -7,12 +7,12 @@ env:
   EXPORT_NAME: BlastOff
 
 # Controls when the workflow will run
-on: 
-  push: 
-    branches:
-    - action-test
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: actions-test
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -98,11 +98,10 @@ jobs:
           sed -i '29i keystore\/release="release.keystore"\ ' export_presets.cfg # Adding new line at line number 29 (Might break in future)
           sed -i '30i keystore\/release_user=$RELEASE_KEYSTORE_USER\ ' export_presets.cfg
           sed -i '31i keystore\/release_password=$RELEASE_KEYSTORE_PASSWORD\ ' export_presets.cfg
-
       - name: Android relase build
         run: |
           mkdir -v -p build/android
-          godot --headless --export-release "Android" ./build/android/$EXPORT_NAME.apk
+          godot --headless --verbose --export-release "Android" ./build/android/$EXPORT_NAME.apk
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
