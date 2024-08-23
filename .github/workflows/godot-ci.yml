@@ -97,7 +97,7 @@ jobs:
           echo $RELEASE_KEYSTORE_BASE64 | base64 --decode >> release.keystore
           sed -i '29i keystore\/release="release.keystore"\ ' export_presets.cfg # Adding new line at line number 29 (Might break in future)
           sed -i '30i keystore\/release_user="$RELEASE_KEYSTORE_USER"\ ' export_presets.cfg
-          sed -i '31i keystore\/release_password="$RELEASE_KEYSTORE_PASSWORD"\ ' export_presets.cfg
+          sed -i '31i keystore\/release_password=$RELEASE_KEYSTORE_PASSWORD\ ' export_presets.cfg
       - name: Android relase build
         run: |
           mkdir -v -p build/android
