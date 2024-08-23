@@ -79,7 +79,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Change path
-        run: echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH"
+        run: echo "$ANDROID_HOME/build-tools/34.0.0" >> "$GITHUB_PATH"
 
       - name: Adding env file
         run: |
