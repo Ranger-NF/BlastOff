@@ -61,6 +61,7 @@
     <img src="Docs/Screenshots/v1.5.0/paint-selection.png" width="auto" height="400">  
     <img src="Docs/Screenshots/v1.5.0/sticker-selection.png" width="auto" height="400">  
 </p>
+
 ## ✨ Credits
 
 - Art style inspired from [Goodgis](https://goodgis.fun/)
