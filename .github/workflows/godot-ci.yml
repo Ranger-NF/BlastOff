@@ -78,6 +78,7 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Change path
         run: echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH"
 
       - name: Adding env file
