@@ -1,0 +1,147 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Game Building & Publishing
+
+env:
+  GODOT_VERSION: 4.2.2
+  EXPORT_NAME: BlastOff
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: actions-test
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  export-linux:
+    name: Linux export
+
+    container:
+      image: barichello/godot-ci:4.2.2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Adding env file
+        run: |
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
+
+      - name: Linux release build
+        run: |
+          mkdir -v -p build/linux
+          godot --headless --import --export-release "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: build/linux
+
+  export-android: # Currently fails
+    name: Android Export
+
+    container:
+      image: barichello/godot-ci:4.2.2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools platforms;android-33 cmdline-tools;latest cmake;3.10.2.4988404 ndk;23.2.8568313 build-tools;33.0.2
+
+      - name: Change path
+        run: echo "$ANDROID_HOME/build-tools/33.0.2" >> "$GITHUB_PATH"
+
+      - name: Adding env file
+        run: |
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
+
+      - name: Adding keystore
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          RELEASE_KEYSTORE_USER: ${{ secrets.RELEASE_KEYSTORE_USER }}
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+        run: |
+          echo $RELEASE_KEYSTORE_BASE64 | base64 --decode >> release.keystore
+          sed -i '29i keystore\/release="release.keystore"\ ' export_presets.cfg # Adding new line at line number 29 (Might break in future)
+          sed -i '30i keystore\/release_user="$RELEASE_KEYSTORE_USER"\ ' export_presets.cfg
+          sed -i '31i keystore\/release_password="$RELEASE_KEYSTORE_PASSWORD"\ ' export_presets.cfg
+          
+      - name: Android relase build
+        run: |
+          mkdir -v -p build/android
+          godot --headless --export-release "Android" ./build/android/$EXPORT_NAME.apk
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: build/android
+
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Adding env file
+        run: |
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
+
+      - name: Web release build
+        run: |
+          mkdir -v -p build/web
+          godot --headless --verbose --export-release "Web" ./build/web/index.html
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: build/web
+
+      # - name: Install rsync 📚
+      #   run: |
+      #     apt-get update && apt-get install -y rsync
+
+      # - name: Deploy to GitHub Pages 🚀
+      #   uses: JamesIves/github-pages-deploy-action@releases/v4
+      #   with:
+      #     branch: gh-pages # The branch the action should deploy to.
+      #     folder: build/web # The folder the action should deploy.
+
+

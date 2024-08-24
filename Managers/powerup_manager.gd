@@ -4,7 +4,6 @@ signal collected_powerup(powerup_type: int)
 signal use_powerup(powerup_type: int)
 signal stop_powerup
 signal powerup_depleted
-
 signal reduce_powerup_lifetime(reduction_percent: int) # Values from 0 to 100
 
 enum POWERUP_STAGES {
@@ -13,18 +12,20 @@ enum POWERUP_STAGES {
     IN_USE
 }
 
-const POWERUP_USAGE_RATE: Dictionary = { # as in % /s
+const POWERUP_USAGE_RATE: Dictionary = { # as in percentage use per second
     POWERUP_STAGES.UNUSED: 2,
     POWERUP_STAGES.IN_USE: 15
 }
 
-const POWERUP_ICONS: Dictionary = {
-    SpawnManager.SHIELD: preload("res://Collectables/Shield/shield_icon.svg"),
-    SpawnManager.BOOST: preload("res://Collectables/Boost/boost_icon.svg")
-}
-
 var current_active_powerup: int
 var current_powerup_stage: int = POWERUP_STAGES.UNUSED
+
+var is_newly_collected_powerup_used: bool: # For statistical calculation (Determine no. of unique powerups used)
+    set(value):
+        if value == true:
+            StatManager.emit_signal("used_unique_powerup")
+
+        is_newly_collected_powerup_used = value
 
 func _ready() -> void:
     GameManager.game_over.connect(func (): self.emit_signal("powerup_depleted"))
@@ -35,6 +36,8 @@ func _ready() -> void:
     self.powerup_depleted.connect(_on_powerup_depleted)
 
 func _on_collected_powerup(collected_powerup_type: int) -> void:
+    is_newly_collected_powerup_used = false
+
     if current_powerup_stage != POWERUP_STAGES.INACTIVE and collected_powerup_type != current_active_powerup:
         self.emit_signal("stop_powerup")
 
@@ -42,6 +45,8 @@ func _on_collected_powerup(collected_powerup_type: int) -> void:
     current_active_powerup = collected_powerup_type
 
 func _on_use_powerup(_type: int):
+    if not is_newly_collected_powerup_used:
+        is_newly_collected_powerup_used = true
     current_powerup_stage = POWERUP_STAGES.IN_USE
 
 func _on_stop_powerup():

@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="BlastOff"
-config/version="1.5.0"
+config/version="1.5.1"
+config/tags=PackedStringArray("published", "vector")
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(1, 1, 1, 1)
@@ -22,15 +23,15 @@ config/icon="res://Icons/blastoff_icon.svg"
 [autoload]
 
 GameManager="*res://Managers/game_manager.gd"
+SpawnManager="*res://Managers/spawn_manager.gd"
 StatManager="*res://Managers/stat_manager.gd"
 SoundManager="*res://Managers/sound_manager.gd"
 UiManager="*res://Managers/ui_manager.gd"
 DataManager="*res://Managers/data_manager.gd"
+PowerupManager="*res://Managers/powerup_manager.gd"
 SkinManager="*res://Managers/skin_manager.gd"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 LeaderboardManager="*res://Managers/leaderboard_manager.gd"
-SpawnManager="*res://Managers/spawn_manager.gd"
-PowerupManager="*res://Managers/powerup_manager.gd"
 
 [display]
 
@@ -45,6 +46,10 @@ window/handheld/orientation=1
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [gui]
 

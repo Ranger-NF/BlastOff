@@ -3,6 +3,8 @@ extends Control
 @onready var left_tutorial: VBoxContainer = $VBoxContainer/HBoxContainer/MarginContainer/LeftTutorial
 @onready var right_tutorial: VBoxContainer =$VBoxContainer/HBoxContainer/MarginContainer2/RightTutorial
 
+@onready var control_tip_label: Label = $VBoxContainer/ControlTip
+@onready var powerup_tip_label: Label = $VBoxContainer/PowerupTip
 @onready var objective_label: Label = $VBoxContainer/Objective
 
 var initial_rocket_speed: float # For accessing after tutorial is done
@@ -20,13 +22,21 @@ enum {
 }
 
 func _ready() -> void:
-    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
-    UiManager.show_tutorial.connect(show_tutorial)
+    UiManager.show_basic_tutorial.connect(show_tutorial)
+    UiManager.show_powerup_tutorial.connect(_on_show_powerup_tutorial)
+
     self.hide()
     left_tutorial.hide()
     right_tutorial.hide()
     objective_label.hide()
     $VBoxContainer/PowerupTip.hide()
+
+    self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _on_show_powerup_tutorial() -> void:
+    self.show()
+    current_stage = POWERUP
+    _check_tutorial_status()
 
 func show_tutorial() -> void:
     self.mouse_filter = Control.MOUSE_FILTER_PASS
@@ -57,16 +67,22 @@ func _check_tutorial_status() -> void:
 
                 await get_tree().create_timer(3).timeout
 
-                $VBoxContainer/ControlTip.show()
-                get_tree().create_timer(1.5).timeout.connect(func (): $VBoxContainer/ControlTip.hide())
+                control_tip_label.show()
+                get_tree().create_timer(1.5).timeout.connect(func (): control_tip_label.hide())
 
                 is_basic_tutorial_finished = true
                 _on_basic_tutorial_finished()
             POWERUP:
                 await PowerupManager.collected_powerup
-                $VBoxContainer/PowerupTip.show()
+                powerup_tip_label.show()
+
+                GameManager.game_over.connect(func (): powerup_tip_label.hide()) # Fallback - Not the ideal solution
+
                 await PowerupManager.use_powerup
-                $VBoxContainer/PowerupTip.hide()
+                powerup_tip_label.hide()
+                UiManager.need_powerup_tutorial = false
+
+                self.hide()
             _:
                 previous_stage = current_stage
 

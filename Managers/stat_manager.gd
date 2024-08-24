@@ -4,6 +4,8 @@ signal star_count_changed(change_in_stars: int)
 signal stars_depleted
 signal new_high_score_gained
 
+signal used_unique_powerup
+
 const SCORE_MULTIPLIER: Dictionary = {
     GameManager.DIFFICULTY_LEVELS.EASY: 1,
     GameManager.DIFFICULTY_LEVELS.NORMAL: 1.5,
@@ -24,7 +26,9 @@ var satellite_number: int = 0 # Resets to zero whenver game restarts [Incremente
 func _ready() -> void:
     GameManager.game_over.connect(_check_high_score)
     GameManager.game_started.connect(_init_score)
+
     self.star_count_changed.connect(_on_star_count_changed)
+    self.used_unique_powerup.connect(func (): DataManager.statistics.powerups_used += 1)
 
     DataManager.data_reloaded.connect(_check_star_stat)
 
@@ -66,9 +70,8 @@ func _check_high_score() -> void:
     if score_gained > DataManager.gameplay.high_score:
         DataManager.gameplay.high_score = score_gained
         self.emit_signal("new_high_score_gained", score_gained)
-        DataManager.emit_signal("save_triggered")
-    else:
-        DataManager.emit_signal("save_triggered") # To save star count to disk
+
+    DataManager.emit_signal("save_triggered") # To save star count to disk
 
 func _init_score() -> void:
     score_gained = 0

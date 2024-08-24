@@ -23,7 +23,7 @@ var COLOR_VALUES: Dictionary = {
     COLORS.ORANGE: Color("ff5f00")
 }
 
-const SCALE_UP_VALUE: float = 0.2
+const SCALE_UP_VALUE: float = 0.4
 const SCALE_ANIM_TIME: float = 0.4
 
 var last_star_count: float
@@ -67,6 +67,7 @@ func _update_star_count(_change_in_stars = 0):
 
 func _scale_up(color_value: Color = COLOR_VALUES[COLORS.NORMAL]):
     self.add_theme_color_override("default_color", color_value)
+    self.pivot_offset = self.size / 2
 
     var initial_scale: Vector2 = self.scale
 

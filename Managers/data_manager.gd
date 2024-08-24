@@ -31,7 +31,8 @@ var settings: Dictionary = {
 var statistics: Dictionary = {
     total_play_time = 0,
     total_stars_earned = 0,
-    total_stars_spent = 0
+    total_stars_spent = 0,
+    powerups_used = 0
 }
 
 
