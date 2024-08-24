@@ -8,21 +8,17 @@ env:
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: actions-test
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   export-linux:
     name: Linux export
 
     container:
       image: barichello/godot-ci:4.2.2
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,8 +33,7 @@ jobs:
 
       - name: Adding env file
         run: |
-          touch secrets.env
-          echo ${{ secrets.SW_API_KEY }} >> .env
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
 
       - name: Linux release build
         run: |
@@ -51,12 +46,11 @@ jobs:
           name: linux
           path: build/linux
 
-  export-android:
+  export-android: # Currently fails
     name: Android Export
 
     container:
       image: barichello/godot-ci:4.2.2
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -85,8 +79,7 @@ jobs:
 
       - name: Adding env file
         run: |
-          touch secrets.env
-          echo ${{ secrets.SW_API_KEY }} >> .env
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
 
       - name: Adding keystore
         env:
@@ -120,10 +113,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+          
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Adding env file
+        run: |
+          echo ${{ secrets.SW_API_KEY }} >> secrets.env
 
       - name: Web release build
         run: |
