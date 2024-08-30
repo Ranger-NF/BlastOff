@@ -54,12 +54,11 @@
 ## 📸 Ingame Screenshots
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/main-menu.png" width="auto" height="400">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/ingame-1.png" width="auto" height="400">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/ingame-2.png" width="auto" height="400">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/settings.png" width="auto" height="400">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/paint-selection.png" width="auto" height="400">
-    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/v1.5.0/sticker-selection.png" width="auto" height="400">
+    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/latest/1.png" width="auto" height="400">
+    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/latest/2.png" width="auto" height="400">
+    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/latest/3.png" width="auto" height="400">
+    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/latest/4.png" width="auto" height="400">
+    <img src="https://raw.githubusercontent.com/Ranger-NF/BlastOff/main/Docs/Screenshots/latest/5.png" width="auto" height="400">
 </p>
 
 ## ✨ Credits

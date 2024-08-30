@@ -1,13 +1,22 @@
+## v1.5.1
+
+Changes:
+
+- 💁 Fixed edge cases of powerup tutorial
+- 👀 Made powerup usage more visually apparent
+- 🌟 Added star collection animation
+
+More fixes were made to fix errors that occured when importing the project for the first time
+
+**Full Changelog**: https://github.com/Ranger-NF/BlastOff/compare/1.5.0...1.5.1
+
 ## v1.5.0
 
 New:
 
 - ⚡ Powerups - Shield and Boost
-
 - 🌨 Particles when obstacles (Bird and Satellite) are hit
-
 - 📳 Screenshake on specific events
-
 - ⌨ Keyboard controls (`a`, `s` and `space`)
 
 Changes:
