@@ -12,7 +12,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/github/license/Ranger-NF/BlastOff.svg" alt="LICENSE">
   </a>
-  <a href="https://liberapay.com/markusfisch/">
+  <a href="https://liberapay.com/Ranger-NF/">
     <img src="https://liberapay.com/assets/widgets/donate.svg" height="22" alt="Liberapay">
   </a>
   <a href="https://f-droid.org/en/packages/com.ranger.blastoff/">
